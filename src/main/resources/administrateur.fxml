@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAdministrateur">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" styleClass="header" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../BibliothequeGraphique/src/main/resources/img/icons8-user-96.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="166.0" text="MIAGE Holding">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Separator maxHeight="-Infinity" opacity="0.8" orientation="VERTICAL" prefHeight="30.0" prefWidth="0.0" />
+            <Pane prefHeight="60.0" prefWidth="408.0" />
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="190.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label prefHeight="46.0" prefWidth="114.0" text="Nom Utilisateur" HBox.hgrow="ALWAYS">
+
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../BibliothequeGraphique/src/main/resources/img/icons8-user-96.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox alignment="CENTER" prefHeight="660.0" prefWidth="216.0" styleClass="nav" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-title" text="Audit" textAlignment="CENTER">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <VBox alignment="TOP_CENTER" VBox.vgrow="NEVER">
+               <children>
+                  <HBox fx:id="linkTableauBord" alignment="CENTER" minHeight="-Infinity" prefHeight="45.0" styleClass="link" stylesheets="@styles/page.css">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/dashboard.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="177.0" text="Tableau de Bord">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="linkLogs" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="45.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/logs.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label minHeight="-Infinity" prefHeight="45.0" prefWidth="150.0" text="Logs">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator halignment="LEFT" maxWidth="-Infinity" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </Separator>
+            <Label alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-title" text="Gestion" textAlignment="CENTER">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <VBox alignment="TOP_CENTER" VBox.vgrow="NEVER">
+               <children>
+                  <HBox fx:id="linkPersonnels" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="45.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/users.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="130.0" text="Personnels">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="linkService" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="46.0" prefWidth="219.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/building-2.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="114.0" text="Service">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="linkFonction" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="45.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/mission.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="114.0" text="Fonction">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="linkCategorieVehicule" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="45.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/gallery-vertical-end.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="114.0" text="Catégorie Véhicule">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator halignment="LEFT" maxWidth="-Infinity" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets bottom="15.0" top="5.0" />
+               </VBox.margin>
+            </Separator>
+            <Label alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-title" text="Profil" textAlignment="CENTER">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <VBox alignment="TOP_CENTER" VBox.vgrow="NEVER">
+               <children>
+                  <HBox fx:id="linkCompte" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="45.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/user.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="142.0" text="Mon Compte">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox fx:id="linkDeconnexion" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="45.0" styleClass="link">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icones/log-out.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label prefHeight="46.0" prefWidth="114.0" text="Deconnexion">
+
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <center>
+      <VBox fx:id="contenantPages" prefWidth="851.0" spacing="10.0" styleClass="page" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Chargement des pages">
+
+               <padding>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

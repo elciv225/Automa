@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" stylesheets="@../styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerCategorieVehicule">
+   <children>
+      <Label styleClass="title-page" text="Gestion Des Catégories de Véhicules" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="851.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="297.0" styleClass="recherche-box" stylesheets="@../styles/page.css">
+                     <children>
+                        <TextField prefHeight="26.0" prefWidth="242.0" promptText="Rechercher" styleClass="text-field-recherche" stylesheets="@../styles/page.css">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></TextField>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icones/search.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <ComboBox fx:id="comboFilter" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" promptText="Filtre" styleClass="combo-filter" stylesheets="@../styles/page.css" />
+                  <Button fx:id="btnImprim" mnemonicParsing="false" styleClass="btn-imprimer" text="Imprimer" />
+                  <Button fx:id="btnSupp" mnemonicParsing="false" styleClass="btn-supprimer" text="Supprimer" />
+                  <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#ajouterCategorie" styleClass="btn-ajouter" text="Ajouter" />
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <ScrollPane maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="561.0" prefWidth="851.0" styleClass="contenant-tab" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1868.0">
+                     <children>
+                        <TableView fx:id="tabCategorie" layoutX="-1.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="1860.0" styleClass="tab" stylesheets="@../styles/page.css" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                              <TableColumn fx:id="celId" prefWidth="100.0" styleClass="tab-col" text="ID" />
+                              <TableColumn fx:id="celLibelle" prefWidth="250.0" styleClass="tab-col" text="Libellé" />
+                              <TableColumn fx:id="celDescription" prefWidth="400.0" styleClass="tab-col" text="Description" />
+                              <TableColumn fx:id="celDateCreation" prefWidth="150.0" styleClass="tab-col" text="Date de création" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </center>
+         <bottom>
+             <HBox alignment="CENTER" prefHeight="26.0" prefWidth="851.0" spacing="150.0" BorderPane.alignment="CENTER">
+                 <Label fx:id="lblPage" text="currentPage/totalPage" />
+               <HBox spacing="5.0">
+                  <children>
+                     <Button fx:id="btnPrecedent" mnemonicParsing="false" styleClass="btn-prev" text="◀" />
+                     <Button fx:id="btnSuivant" mnemonicParsing="false" styleClass="btn-next" text="▶" />
+                  </children>
+               </HBox>
+                 <Label fx:id="lblTotal" text="Total de catégories : " />
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+             </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</VBox>

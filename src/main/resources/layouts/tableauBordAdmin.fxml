@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" spacing="15.0" stylesheets="@../styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerTableauBordAdmin">
+   <children>
+      <Label styleClass="title-page" text="Tableau de Bord Administrateur" />
+      <HBox prefHeight="150.0" prefWidth="200.0" spacing="15.0">
+         <children>
+            <VBox prefHeight="150.0" prefWidth="200.0" styleClass="stats-box">
+               <children>
+                  <Label styleClass="stats-title" text="Véhicules" />
+                  <Label fx:id="lblTotalVehicules" styleClass="stats-value" text="150">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="stats-subtitle" text="Total dans le parc" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="150.0" prefWidth="200.0" styleClass="stats-box">
+               <children>
+                  <Label styleClass="stats-title" text="Personnels" />
+                  <Label fx:id="lblTotalPersonnels" styleClass="stats-value" text="85">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="stats-subtitle" text="Total employés" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="150.0" prefWidth="200.0" styleClass="stats-box">
+               <children>
+                  <Label styleClass="stats-title" text="Services" />
+                  <Label fx:id="lblTotalServices" styleClass="stats-value" text="12">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="stats-subtitle" text="Départements actifs" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="150.0" prefWidth="200.0" styleClass="stats-box">
+               <children>
+                  <Label styleClass="stats-title" text="Utilisateurs" />
+                  <Label fx:id="lblTotalUsers" styleClass="stats-value" text="32">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label styleClass="stats-subtitle" text="Comptes actifs" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <BorderPane prefHeight="400.0" prefWidth="851.0">
+         <left>
+            <VBox prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="chart-title" text="Répartition par catégorie" />
+                  <PieChart fx:id="pieChart" prefHeight="350.0" prefWidth="400.0" />
+               </children>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <right>
+            <VBox prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="chart-title" text="Activité système mensuelle" />
+                  <BarChart fx:id="barChart" prefHeight="350.0" prefWidth="400.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+               <BorderPane.margin>
+                  <Insets right="10.0" />
+               </BorderPane.margin>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</VBox>
