@@ -5,11 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -37,9 +38,13 @@ public class ControllerResponsableLogistique {
     @FXML
     public HBox linkCompte;
     @FXML
-    public VBox contenantPages;
+    public ScrollPane contenantPages;
+
 
     private HBox currentSelected;
+    // Mise en cache des vues pour de bonnes performances
+    private final Map<String, Parent> vueCachee = new HashMap<>();
+
 
     @FXML
     public void initialize() {
@@ -69,6 +74,18 @@ public class ControllerResponsableLogistique {
             }
         });
 
+        routes.values().forEach(path -> {
+            try {
+                Parent page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
+                vueCachee.put(path, page);
+            } catch (IOException e) {
+                LOGGER.warning("Préchargement échoué pour : " + path);
+            }
+        });
+
+
+
+
         // Bind de chaque HBox : curseur, clic et style
         routes.forEach((hbox, fxmlPath) -> {
             hbox.setCursor(Cursor.HAND);
@@ -87,13 +104,24 @@ public class ControllerResponsableLogistique {
      * Charge et injecte la page dans le VBox sans param événementiel
      */
     private void loadLayout(String layoutPath) {
+    new Thread(() -> {
         try {
-            Parent page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(layoutPath)));
-            contenantPages.getChildren().setAll(page);
+            Parent page = vueCachee.get(layoutPath);
+            if (page == null) {
+                page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(layoutPath)));
+                vueCachee.put(layoutPath, page);
+            }
+
+            Parent finalPage = page;
+            javafx.application.Platform.runLater(() -> contenantPages.setContent(finalPage));
+
         } catch (IOException ex) {
             LOGGER.severe("Erreur de chargement de " + layoutPath + " : " + ex.getMessage());
         }
-    }
+    }).start();
+}
+
+
 
     /**
      * Met à jour le style pour le lien sélectionné

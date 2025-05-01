@@ -135,4 +135,30 @@ public class EntretienDAO {
             throw ex;
         }
     }
+
+    public List<Entretien> getEntretiensEntre(String dateDebut, String dateFin) throws SQLException {
+    List<Entretien> entretiens = new ArrayList<>();
+    String sql = "SELECT * FROM entretien WHERE date_entree >= ? AND date_entree <= ?";
+    try (Connection conn = db.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, dateDebut);
+        stmt.setString(2, dateFin);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Entretien e = new Entretien();
+            e.setIdEntretien(rs.getString("id_entretien"));
+            e.setMotif(rs.getString("motif"));
+            e.setObservation(rs.getString("observation"));
+            e.setDateEntree(rs.getString("date_entree"));
+            e.setDateSortie(rs.getString("date_sortie"));
+            e.setPrix(rs.getString("prix"));
+            e.setLieu(rs.getString("lieu"));
+            e.setIdVehicule(rs.getString("id_vehicule"));
+            entretiens.add(e);
+        }
+    }
+    return entretiens;
+}
+
+
 }

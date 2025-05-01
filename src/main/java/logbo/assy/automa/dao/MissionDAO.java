@@ -138,4 +138,29 @@ public class MissionDAO {
             throw e;
         }
     }
+
+    public List<Mission> getMissionsEntre(String dateDebut, String dateFin) throws SQLException {
+        List<Mission> missions = new ArrayList<>();
+        String sql = "SELECT * FROM mission WHERE date_debut >= ? AND date_debut <= ?";
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, dateDebut);
+            stmt.setString(2, dateFin);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Mission m = new Mission();
+                m.setIdMission(rs.getString("id_mission"));
+                m.setDateDebut(rs.getString("date_debut"));
+                m.setDateFin(rs.getString("date_fin"));
+                m.setCout(rs.getString("cout"));
+                m.setCoutCarburant(rs.getString("cout_carburant"));
+                m.setObservation(rs.getString("observation"));
+                m.setCircuit(rs.getString("circuit"));
+                m.setIdVehicule(rs.getString("id_vehicule"));
+                missions.add(m);
+            }
+        }
+        return missions;
+    }
+
 }

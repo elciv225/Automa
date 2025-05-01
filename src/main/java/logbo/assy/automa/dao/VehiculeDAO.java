@@ -5,6 +5,8 @@ import logbo.assy.automa.models.Vehicule;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -190,6 +192,72 @@ public class VehiculeDAO {
             LOGGER.severe("Erreur lors de la mise à jour du véhicule : " + e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    public float getAmortissementAnnuel(Vehicule v) {
+        try {
+            float prix = Float.parseFloat(v.getPrixAchat().replaceAll("\\s+", ""));
+            LocalDate dateAchat = LocalDate.parse(v.getDateAchat());
+            LocalDate dateFin = LocalDate.parse(v.getDateAmmortissement());
+            int annees = Period.between(dateAchat, dateFin).getYears();
+            return annees > 0 ? prix / annees : prix;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public List<Vehicule> rechercherVehicules(String motCle) throws SQLException {
+        List<Vehicule> vehicules = new ArrayList<>();
+        String sql = "SELECT * FROM vehicule WHERE " +
+                "immatriculation LIKE ? OR marque LIKE ? OR modele LIKE ? OR num_chassis LIKE ?";
+        try (PreparedStatement stmt = db.getConnection().prepareStatement(sql)) {
+            String like = "%" + motCle + "%";
+            for (int i = 1; i <= 4; i++) stmt.setString(i, like);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                vehicules.add(mapVehicule(rs));
+            }
+        }
+        return vehicules;
+    }
+
+    public List<Vehicule> filtrerVehicules(String champ, String valeur) throws SQLException {
+        List<Vehicule> vehicules = new ArrayList<>();
+        String sql = "SELECT * FROM vehicule WHERE " + champ + " = ?";
+        try (PreparedStatement stmt = db.getConnection().prepareStatement(sql)) {
+            stmt.setString(1, valeur);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                vehicules.add(mapVehicule(rs));
+            }
+        }
+        return vehicules;
+    }
+
+    public boolean supprimerVehicule(String idVehicule) throws SQLException {
+        String sql = "DELETE FROM vehicule WHERE Id_Vehicule = ?";
+        try (PreparedStatement stmt = db.getConnection().prepareStatement(sql)) {
+            stmt.setString(1, idVehicule);
+            return stmt.executeUpdate() > 0;
+        }
+    }
+
+    private Vehicule mapVehicule(ResultSet rs) throws SQLException {
+        Vehicule v = new Vehicule();
+        v.setIdVehicule(rs.getString("Id_Vehicule"));
+        v.setNumeroChassis(rs.getString("num_chassis"));
+        v.setImmatriculation(rs.getString("immatriculation"));
+        v.setMarque(rs.getString("marque"));
+        v.setModele(rs.getString("modele"));
+        v.setEnergie(rs.getString("energie"));
+        v.setDateAchat(rs.getString("date_acquisition"));
+        v.setDateAmmortissement(rs.getString("date_amortissement"));
+        v.setDateMiseEnService(rs.getString("date_mise_en_service"));
+        v.setPuissance(rs.getString("puissance"));
+        v.setCouleur(rs.getString("couleur"));
+        v.setPrixAchat(rs.getString("prix_achat"));
+        v.setIdCategorie(rs.getString("id_categorie_vehicule"));
+        return v;
     }
 
 

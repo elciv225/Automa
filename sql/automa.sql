@@ -190,3 +190,10 @@ INSERT INTO service (id_service, libelle, localisation) VALUES
 INSERT INTO fonction (id_fonction, libelle) VALUES
   ('FONC_CHAUFFEUR', 'Chauffeur'),
   ('FONC_MECANICIEN', 'Mécanicien');
+
+-- 4) Insère des catégories de véhicules de bases
+INSERT INTO categorie_vehicule (id_categorie_vehicule, libelle, nombre_place)
+VALUES ('CAT_BERLINE', 'Berline', '5'),
+       ('CAT_UTILITAIRE', 'Utilitaire', '2'),
+       ('CAT_CAMION', 'Camion', '3'),
+       ('CAT_MINIBUS', 'Minibus', '15');

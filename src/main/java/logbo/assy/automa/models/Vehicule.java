@@ -1,7 +1,12 @@
 package logbo.assy.automa.models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
+
 public class Vehicule {
-    String idVehicule;
+    private BooleanProperty selected = new SimpleBooleanProperty(false);
+    private String idVehicule;
     String numeroChassis;
     String immatriculation;
     String marque;
@@ -136,4 +141,17 @@ public class Vehicule {
     public void setIdCategorie(String idCategorie) {
         this.idCategorie = idCategorie;
     }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }
+
 }

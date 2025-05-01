@@ -1,11 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
+<VBox alignment="TOP_CENTER" prefWidth="864.0" prefHeight="660.0" spacing="15.0"
+      styleClass="page-content"
+      stylesheets="@../styles/page.css"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logbo.assy.automa.controllers.ControllerCout">
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerCout">
    <children>
-      <Label text="Page Coût" />
+
+      <!-- Bandeau supérieur avec sélection de période -->
+      <HBox alignment="CENTER_LEFT" prefHeight="50.0">
+         <children>
+            <Label styleClass="page-title" text="Suivi des Coûts et Amortissements">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Pane HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <Label text="Période:" />
+                  <DatePicker fx:id="dateDebut" promptText="Date début" />
+                  <Label text="à" />
+                  <DatePicker fx:id="dateFin" promptText="Date fin" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
+      </HBox>
+
+      <Separator prefWidth="200.0" />
+
+      <!-- Graphiques -->
+      <HBox alignment="CENTER" spacing="15.0">
+         <children>
+
+            <!-- Camembert des types de dépenses -->
+            <VBox alignment="TOP_CENTER" styleClass="stat-card" prefHeight="280.0" prefWidth="400.0">
+               <children>
+                  <Label styleClass="stat-title" text="Répartition des Dépenses">
+                     <font><Font name="System Bold" size="14.0"/></font>
+                  </Label>
+                  <PieChart fx:id="pieChartDepenses" legendSide="RIGHT" prefHeight="250.0" prefWidth="400.0" />
+               </children>
+            </VBox>
+
+            <!-- Ligne d’amortissements -->
+            <VBox alignment="TOP_CENTER" styleClass="stat-card" prefHeight="280.0" prefWidth="400.0">
+               <children>
+                  <Label styleClass="stat-title" text="Amortissements Mensuels">
+                     <font><Font name="System Bold" size="14.0"/></font>
+                  </Label>
+                  <LineChart fx:id="lineChartAmortissement" legendSide="RIGHT" prefHeight="250.0" prefWidth="400.0">
+                     <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                     <yAxis><NumberAxis side="LEFT" /></yAxis>
+                  </LineChart>
+               </children>
+            </VBox>
+
+         </children>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
+      </HBox>
+
+      <!-- Indicateurs clés -->
+      <VBox alignment="TOP_CENTER" styleClass="stat-card" prefWidth="820.0">
+         <children>
+            <Label styleClass="stat-title" text="Synthèse Coûts et Amortissements">
+               <font><Font name="System Bold" size="14.0"/></font>
+               <VBox.margin><Insets bottom="10.0" top="5.0" /></VBox.margin>
+            </Label>
+            <AnchorPane prefHeight="240.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="20.0" prefHeight="200.0" prefWidth="373.0" spacing="20.0">
+                     <children>
+
+                        <HBox alignment="CENTER_LEFT" styleClass="kpi-item">
+                           <children>
+                              <Label styleClass="kpi-label" text="Total dépenses:" />
+                              <Pane HBox.hgrow="ALWAYS" />
+                              <Label fx:id="labelTotalDepenses" styleClass="kpi-value" text="0 FCFA" />
+                           </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" styleClass="kpi-item">
+                           <children>
+                              <Label styleClass="kpi-label" text="Amortissement annuel moyen:" />
+                              <Pane HBox.hgrow="ALWAYS" />
+                              <Label fx:id="labelAmortissementAnnuel" styleClass="kpi-value" text="0 FCFA" />
+                           </children>
+                        </HBox>
+
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+         <padding>
+            <Insets bottom="15.0" top="5.0" left="15.0" right="15.0" />
+         </padding>
+      </VBox>
+
    </children>
+   <padding>
+      <Insets bottom="20.0" top="20.0" />
+   </padding>
 </VBox>

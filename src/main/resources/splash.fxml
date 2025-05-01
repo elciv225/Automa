@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="root"
+           style="-fx-background-color: white;"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER" spacing="15">
+        <!-- Logo -->
+        <ImageView fitHeight="100.0" fitWidth="100.0" preserveRatio="true">
+            <Image url="@images/icon.png"/>
+        </ImageView>
+        <!-- Titre de l'application -->
+        <Label text="AutoMA" style="-fx-text-fill: black; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <!-- Indicateur de chargement -->
+        <ProgressIndicator fx:id="progress" style="-fx-progress-color: black;"/>
+    </VBox>
+</StackPane>

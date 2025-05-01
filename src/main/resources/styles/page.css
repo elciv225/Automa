@@ -1,53 +1,125 @@
+* {
+    -background-principal: #FFFFFF;
+    -background-secondaire: #F5F5F5;
+    -background-hover: #DFE0E0;
+    -background-input: #F7F8F8;
+    -background-sidebar: #1F2937;
+    -background-header: #374151;
+
+    -color-text: #090302;
+    -color-text-secondaire: #4B5563;
+    -color-text-inverse: #FFFFFF;
+
+    -logo-principal: #F08700;
+    -logo-secondaire: #2E2E2E;
+
+    -color-success: #4CAF50;
+    -color-warning: #FFC107;
+    -color-danger: #F44336;
+    -color-info: #2196F3;
+
+    -border-color: #E0E0E0;
+    -box-shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+
 .root {
     -fx-font-family: 'Outfit';
 }
 
+/* ===== Styles Du Menu ===== */
+
+.logo-label, .logo-label-2 {
+    -fx-font-size: 20px;
+    -fx-text-fill: -logo-principal;
+}
+
+.logo-label-2 {
+    -fx-text-fill: -background-secondaire;
+}
+
 .nav-title {
+    -fx-font-size: 15px;
+    -fx-text-fill: -logo-principal;
+}
+
+.label-link{
     -fx-font-size: 14px;
+    -fx-text-fill: -logo-secondaire;
 }
 
 .header {
-    -fx-background-color: #ffffff;
+    -fx-background-color: -background-header;
 }
+
+.nav{
+    -fx-background-color: -background-secondaire;
+}
+
+.conteiner-user{
+    -fx-background-color: -background-sidebar;
+    -fx-border-radius: 0px 0px 20px 20px;
+    -fx-background-radius: 0px 0px 20px 20px;
+}
+
+.conteiner-user .img-user{
+    -fx-background-color: -background-secondaire;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.conteiner-user .nom-user{
+    -fx-text-fill: -background-secondaire;
+    -fx-font-size: 14px;
+}
+
 
 .recherche-box {
     -fx-background-color: rgba(0, 0, 0, 0);
-    -fx-border-color: #dcdcdc;
+    -fx-border-color: -border-color;
     -fx-border-radius: 8px;
 }
 
 .text-field-recherche {
-    -fx-background-color: gray;
+    -fx-background-color: -background-input;
     -fx-background-radius: 5px;
-    -fx-text-fill: white;
+    -fx-text-fill: -color-text;
+    -fx-font-size: 13px;
 }
 
-.nav {
-    -fx-background-color: #ffffff;
-}
 
 .link {
-    -fx-background-color: #ffffff;
+    -fx-background-color: -background-secondaire;
 }
 
 .link:hover {
-    -fx-background-color: #f2f2f2;
-    -fx-background-radius: 0px 12px 12px 0px;
+    -fx-background-color: -background-principal;
+    -fx-background-radius: 12px 0px 0px 12px;
+    -fx-text-fill: -logo-secondaire;
 }
 
 .link.selected {
-    -fx-background-color: #f2f2f2;
+    -fx-background-color: -background-principal;
     -fx-background-radius: 0px 12px 12px 0px;
 }
 
 .hbox-selected {
-    -fx-background-color: #cdcdcd
+    -fx-background-color: -background-principal;
 }
 
 .page {
-    -fx-background-color: #ffffff;
+    -fx-background-color: -background-principal;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
 }
 
+.title-page {
+    -fx-text-fill: -color-text;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
 .transparent {
     -fx-background-color: rgba(0, 0, 0, 0);
 }
@@ -86,10 +158,9 @@
 
 /* cellule visible dans le champ */
 .combo-filter .list-cell, .date-picker .text-field {
-    -fx-background-color: #888;
-    -fx-text-fill: white;
+    -fx-background-color: -background-input;
+    -fx-text-fill: -color-text;
     -fx-alignment: CENTER_LEFT;
-    -fx-background-color: gray;
     -fx-background-radius: 5px;
 }
 
@@ -119,10 +190,22 @@
 .btn-imprimer, .btn-supprimer, .btn-ajouter {
     -fx-pref-width: 110px;
     -fx-pref-height: 26px;
-    -fx-background-color: #0078d4;
+    -fx-font-size: 13px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 5px;
+}
+
+.btn-imprimer{
+    -fx-background-color: -color-info;
+}
+
+.btn-supprimer{
+    -fx-background-color:-color-danger;
+}
+
+.btn-ajouter{
+    -fx-background-color: -color-success;
 }
 
 .btn-ajouter-max{
@@ -166,6 +249,7 @@
 .tab .table-cell {
     -fx-padding: 4px 8px;
     -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: black;
 }
 
 /* Rayures alternées */
@@ -188,3 +272,7 @@
 .tab .table-row-cell:selected .table-cell {
     -fx-text-fill: white;
 }
+
+
+
+

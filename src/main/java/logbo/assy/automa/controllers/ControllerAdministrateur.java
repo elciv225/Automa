@@ -15,15 +15,24 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class ControllerAdministrateur {
-        private static final Logger LOGGER = Logger.getLogger(ControllerAdministrateur.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ControllerAdministrateur.class.getName());
+    @FXML
     public VBox contenantPages;
+    @FXML
     public HBox linkDeconnexion;
+    @FXML
     public HBox linkCompte;
+    @FXML
     public HBox linkCategorieVehicule;
+    @FXML
     public HBox linkFonction;
+    @FXML
     public HBox linkService;
+    @FXML
     public HBox linkPersonnels;
+    @FXML
     public HBox linkLogs;
+    @FXML
     public HBox linkTableauBord;
     private HBox currentSelected;
 
