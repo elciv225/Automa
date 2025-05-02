@@ -56,7 +56,7 @@ public class Main extends Application {
                     Platform.runLater(() -> {
                         try {
                             LOGGER.info("Chargement de l'interface principale");
-                            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/responsableLogistique.fxml"));
+                            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/authentification.fxml"));
                             Scene mainScene = new Scene(mainLoader.load());
 
                             stage.setTitle("AutoMA - Gestion Responsable Logistique");

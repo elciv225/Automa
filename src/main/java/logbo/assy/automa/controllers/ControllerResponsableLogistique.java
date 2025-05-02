@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import logbo.assy.automa.SessionManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,6 +41,8 @@ public class ControllerResponsableLogistique {
     public HBox linkCompte;
     @FXML
     public ScrollPane contenantPages;
+    @FXML
+    public Label nomPrenUser;
 
 
     private HBox currentSelected;
@@ -94,6 +98,9 @@ public class ControllerResponsableLogistique {
                 updateSelected(hbox);
             });
         });
+
+        // Ajout du nom et de la photo de l'utilisateur
+        nomPrenUser.setText(SessionManager.getPrenom()+" "+SessionManager.getNom().toUpperCase());
 
         // Chargement par défaut du tableau de bord
         loadLayout(routes.get(linkTableauBord));

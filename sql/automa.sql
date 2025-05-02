@@ -172,6 +172,17 @@ CREATE TABLE participer_mission
             ON DELETE CASCADE
 );
 
+CREATE TABLE audit_log (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    utilisateur VARCHAR(50) NOT NULL,
+    action VARCHAR(100) NOT NULL,
+    entite VARCHAR(50),
+    id_entite VARCHAR(50),
+    date_action TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    details TEXT
+);
+
+
 -- Insertion des données de référence
 
 -- 1) Insère des statuts
@@ -187,7 +198,9 @@ INSERT INTO service (id_service, libelle, localisation) VALUES
   ('SERV_INFORMATIQUE', 'Informatique', 'Abidjan');
 
 -- 3) Insère des fonctions
-INSERT INTO fonction (id_fonction, libelle) VALUES
+INSERT INTO fonction (id_fonction, libelle)
+VALUES ('FONC_RESPONSABLELOG', 'Responsable Logistique'),
+       ('FONC_ADMIN', 'Administrateur Système'),
   ('FONC_CHAUFFEUR', 'Chauffeur'),
   ('FONC_MECANICIEN', 'Mécanicien');
 

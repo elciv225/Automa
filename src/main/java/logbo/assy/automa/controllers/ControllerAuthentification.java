@@ -2,10 +2,14 @@ package logbo.assy.automa.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.SessionManager;
 import logbo.assy.automa.dao.PersonnelDAO;
 import logbo.assy.automa.models.Personnel;
 
@@ -32,14 +36,41 @@ public class ControllerAuthentification {
         try {
             Personnel user = dao.connexion(txtLogin.getText(), txtPassword.getText());
             if (user != null) {
-                // TODO : Passer à la page d'accueil
+                SessionManager.setUtilisateurActuel(user); // stocker utilisateur
+
+                FXMLLoader loader = new FXMLLoader();
+                switch (user.getIdFonction()) {
+                    case "FONC_RESPONSABLELOG" ->
+                            loader.setLocation(getClass().getResource("/responsableLogistique.fxml"));
+                    case "FONC_ADMIN" -> loader.setLocation(getClass().getResource("/administrateur.fxml"));
+                    default -> {
+                        popup("Fonction non reconnue. Accès refusé.", "erreur");
+                        return;
+                    }
+                }
+
+                Parent root = loader.load();
+
+                // Créer une nouvelle fenêtre
+                javafx.stage.Stage newStage = new javafx.stage.Stage();
+                newStage.setTitle("Bienvenue " + user.getPrenom());
+                newStage.setScene(new javafx.scene.Scene(root));
+                newStage.show();
+
+                // Fermer la fenêtre de connexion actuelle
+                javafx.stage.Stage currentStage = (javafx.stage.Stage) txtLogin.getScene().getWindow();
+                currentStage.close();
+
                 LOGGER.info("Connexion réussie pour l'utilisateur : " + user.getNom());
-                popup("Connexion réussie ", "succes");
+                AuditLogger.log(user.getIdPersonnel(), "Connexion", "personnel", user.getIdPersonnel(), "Connexion réussie");
             }
         } catch (Exception e) {
             popup(e.getMessage(), "erreur");
+            AuditLogger.log(txtLogin.getText(), "Échec connexion", "personnel", null, "Échec : " + e.getMessage());
         }
     }
+
+
 
   /**
      * Affiche une popup de type "erreur" ou "succès" avec le message fourni,

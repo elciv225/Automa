@@ -154,14 +154,14 @@ public class ControllerAjouterVehicule implements Initializable {
     private void ajouterVehicule() {
         try {
             Vehicule vehicule = new Vehicule();
-            vehicule.setNumeroChassis(txtNumChassis.getText());
-            vehicule.setImmatriculation(txtImmat.getText().toLowerCase().replace("-", ""));
-            vehicule.setMarque(txtMarque.getText());
-            vehicule.setModele(txtModele.getText());
+            vehicule.setNumeroChassis(txtNumChassis.getText().toUpperCase());
+            vehicule.setImmatriculation(txtImmat.getText().toUpperCase().replace("-", ""));
+            vehicule.setMarque(txtMarque.getText().toUpperCase());
+            vehicule.setModele(txtModele.getText().toUpperCase());
             vehicule.setIdCategorie(comboCategorie.getSelectionModel().getSelectedItem().getIdCategorie());
-            vehicule.setEnergie(comboEnergie.getSelectionModel().getSelectedItem());
+            vehicule.setEnergie(comboEnergie.getSelectionModel().getSelectedItem().toUpperCase());
             vehicule.setPuissance(txtPuissance.getText());
-            vehicule.setCouleur(txtCouleur.getText());
+            vehicule.setCouleur(txtCouleur.getText().toUpperCase());
             vehicule.setPrixAchat(txtPrixAchat.getText());
             vehicule.setDateAchat(dateAquisition.getValue() != null ? dateAquisition.getValue().toString() : null);
             vehicule.setDateMiseEnService(dateMiseService.getValue() != null ? dateMiseService.getValue().toString() : null);

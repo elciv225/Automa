@@ -253,21 +253,41 @@ public class ControllerVehicule {
     }
 
     @FXML
-    private void supprimerVehicules() {
-        List<Vehicule> selectionnes = vehiculesAffiches.filtered(Vehicule::isSelected);
-        if (selectionnes.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Veuillez cocher au moins un véhicule à supprimer.", ButtonType.OK).showAndWait();
-            return;
-        }
+private void supprimerVehicules() {
+    List<Vehicule> selectionnes = vehiculesAffiches.filtered(Vehicule::isSelected);
+    if (selectionnes.isEmpty()) {
+        new Alert(Alert.AlertType.WARNING, "Veuillez cocher au moins un véhicule à supprimer.", ButtonType.OK).showAndWait();
+        return;
+    }
+
+    // Alerte de confirmation
+    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+    confirmation.setTitle("Confirmation de suppression");
+    confirmation.setHeaderText("Êtes-vous sûr de vouloir supprimer ces véhicules ?");
+    confirmation.setContentText("Cette action est irréversible.");
+
+    Optional<ButtonType> result = confirmation.showAndWait();
+
+    if (result.isPresent() && result.get() == ButtonType.OK) {
         try {
-            for (Vehicule v : selectionnes) dao.supprimerVehicule(v.getIdVehicule());
+            // Suppression des véhicules sélectionnés
+            for (Vehicule v : selectionnes) {
+                dao.supprimerVehicule(v.getIdVehicule());
+            }
             totalItems = dao.getTotalVehicules();
             totalPages = (int) Math.ceil((double) totalItems / PAGE_SIZE);
             chargerPage(currentPage);
+
+            // Alerte de succès après la suppression
+            new Alert(Alert.AlertType.INFORMATION, "Les véhicules sélectionnés ont été supprimés avec succès.", ButtonType.OK).showAndWait();
+
         } catch (SQLException e) {
             LOGGER.severe("Erreur suppression : " + e.getMessage());
+            new Alert(Alert.AlertType.ERROR, "Erreur lors de la suppression des véhicules.", ButtonType.OK).showAndWait();
         }
     }
+}
+
 
     @FXML
     private void imprimerListe() {
