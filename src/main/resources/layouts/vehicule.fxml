@@ -54,7 +54,7 @@
          <center>
             <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
                <content>
-                  <AnchorPane maxWidth="1.7976931348623157E308" prefWidth="1868.0" styleClass="page">
+                  <AnchorPane maxWidth="1.7976931348623157E308" prefWidth="1868.0">
                      <children>
                         <TableView fx:id="tabVehicule" layoutX="2.4" prefHeight="497.0" prefWidth="1866.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
