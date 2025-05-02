@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_RIGHT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="855.0" stylesheets="@../styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerVehicule">
+<VBox alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="855.0" styleClass="page" stylesheets="@../styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerVehicule">
    <children>
       <Label styleClass="title-page" text="Gestion Des Véhicules">
          <VBox.margin>
@@ -54,9 +54,9 @@
          <center>
             <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
                <content>
-                  <AnchorPane maxWidth="1.7976931348623157E308" prefWidth="1868.0">
+                  <AnchorPane maxWidth="1.7976931348623157E308" prefWidth="1868.0" styleClass="page">
                      <children>
-                        <TableView fx:id="tabVehicule" prefWidth="1860.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="tabVehicule" layoutX="2.4" prefHeight="497.0" prefWidth="1866.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="celCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
                               <TableColumn fx:id="celNumChassis" prefWidth="150.0" styleClass="tab-col" text="Numéro Chassis" />
@@ -86,6 +86,9 @@
                   <Button fx:id="btnSuivant" onAction="#suivantPage" styleClass="btn-next" text="▶" />
                </HBox>
                <Label fx:id="lblTotal" text="Total de voiture : " />
+               <BorderPane.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </BorderPane.margin>
             </HBox>
          </bottom>
          <VBox.margin>
