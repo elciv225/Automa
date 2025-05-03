@@ -31,12 +31,29 @@ public class Main extends Application {
     }
 
     /**
+     * Appliquer la police
+     */
+    public static void appliquerFont() {
+        // Chargement de la police personnalisée
+        try {
+            javafx.scene.text.Font.loadFont(
+                    Objects.requireNonNull(Main.class.getResourceAsStream("/fonts/Outfit-Regular.ttf")),
+                    12
+            );
+            LOGGER.info("Police personnalisée chargée avec succès");
+        } catch (Exception e) {
+            LOGGER.warning("Erreur lors du chargement de la police : " + e.getMessage());
+        }
+
+    }
+
+    /**
      * Point d'entrée principal de l'application JavaFX.
      */
     @Override
     public void start(Stage stage) {
         LOGGER.info("Initialisation de l'application AutoMA");
-
+        appliquerFont();
         try {
             LOGGER.fine("Chargement du splash screen");
             FXMLLoader splashLoader = new FXMLLoader(getClass().getResource("/splash.fxml"));
@@ -58,8 +75,7 @@ public class Main extends Application {
                             LOGGER.info("Chargement de l'interface principale");
                             FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/authentification.fxml"));
                             Scene mainScene = new Scene(mainLoader.load());
-
-                            stage.setTitle("AutoMA - Gestion Responsable Logistique");
+                            stage.setTitle("AutoMA - Authentification");
                             appliquerIcon(stage);
                             stage.setScene(mainScene);
                             stage.show();
@@ -88,4 +104,6 @@ public class Main extends Application {
         LOGGER.info("Lancement du moteur JavaFX");
         launch();
     }
+
+
 }

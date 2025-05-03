@@ -1,5 +1,6 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 
 import java.io.IOException;
 import java.util.Map;
@@ -74,7 +76,15 @@ public class ControllerAdministrateur {
         // Chargement par défaut du tableau de bord
         loadLayout(routes.get(linkTableauBord));
         updateSelected(linkTableauBord);
-    }
+
+        // Appliquer le titre et l'icone
+         Platform.runLater(() -> {
+             Stage stage = (Stage) linkDeconnexion.getScene().getWindow();
+             stage.setTitle("AutoMA - Espace Administrateur");
+             Main.appliquerIcon(stage);
+         });
+
+     }
 
     /**
      * Charge et injecte la page dans le VBox sans param événementiel

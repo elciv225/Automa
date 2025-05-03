@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerResponsableLogistique">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerResponsableLogistique">
    <top>
-      <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="header" stylesheets="@styles/page.css">
+      <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="header" stylesheets="@styles/main.css">
          <ImageView fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
 
             <Image url="@images/icon.png" />
@@ -51,7 +51,7 @@
       </HBox>
    </top>
    <left>
-      <VBox alignment="CENTER" prefHeight="654.0" prefWidth="185.0" styleClass="nav" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="654.0" prefWidth="185.0" styleClass="nav" stylesheets="@styles/main.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>

@@ -1,10 +1,13 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.CategorieVehiculeDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
 import logbo.assy.automa.models.CategorieVehicule;
@@ -59,6 +62,13 @@ public class ControllerAjouterVehicule implements Initializable {
         initComboBox();
         setupDateAmmortissement();
         setupFormatListeners();
+
+        // Appliquer le titre et l'icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) txtNumChassis.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Vehicule");
+            Main.appliquerIcon(stage);
+        });
     }
 
     private void initComboBox() {

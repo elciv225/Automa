@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAffectation">
+<VBox xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logbo.assy.automa.controllers.ControllerAffectation"
+      styleClass="page" prefWidth="900.0" prefHeight="650.0"
+      stylesheets="@../styles/main.css">
+
    <children>
-      <Label text="Page Affectation" />
+      <Label text="Gestion des Affectations" styleClass="title-page">
+         <VBox.margin><Insets top="10" left="10"/></VBox.margin>
+      </Label>
+
+      <HBox spacing="10.0" alignment="CENTER_LEFT">
+         <children>
+            <TextField fx:id="txtRecherche" promptText="Rechercher..." styleClass="text-field-recherche"/>
+            <Button fx:id="btnAjouter" text="Ajouter" styleClass="btn-ajouter" onAction="#ouvrirModalAjout"/>
+            <Button fx:id="btnSupp" text="Supprimer" styleClass="btn-supprimer" onAction="#supprimerAttribution"/>
+         </children>
+         <HBox.margin><Insets top="5" bottom="10" left="10"/></HBox.margin>
+      </HBox>
+
+      <TableView fx:id="tabAffectation" prefHeight="500.0" VBox.vgrow="ALWAYS" styleClass="tab">
+         <columns>
+            <TableColumn fx:id="colVehicule" text="ID Véhicule" prefWidth="150"/>
+            <TableColumn fx:id="colPersonnel" text="ID Personnel" prefWidth="150"/>
+            <TableColumn fx:id="colDate" text="Date d'affectation" prefWidth="200"/>
+         </columns>
+      </TableView>
    </children>
 </VBox>

@@ -50,7 +50,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtNumChassis" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtNumChassis" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -64,7 +64,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtImmat" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtImmat" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -78,7 +78,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="comboCategorie" prefHeight="35.0" prefWidth="200.0" styleClass="combo-filter" stylesheets="@../../styles/page.css" />
+                        <ComboBox fx:id="comboCategorie" prefHeight="35.0" prefWidth="200.0" styleClass="combo-filter" stylesheets="@../../styles/main.css" />
                      </children>
                   </VBox>
                </children>
@@ -113,7 +113,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtMarque" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtMarque" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -127,7 +127,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtModele" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtModele" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -141,7 +141,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtCouleur" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtCouleur" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -156,7 +156,7 @@
                            </VBox.margin>
                         </Label>
                         <ComboBox fx:id="comboEnergie" prefHeight="35.0" prefWidth="200.0" styleClass="combo-filter"
-                                  stylesheets="@../../styles/page.css" promptText="Sélectionnez...">
+                                  stylesheets="@../../styles/main.css" promptText="Sélectionnez...">
                            <items>
                               <FXCollections fx:factory="observableArrayList">
                                  <String fx:value="Thermique"/>
@@ -174,7 +174,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtPuissance" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtPuissance" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -213,7 +213,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtPrixAchat" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtPrixAchat" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -227,7 +227,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <DatePicker fx:id="dateAquisition" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker" stylesheets="@../../styles/page.css" />
+                        <DatePicker fx:id="dateAquisition" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker" stylesheets="@../../styles/main.css" />
                      </children>
                   </VBox>
                   <VBox GridPane.columnIndex="2" GridPane.rowIndex="0">
@@ -237,7 +237,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <DatePicker fx:id="dateMiseService" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker" stylesheets="@../../styles/page.css" />
+                        <DatePicker fx:id="dateMiseService" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker" stylesheets="@../../styles/main.css" />
                      </children>
                   </VBox>
                   <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -247,7 +247,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="nbAmmor" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="nbAmmor" prefHeight="35.0" prefWidth="200.0" promptText="Écrivez ici" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -261,7 +261,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtDateAmmor" editable="false" prefHeight="35.0" prefWidth="200.0" promptText="La date s'affichera" styleClass="text-field-recherche" stylesheets="@../../styles/page.css">
+                        <TextField fx:id="txtDateAmmor" editable="false" prefHeight="35.0" prefWidth="200.0" promptText="La date s'affichera" styleClass="text-field-recherche" stylesheets="@../../styles/main.css">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -276,7 +276,7 @@
       <!-- Bouton d'action -->
       <HBox alignment="CENTER" spacing="15.0">
          <children>
-            <Button fx:id="btnAjouter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="btn-ajouter-max" stylesheets="@../../styles/page.css" text="Ajouter le Véhicule" onAction="#ajouterVehicule" />
+            <Button fx:id="btnAjouter" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="btn-ajouter-max" stylesheets="@../../styles/main.css" text="Ajouter le Véhicule" onAction="#ajouterVehicule" />
          </children>
          <VBox.margin>
             <Insets top="10.0" />

@@ -16,7 +16,7 @@
 
 <VBox alignment="TOP_CENTER" prefWidth="864.0" prefHeight="660.0" spacing="15.0"
       styleClass="page-content"
-      stylesheets="@../styles/page.css"
+      stylesheets="@../styles/main.css"
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="logbo.assy.automa.controllers.ControllerCout">

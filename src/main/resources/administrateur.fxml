@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAdministrateur">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAdministrateur">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" styleClass="header" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" styleClass="header" stylesheets="@styles/main.css" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -42,7 +42,7 @@
       </HBox>
    </top>
    <left>
-      <VBox alignment="CENTER" prefHeight="660.0" prefWidth="216.0" styleClass="nav" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="660.0" prefWidth="216.0" styleClass="nav" stylesheets="@styles/main.css" BorderPane.alignment="CENTER">
          <children>
             <Label alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" styleClass="nav-title" text="Audit" textAlignment="CENTER">
                <padding>
@@ -51,7 +51,7 @@
             </Label>
             <VBox alignment="TOP_CENTER" VBox.vgrow="NEVER">
                <children>
-                  <HBox fx:id="linkTableauBord" alignment="CENTER" minHeight="-Infinity" prefHeight="45.0" styleClass="link" stylesheets="@styles/page.css">
+                  <HBox fx:id="linkTableauBord" alignment="CENTER" minHeight="-Infinity" prefHeight="45.0" styleClass="link" stylesheets="@styles/main.css">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -232,7 +232,7 @@
       </VBox>
    </left>
    <center>
-      <VBox fx:id="contenantPages" prefWidth="851.0" spacing="10.0" styleClass="page" stylesheets="@styles/page.css" BorderPane.alignment="CENTER">
+      <VBox fx:id="contenantPages" prefWidth="851.0" spacing="10.0" styleClass="page" stylesheets="@styles/main.css" BorderPane.alignment="CENTER">
          <children>
             <Label text="Chargement des pages">
 

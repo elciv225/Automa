@@ -15,16 +15,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" stylesheets="@../styles/page.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerCategorieVehicule">
+<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerCategorieVehicule">
    <children>
       <Label styleClass="title-page" text="Gestion Des Catégories de Véhicules" />
       <BorderPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="851.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="297.0" styleClass="recherche-box" stylesheets="@../styles/page.css">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="297.0" styleClass="recherche-box" stylesheets="@../styles/main.css">
                      <children>
-                        <TextField prefHeight="26.0" prefWidth="242.0" promptText="Rechercher" styleClass="text-field-recherche" stylesheets="@../styles/page.css">
+                        <TextField prefHeight="26.0" prefWidth="242.0" promptText="Rechercher" styleClass="text-field-recherche" stylesheets="@../styles/main.css">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin></TextField>
@@ -41,7 +41,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </HBox>
-                  <ComboBox fx:id="comboFilter" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" promptText="Filtre" styleClass="combo-filter" stylesheets="@../styles/page.css" />
+                  <ComboBox fx:id="comboFilter" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="162.0" promptText="Filtre" styleClass="combo-filter" stylesheets="@../styles/main.css" />
                   <Button fx:id="btnImprim" mnemonicParsing="false" styleClass="btn-imprimer" text="Imprimer" />
                   <Button fx:id="btnSupp" mnemonicParsing="false" styleClass="btn-supprimer" text="Supprimer" />
                   <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#ajouterCategorie" styleClass="btn-ajouter" text="Ajouter" />
@@ -53,7 +53,7 @@
               <content>
                 <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1868.0">
                      <children>
-                        <TableView fx:id="tabCategorie" layoutX="-1.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="1860.0" styleClass="tab" stylesheets="@../styles/page.css" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="tabCategorie" layoutX="-1.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="1860.0" styleClass="tab" stylesheets="@../styles/main.css" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                               <TableColumn fx:id="celId" prefWidth="100.0" styleClass="tab-col" text="ID" />
                               <TableColumn fx:id="celLibelle" prefWidth="250.0" styleClass="tab-col" text="Libellé" />

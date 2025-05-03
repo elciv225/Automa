@@ -1,127 +1,150 @@
 package logbo.assy.automa.dao;
 
+import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.SessionManager;
 import logbo.assy.automa.models.Assurance;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AssuranceDAO {
-
     private static final Logger LOGGER = Logger.getLogger(AssuranceDAO.class.getName());
     private final Database db;
 
     public AssuranceDAO() throws SQLException {
-        LOGGER.info("Initialisation de AssuranceDAO");
         this.db = new Database();
     }
 
     /**
-     * Récupère toutes les assurances depuis la BDD.
+     * Mapper ResultSet vers une entité Assurance
      */
-    public List<Assurance> getAllAssurances() throws SQLException {
-        LOGGER.info("Chargement de toutes les assurances");
-        List<Assurance> assurances = new ArrayList<>();
-        String sql = "SELECT id_assurance, agence, contrat, date_debut, date_fin, id_vehicule FROM assurance";
-        LOGGER.fine("Requête SQL => " + sql);
+    private Assurance mapResultSetToEntity(ResultSet rs) throws SQLException {
+        Assurance assurance = new Assurance();
+        assurance.setIdAssurance(rs.getString("id_assurance"));
+        assurance.setAgence(rs.getString("agence"));
+        assurance.setContrat(rs.getString("contrat"));
+        assurance.setDateDebut(rs.getString("date_debut"));
+        assurance.setDateFin(rs.getString("date_fin"));
+        assurance.setIdVehicule(rs.getString("id_vehicule"));
+        return assurance;
+    }
 
-        try (
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery()
-        ) {
+    /**
+     * Récupère toutes les assurances
+     */
+    public List<Assurance> getAll() throws SQLException {
+        List<Assurance> assurances = new ArrayList<>();
+        String sql = "SELECT * FROM assurance";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
             while (rs.next()) {
-                Assurance a = new Assurance();
-                a.setIdAssurance( rs.getString("id_assurance") );
-                a.setAgence(       rs.getString("agence") );
-                a.setContrat(      rs.getString("contrat") );
-                a.setDateDebut(    rs.getString("date_debut") );
-                a.setDateFin(      rs.getString("date_fin") );
-                a.setIdVehicule(   rs.getString("id_vehicule") );
-                assurances.add(a);
-                LOGGER.finer("Assurance chargée => " + a.getIdAssurance() + " | " + a.getAgence());
+                assurances.add(mapResultSetToEntity(rs));
             }
-            LOGGER.info("Nombre total d'assurances récupérées : " + assurances.size());
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Erreur lors du chargement des assurances", e);
-            throw e;
         }
 
         return assurances;
     }
 
     /**
-     * Ajoute une nouvelle assurance.
+     * Ajoute une assurance
      */
-    public void addAssurance(Assurance assurance) throws SQLException {
-        LOGGER.info("Ajout d'une nouvelle assurance : " + assurance.getIdAssurance());
+    public void add(Assurance assurance) throws SQLException {
         String sql = "INSERT INTO assurance (id_assurance, agence, contrat, date_debut, date_fin, id_vehicule) VALUES (?, ?, ?, ?, ?, ?)";
-        LOGGER.fine("Requête SQL => " + sql);
 
-        try (
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, assurance.getIdAssurance());
             stmt.setString(2, assurance.getAgence());
             stmt.setString(3, assurance.getContrat());
             stmt.setString(4, assurance.getDateDebut());
             stmt.setString(5, assurance.getDateFin());
             stmt.setString(6, assurance.getIdVehicule());
-            int updated = stmt.executeUpdate();
-            LOGGER.info("Insertion terminée, lignes affectées : " + updated);
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Erreur lors de l'ajout de l'assurance", e);
-            throw e;
+
+            stmt.executeUpdate();
+
+            AuditLogger.log(
+                    SessionManager.getLogin(),
+                    "AJOUT",
+                    "ASSURANCE",
+                    assurance.getIdAssurance(),
+                    "Ajout de l'assurance liée au véhicule " + assurance.getIdVehicule()
+            );
         }
     }
 
     /**
-     * Met à jour une assurance existante.
+     * Modifie une assurance existante
      */
-    public void updateAssurance(Assurance assurance) throws SQLException {
-        LOGGER.info("Mise à jour de l'assurance : " + assurance.getIdAssurance());
+    public void update(Assurance assurance) throws SQLException {
         String sql = "UPDATE assurance SET agence = ?, contrat = ?, date_debut = ?, date_fin = ?, id_vehicule = ? WHERE id_assurance = ?";
-        LOGGER.fine("Requête SQL => " + sql);
 
-        try (
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, assurance.getAgence());
             stmt.setString(2, assurance.getContrat());
             stmt.setString(3, assurance.getDateDebut());
             stmt.setString(4, assurance.getDateFin());
             stmt.setString(5, assurance.getIdVehicule());
             stmt.setString(6, assurance.getIdAssurance());
-            int updated = stmt.executeUpdate();
-            LOGGER.info("Mise à jour terminée, lignes affectées : " + updated);
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Erreur lors de la mise à jour de l'assurance", e);
-            throw e;
+
+            stmt.executeUpdate();
+
+            AuditLogger.log(
+                    SessionManager.getLogin(),
+                    "MODIFICATION",
+                    "ASSURANCE",
+                    assurance.getIdAssurance(),
+                    "Modification de l'assurance " + assurance.getIdAssurance()
+            );
         }
     }
 
     /**
-     * Supprime une assurance par son identifiant.
+     * Supprime une assurance par ID
      */
-    public void deleteAssurance(String assuranceId) throws SQLException {
-        LOGGER.info("Suppression de l'assurance id=" + assuranceId);
+    public void delete(String idAssurance) throws SQLException {
         String sql = "DELETE FROM assurance WHERE id_assurance = ?";
-        LOGGER.fine("Requête SQL => " + sql);
 
-        try (
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)
-        ) {
-            stmt.setString(1, assuranceId);
-            int deleted = stmt.executeUpdate();
-            LOGGER.info("Suppression terminée, lignes affectées : " + deleted);
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Erreur lors de la suppression de l'assurance", e);
-            throw e;
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idAssurance);
+            stmt.executeUpdate();
+
+            AuditLogger.log(
+                    SessionManager.getLogin(),
+                    "SUPPRESSION",
+                    "ASSURANCE",
+                    idAssurance,
+                    "Suppression de l'assurance " + idAssurance
+            );
         }
+    }
+
+    /**
+     * Récupère les assurances d'un véhicule donné
+     */
+    public List<Assurance> getByVehiculeId(String idVehicule) throws SQLException {
+        List<Assurance> result = new ArrayList<>();
+        String sql = "SELECT * FROM assurance WHERE id_vehicule = ?";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idVehicule);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                result.add(mapResultSetToEntity(rs));
+            }
+        }
+
+        return result;
     }
 }

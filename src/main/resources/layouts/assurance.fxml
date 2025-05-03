@@ -1,11 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAssurance">
+<VBox alignment="TOP_RIGHT" prefHeight="650.0" prefWidth="855.0"
+      styleClass="page" stylesheets="@../styles/main.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logbo.assy.automa.controllers.ControllerAssurance">
    <children>
-      <Label text="Page Assurance" />
+      <Label styleClass="title-page" text="Gestion Des Assurances">
+         <VBox.margin>
+            <Insets right="10.0" top="10.0"/>
+         </VBox.margin>
+      </Label>
+
+      <BorderPane VBox.vgrow="ALWAYS">
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="35.0" styleClass="recherche-box">
+                     <children>
+                        <TextField fx:id="txtRecherche" promptText="Rechercher" styleClass="text-field-recherche"/>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icones/search.png"/>
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="5.0"/>
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0"/>
+                     </HBox.margin>
+                  </HBox>
+                  <ComboBox fx:id="comboFilter" onAction="#filtrerAssurances" promptText="Filtre" styleClass="combo-filter"/>
+                  <Button fx:id="btnImprim" onAction="#imprimerListe" styleClass="btn-imprimer" text="Imprimer"/>
+                  <Button fx:id="btnSupp" onAction="#supprimerAssurance" styleClass="btn-supprimer" text="Supprimer"/>
+                  <Button fx:id="btnAjouter" onAction="#ouvrirModalAjout" styleClass="btn-ajouter" text="Ajouter"/>
+               </children>
+            </HBox>
+         </top>
+
+         <center>
+            <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
+               <content>
+                  <AnchorPane prefWidth="1868.0">
+                     <children>
+                        <TableView fx:id="tabAssurance" prefHeight="480.0" prefWidth="1866.0"
+                                   styleClass="tab" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn fx:id="colCase" text="Case" prefWidth="50.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colCompagnie" text="Compagnie" prefWidth="150.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colType" text="Type" prefWidth="150.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colVehicule" text="Véhicule" prefWidth="150.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colDateDebut" text="Début" prefWidth="150.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colDateFin" text="Fin" prefWidth="150.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colMontant" text="Montant" prefWidth="150.0" styleClass="tab-col"/>
+                              <TableColumn fx:id="colNumeroPolice" text="N° Police" prefWidth="150.0" styleClass="tab-col"/>
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </center>
+
+         <bottom>
+            <HBox alignment="CENTER" spacing="150.0" BorderPane.alignment="CENTER">
+               <Label fx:id="lblPage" text="currentPage/totalPage"/>
+               <HBox spacing="5.0">
+                  <Button fx:id="btnPrecedent" onAction="#precedentPage" styleClass="btn-prev" text="◀"/>
+                  <Button fx:id="btnSuivant" onAction="#suivantPage" styleClass="btn-next" text="▶"/>
+               </HBox>
+               <Label fx:id="lblTotal" text="Total d'assurances : "/>
+            </HBox>
+         </bottom>
+      </BorderPane>
    </children>
 </VBox>

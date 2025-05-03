@@ -1,5 +1,6 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.SessionManager;
 
 import java.io.IOException;
@@ -87,9 +89,6 @@ public class ControllerResponsableLogistique {
             }
         });
 
-
-
-
         // Bind de chaque HBox : curseur, clic et style
         routes.forEach((hbox, fxmlPath) -> {
             hbox.setCursor(Cursor.HAND);
@@ -105,6 +104,14 @@ public class ControllerResponsableLogistique {
         // Chargement par défaut du tableau de bord
         loadLayout(routes.get(linkTableauBord));
         updateSelected(linkTableauBord);
+
+        // Appliquer l'icone des fenêtres
+        Platform.runLater(() -> {
+            Stage stage = (Stage) linkDeconnexion.getScene().getWindow();
+            stage.setTitle("AutoMA - Espace Responsable Logistique");
+            Main.appliquerIcon(stage);
+        });
+
     }
 
     /**
