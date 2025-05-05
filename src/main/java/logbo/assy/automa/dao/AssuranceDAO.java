@@ -25,6 +25,7 @@ public class AssuranceDAO {
         assurance.setIdAssurance(rs.getString("id_assurance"));
         assurance.setAgence(rs.getString("agence"));
         assurance.setContrat(rs.getString("contrat"));
+        assurance.setPrix(rs.getString("prix"));
         assurance.setDateDebut(rs.getString("date_debut"));
         assurance.setDateFin(rs.getString("date_fin"));
         assurance.setIdVehicule(rs.getString("id_vehicule"));
@@ -51,10 +52,35 @@ public class AssuranceDAO {
     }
 
     /**
+     * Vérifie si un véhicule a une assurance encore valide (non expirée)
+     */
+    public boolean hasActiveAssurance(String idVehicule) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM assurance WHERE id_vehicule = ? AND date_fin >= CURRENT_DATE";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idVehicule);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
      * Ajoute une assurance
      */
     public void add(Assurance assurance) throws SQLException {
-        String sql = "INSERT INTO assurance (id_assurance, agence, contrat, date_debut, date_fin, id_vehicule) VALUES (?, ?, ?, ?, ?, ?)";
+        // Vérifie si le véhicule a déjà une assurance
+        if (hasActiveAssurance(assurance.getIdVehicule())) {
+            throw new SQLException("Ce véhicule possède déjà une assurance valide. Impossible d’en ajouter une nouvelle.");
+        }
+
+        String sql = "INSERT INTO assurance (id_assurance, agence, contrat, date_debut, date_fin, prix, id_vehicule) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -64,7 +90,8 @@ public class AssuranceDAO {
             stmt.setString(3, assurance.getContrat());
             stmt.setString(4, assurance.getDateDebut());
             stmt.setString(5, assurance.getDateFin());
-            stmt.setString(6, assurance.getIdVehicule());
+            stmt.setString(6, assurance.getPrix());
+            stmt.setString(7, assurance.getIdVehicule());
 
             stmt.executeUpdate();
 
@@ -82,7 +109,7 @@ public class AssuranceDAO {
      * Modifie une assurance existante
      */
     public void update(Assurance assurance) throws SQLException {
-        String sql = "UPDATE assurance SET agence = ?, contrat = ?, date_debut = ?, date_fin = ?, id_vehicule = ? WHERE id_assurance = ?";
+        String sql = "UPDATE assurance SET agence = ?, contrat = ?, date_debut = ?, date_fin = ?, prix = ?, id_vehicule = ? WHERE id_assurance = ?";
 
         try (Connection conn = db.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -91,8 +118,9 @@ public class AssuranceDAO {
             stmt.setString(2, assurance.getContrat());
             stmt.setString(3, assurance.getDateDebut());
             stmt.setString(4, assurance.getDateFin());
-            stmt.setString(5, assurance.getIdVehicule());
-            stmt.setString(6, assurance.getIdAssurance());
+            stmt.setString(5, assurance.getPrix());
+            stmt.setString(6, assurance.getIdVehicule());
+            stmt.setString(7, assurance.getIdAssurance());
 
             stmt.executeUpdate();
 

@@ -27,6 +27,9 @@ public class ControllerAjouterAssurance implements Initializable {
     private TextField txtCompagnie;
 
     @FXML
+    private TextField txtPrix;
+
+    @FXML
     private ComboBox<String> comboType;
 
     @FXML
@@ -98,6 +101,7 @@ public class ControllerAjouterAssurance implements Initializable {
             Assurance assurance = new Assurance(
                     agence.toUpperCase(),
                     type.toUpperCase(),
+                    txtPrix.getText(),
                     formatDateDebut,
                     formatDateFin,
                     vehicule.getIdVehicule()
@@ -109,6 +113,13 @@ public class ControllerAjouterAssurance implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, "Assurance ajoutée avec succès !").showAndWait();
             btnAjouter.getScene().getWindow().hide();
 
+        } catch (SQLException e) {
+            if (e.getMessage().contains("possède déjà une assurance valide")) {
+                new Alert(Alert.AlertType.WARNING, e.getMessage()).showAndWait();
+            } else {
+                LOGGER.severe("Erreur ajout assurance : " + e.getMessage());
+                new Alert(Alert.AlertType.ERROR, "Erreur lors de l'ajout de l'assurance.").showAndWait();
+            }
         } catch (Exception e) {
             LOGGER.severe("Erreur ajout assurance : " + e.getMessage());
             new Alert(Alert.AlertType.ERROR, "Erreur lors de l'ajout de l'assurance.").showAndWait();

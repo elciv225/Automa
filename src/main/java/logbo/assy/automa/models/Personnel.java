@@ -1,8 +1,12 @@
 package logbo.assy.automa.models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.util.UUID;
 
 public class Personnel {
+    private BooleanProperty selected = new SimpleBooleanProperty(false);
     private String idPersonnel;
     private String nom;
     private String prenom;
@@ -69,4 +73,14 @@ public class Personnel {
     public void setIdService(String idService) {
         this.idService = idService;
     }
-}
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }}

@@ -1,6 +1,10 @@
 package logbo.assy.automa.models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class AttributionVehicule {
+    private BooleanProperty selected = new SimpleBooleanProperty(false);
     private Vehicule vehicule;
     private Personnel personnel;
     private String dateAttribution;
@@ -36,5 +40,17 @@ public class AttributionVehicule {
 
     public void setVehicule(Vehicule vehicule) {
         this.vehicule = vehicule;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
     }
 }

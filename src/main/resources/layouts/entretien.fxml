@@ -1,11 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 
+<VBox alignment="TOP_RIGHT" prefHeight="650.0" prefWidth="855.0" styleClass="page"
+      stylesheets="@../styles/main.css"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logbo.assy.automa.controllers.ControllerEntretien">
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerEntretien">
    <children>
-      <Label text="Page Entretien" />
+
+      <Label styleClass="title-page" text="Gestion Des Entretiens">
+         <VBox.margin>
+            <Insets right="10.0" top="10.0"/>
+         </VBox.margin>
+      </Label>
+
+      <BorderPane VBox.vgrow="ALWAYS">
+
+         <!-- Barre du haut -->
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="35.0" styleClass="recherche-box">
+                     <children>
+                        <TextField fx:id="txtRecherche" promptText="Rechercher un entretien" styleClass="text-field-recherche"/>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icones/search.png"/>
+                           </image>
+                           <HBox.margin>
+                              <Insets left="10.0" right="5.0"/>
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0"/>
+                     </HBox.margin>
+                  </HBox>
+
+                  <ComboBox fx:id="comboFilter" onAction="#filtrerEntretiens" promptText="Filtrer par type" styleClass="combo-filter"/>
+                  <Button fx:id="btnImprim" onAction="#imprimerListe" styleClass="btn-imprimer" text="Imprimer"/>
+                  <Button fx:id="btnSupp" onAction="#supprimerEntretiens" styleClass="btn-supprimer" text="Supprimer"/>
+                  <Button fx:id="btnAjouter" onAction="#ouvrirModalAjout" styleClass="btn-ajouter" text="Ajouter"/>
+               </children>
+            </HBox>
+         </top>
+
+         <!-- Table principale -->
+         <center>
+            <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <TableView fx:id="tabEntretien" prefHeight="480.0" styleClass="tab" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case"/>
+                              <TableColumn fx:id="colVehicule" prefWidth="120.0" styleClass="tab-col" text="Véhicule"/>
+                              <TableColumn fx:id="colType" prefWidth="150.0" styleClass="tab-col" text="Type"/>
+                              <TableColumn fx:id="colDateDebut" prefWidth="120.0" styleClass="tab-col" text="Début"/>
+                              <TableColumn fx:id="colDateFin" prefWidth="120.0" styleClass="tab-col" text="Fin"/>
+                              <TableColumn fx:id="colDescription" prefWidth="300.0" styleClass="tab-col" text="Description de la panne"/>
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </center>
+
+         <!-- Navigation bas de page -->
+         <bottom>
+            <HBox alignment="CENTER" spacing="150.0" BorderPane.alignment="CENTER">
+               <Label fx:id="lblPage" text="currentPage/totalPage"/>
+               <HBox spacing="5.0">
+                  <Button fx:id="btnPrecedent" onAction="#precedentPage" styleClass="btn-prev" text="◀"/>
+                  <Button fx:id="btnSuivant" onAction="#suivantPage" styleClass="btn-next" text="▶"/>
+               </HBox>
+               <Label fx:id="lblTotal" text="Total des entretiens : "/>
+            </HBox>
+         </bottom>
+
+      </BorderPane>
+
    </children>
 </VBox>

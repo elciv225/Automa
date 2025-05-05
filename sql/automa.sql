@@ -77,6 +77,7 @@ CREATE TABLE assurance
     date_fin     DATE        NOT NULL,
     agence       VARCHAR(50),
     contrat      VARCHAR(50),
+    prix         VARCHAR(20) NOT NULL,
     id_vehicule  VARCHAR(15) NOT NULL,
     CONSTRAINT fk_assur_veh
         FOREIGN KEY (id_vehicule)
@@ -251,12 +252,14 @@ VALUES ('VEH_AB1234CD', 'CHS123456789', 'AB1234CD', 'Toyota', 'Corolla', 'Essenc
         '2023-02-05', '2028-02-05', '2023-03-01', '130 CV', 'Noir', '12 000 000 FCFA', 'CAT_MINIBUS');
 
 -- Insertion d’assurances pour les véhicules
-INSERT INTO assurance (id_assurance, date_debut, date_fin, agence, contrat, id_vehicule)
-VALUES
-    ('ASSU_NSIA_VEH_AB1234CD_20230101_20231231', '2023-01-01', '2023-12-31', 'NSIA', 'Tous Risques', 'VEH_AB1234CD'),
 
-    ('ASSU_SUNU_VEH_CD5678EF_20230401_20240331', '2023-04-01', '2024-03-31', 'SUNU', 'RC', 'VEH_CD5678EF'),
+INSERT INTO assurance (id_assurance, date_debut, date_fin, agence, contrat, prix, id_vehicule)
+VALUES ('ASSU_NSIA_VEH_AB1234CD_20230101_20231231', '2023-01-01', '2023-12-31', 'NSIA', 'Tous Risques', '180000',
+        'VEH_AB1234CD'),
+       ('ASSU_SUNU_VEH_CD5678EF_20230401_20240331', '2023-04-01', '2024-03-31', 'SUNU', 'RC', '120000',
+        'VEH_CD5678EF'),
+       ('ASSU_AXA_VEH_EF9012GH_20230115_20240114', '2023-01-15', '2024-01-14', 'AXA', 'Intermédiaire', '150000',
+        'VEH_EF9012GH'),
+       ('ASSU_ALLIANZ_VEH_GH3456IJ_20230710_20240709', '2023-07-10', '2024-07-09', 'ALLIANZ', 'Tous Risques',
+        '200000', 'VEH_GH3456IJ');
 
-    ('ASSU_AXA_VEH_EF9012GH_20230115_20240114', '2023-01-15', '2024-01-14', 'AXA', 'Intermédiaire', 'VEH_EF9012GH'),
-
-    ('ASSU_ALLIANZ_VEH_GH3456IJ_20230710_20240709', '2023-07-10', '2024-07-09', 'ALLIANZ', 'Tous Risques', 'VEH_GH3456IJ');

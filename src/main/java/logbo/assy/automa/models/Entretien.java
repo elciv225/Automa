@@ -1,6 +1,10 @@
 package logbo.assy.automa.models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Entretien {
+    private BooleanProperty selected = new SimpleBooleanProperty(false);
     private String idEntretien;
     private String motif;
     private String observation;
@@ -86,5 +90,17 @@ public class Entretien {
 
     public void setIdVehicule(String idVehicule) {
         this.idVehicule = idVehicule;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
     }
 }

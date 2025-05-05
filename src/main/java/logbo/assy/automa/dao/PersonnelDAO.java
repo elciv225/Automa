@@ -2,9 +2,12 @@ package logbo.assy.automa.dao;
 
 import logbo.assy.automa.models.Personnel;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonnelDAO {
 
@@ -44,6 +47,29 @@ public class PersonnelDAO {
                 return personnel;
             }
         }
+    }
+
+    public List<Personnel> getAllPersonnel() throws SQLException {
+        List<Personnel> personnels = new ArrayList<>();
+        String sql = "SELECT * FROM personnel";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Personnel personnel = new Personnel(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("contrat"),
+                        rs.getString("id_fonction"),
+                        rs.getString("id_service")
+                );
+                personnel.setIdPersonnel(rs.getString("id_personnel"));
+                personnels.add(personnel);
+            }
+        }
+        return personnels;
     }
 
 }

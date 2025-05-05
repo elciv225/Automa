@@ -1,6 +1,10 @@
 package logbo.assy.automa.models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Fonction {
+    private BooleanProperty selected = new SimpleBooleanProperty(false);
     private String idFonction;
     private String libelle;
 
@@ -27,4 +31,14 @@ public class Fonction {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-}
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
+    }
+
+    public BooleanProperty selectedProperty() {
+        return selected;
+    }}

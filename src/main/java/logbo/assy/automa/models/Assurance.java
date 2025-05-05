@@ -4,19 +4,20 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class Assurance {
-
     private BooleanProperty selected = new SimpleBooleanProperty(false);
     private String idAssurance;
     private String agence;
     private String contrat;
+    private String prix;
     private String dateDebut;
     private String dateFin;
     private String idVehicule;
 
-    public Assurance(String agence, String contrat, String dateDebut, String dateFin, String idVehicule) {
+    public Assurance(String agence, String contrat, String prix, String dateDebut, String dateFin, String idVehicule) {
         this.idAssurance = "ASSU_" + agence.toUpperCase().trim() + "_" + idVehicule.replace("_", "") + "_" + dateDebut.replace("-", "") + "_" + dateFin.replace("-", "");
         this.agence = agence;
         this.contrat = contrat;
+        this.prix = prix;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.idVehicule = idVehicule;
@@ -43,6 +44,14 @@ public class Assurance {
 
     public String getContrat() {
         return contrat;
+    }
+
+    public String getPrix() {
+        return prix;
+    }
+
+    public void setPrix(String prix) {
+        this.prix = prix;
     }
 
     public void setContrat(String contrat) {

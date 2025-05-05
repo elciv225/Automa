@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
+<VBox alignment="TOP_CENTER" spacing="20.0" prefWidth="600.0" prefHeight="500.0"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="logbo.assy.automa.controllers.ControllerCompte"
+      stylesheets="@../styles/main.css"
+      styleClass="page">
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerCompte">
-   <children>
-      <Label text="Page Compte" />
-   </children>
+   <!-- Titre -->
+   <Label text="Mon Compte" styleClass="title-page"/>
+
+   <!-- Photo de profil -->
+   <VBox alignment="CENTER" spacing="10">
+      <children>
+         <ImageView fx:id="photoProfil" fitWidth="120.0" fitHeight="120.0" preserveRatio="true" styleClass="photo-profil"/>
+         <Button text="Changer la photo" onAction="#changerPhotoProfil" styleClass="btn-modifier"/>
+      </children>
+   </VBox>
+
+   <!-- Informations utilisateur -->
+   <GridPane hgap="20.0" vgap="15.0">
+      <columnConstraints>
+         <ColumnConstraints prefWidth="200.0"/>
+         <ColumnConstraints prefWidth="300.0"/>
+      </columnConstraints>
+
+      <children>
+
+         <Label text="Nom d'utilisateur :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+         <Label fx:id="lblLogin" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-valeur"/>
+
+         <Label text="Nouveau mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+         <PasswordField fx:id="txtNouveauMdp" promptText="********" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+         <Label text="Confirmer le mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+         <PasswordField fx:id="txtConfirmerMdp" promptText="********" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+      </children>
+   </GridPane>
+
+   <!-- Bouton enregistrer -->
+   <Button text="Enregistrer les modifications" onAction="#enregistrerModifications"
+           prefHeight="40.0" prefWidth="250.0" styleClass="btn-ajouter-max"/>
+
 </VBox>
