@@ -58,6 +58,8 @@ CREATE TABLE personnel
     contrat      VARCHAR(50),
     id_fonction  VARCHAR(20)  NOT NULL,
     id_service   VARCHAR(20)  NOT NULL,
+    email        VARCHAR(100),
+    telephone    VARCHAR(20),
     CONSTRAINT fk_pers_fonc
         FOREIGN KEY (id_fonction)
             REFERENCES fonction (id_fonction)
@@ -140,21 +142,33 @@ CREATE TABLE historique_statut
 
 CREATE TABLE attribution_vehicule
 (
-    id_vehicule      VARCHAR(15) NOT NULL,
-    id_personnel     VARCHAR(25) NOT NULL,
-    date_attribution DATE        NOT NULL,
+    id_vehicule              VARCHAR(15) NOT NULL,
+    id_personnel             VARCHAR(25) NOT NULL,
+    date_attribution         DATE        NOT NULL,
+    montant_total            VARCHAR(20) NOT NULL,
+    date_debut_remboursement DATE        NOT NULL,
     PRIMARY KEY (id_vehicule, id_personnel, date_attribution),
-    CONSTRAINT fk_attr_veh
-        FOREIGN KEY (id_vehicule)
-            REFERENCES vehicule (id_vehicule)
-            ON UPDATE CASCADE
-            ON DELETE RESTRICT,
-    CONSTRAINT fk_attr_pers
-        FOREIGN KEY (id_personnel)
-            REFERENCES personnel (id_personnel)
-            ON UPDATE CASCADE
-            ON DELETE RESTRICT
+    CONSTRAINT fk_attr_veh FOREIGN KEY (id_vehicule)
+        REFERENCES vehicule (id_vehicule)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT fk_attr_pers FOREIGN KEY (id_personnel)
+        REFERENCES personnel (id_personnel)
+        ON UPDATE CASCADE ON DELETE RESTRICT
 );
+
+CREATE TABLE paiement_attribution
+(
+    id_paiement    INT AUTO_INCREMENT PRIMARY KEY,
+    id_vehicule    VARCHAR(15) NOT NULL,
+    id_personnel   VARCHAR(25) NOT NULL,
+    mois_paiement  DATE        NOT NULL,
+    montant_verse  VARCHAR(20) NOT NULL,
+    date_versement DATE        NOT NULL,
+    CONSTRAINT fk_paie_attr FOREIGN KEY (id_vehicule, id_personnel)
+        REFERENCES attribution_vehicule (id_vehicule, id_personnel)
+        ON DELETE CASCADE
+);
+
 
 CREATE TABLE participer_mission
 (
@@ -213,8 +227,8 @@ VALUES ('CAT_BERLINE', 'Berline', '5'),
        ('CAT_CAMION', 'Camion', '3'),
        ('CAT_MINIBUS', 'Minibus', '15');
 
--- Insertion d’un administrateur
-INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service)
+-- Insertion d'un administrateur avec email et téléphone
+INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service, email, telephone)
 VALUES ('PERS_ADMIN_01',
         'Admin',
         'Systeme',
@@ -222,10 +236,12 @@ VALUES ('PERS_ADMIN_01',
         'admin123', -- Tu peux plus tard chiffrer ce mot de passe
         'CDI',
         'FONC_ADMIN',
-        'SERV_INFORMATIQUE');
+        'SERV_INFORMATIQUE',
+        'admin@automa.ci',
+        '0101020304');
 
--- Insertion d’un responsable logistique
-INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service)
+-- Insertion d'un responsable logistique avec email et téléphone
+INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service, email, telephone)
 VALUES ('PERS_LOG_01',
         'Responsable',
         'Logistique',
@@ -233,7 +249,9 @@ VALUES ('PERS_LOG_01',
         'log123', -- Pareil ici, à chiffrer en production
         'CDI',
         'FONC_RESPONSABLELOG',
-        'SERV_LOGISTIQUE');
+        'SERV_LOGISTIQUE',
+        'logistique@automa.ci',
+        '0707080910');
 
 -- Insertion de véhicules
 INSERT INTO vehicule (id_vehicule, num_chassis, immatriculation, marque, modele, energie,

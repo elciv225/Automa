@@ -9,11 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.converter.DefaultStringConverter;
 import logbo.assy.automa.dao.AttributionVehiculeDAO;
+import logbo.assy.automa.dao.PaiementAttributionDAO;
 import logbo.assy.automa.models.AttributionVehicule;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -31,16 +30,32 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class ControllerAffectation {
-    @FXML private TableView<AttributionVehicule> tabAffectation;
-    @FXML private TableColumn<AttributionVehicule, Boolean> colCase;
-    @FXML private TableColumn<AttributionVehicule, String> colPersonnel;
-    @FXML private TableColumn<AttributionVehicule, String> colVehicule;
-    @FXML private TableColumn<AttributionVehicule, String> colDate;
-    @FXML private Label lblPage;
-    @FXML private Label lblTotal;
-    @FXML private Button btnSuivant;
-    @FXML private Button btnPrecedent;
-    @FXML private TextField txtRecherche;
+    @FXML
+    private TableView<AttributionVehicule> tabAffectation;
+    @FXML
+    private TableColumn<AttributionVehicule, Boolean> colCase;
+    @FXML
+    private TableColumn<AttributionVehicule, String> colPersonnel;
+    @FXML
+    private TableColumn<AttributionVehicule, String> colVehicule;
+    @FXML
+    private TableColumn<AttributionVehicule, String> colDate;
+    @FXML
+    private TableColumn<AttributionVehicule, String> colMontantTotal;
+    @FXML
+    private TableColumn<AttributionVehicule, String> colTotalVerse;
+    @FXML
+    private TableColumn<AttributionVehicule, String> colPourcentage;
+    @FXML
+    private Label lblPage;
+    @FXML
+    private Label lblTotal;
+    @FXML
+    private Button btnSuivant;
+    @FXML
+    private Button btnPrecedent;
+    @FXML
+    private TextField txtRecherche;
 
     private final int PAGE_SIZE = 10;
     private int currentPage = 1;
@@ -53,15 +68,58 @@ public class ControllerAffectation {
     public void initialize() {
         try {
             dao = new AttributionVehiculeDAO();
+            // Rendre le tableau éditable
+            tabAffectation.setEditable(true);
 
+            // Configuration de la colonne des cases à cocher
             colCase.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
-            colCase.setCellFactory(CheckBoxTableCell.forTableColumn(colCase));
+            colCase.setCellFactory(_ -> new CheckBoxTableCell<>());
+            colCase.setEditable(true);
 
+            // Rendre les autres colonnes non éditables si nécessaire
+            colPersonnel.setEditable(false);
+            colVehicule.setEditable(false);
+            colDate.setEditable(false);
+            colMontantTotal.setEditable(false);
+            colTotalVerse.setEditable(false);
+            colPourcentage.setEditable(false);
             colPersonnel.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPersonnel().getNom()));
             colVehicule.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getVehicule().getImmatriculation()));
             colDate.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDateAttribution()));
+            colMontantTotal.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getMontantTotal()));
 
-            tabAffectation.setEditable(false);
+            colTotalVerse.setCellValueFactory(data -> {
+                try {
+                    PaiementAttributionDAO dao = new PaiementAttributionDAO();
+                    double total = dao.getTotalVerse(
+                            data.getValue().getVehicule().getIdVehicule(),
+                            data.getValue().getPersonnel().getIdPersonnel()
+                    );
+                    return new SimpleStringProperty(String.format("%.0f", total));
+                } catch (SQLException e) {
+                    return new SimpleStringProperty("Erreur");
+                }
+            });
+
+            colPourcentage.setCellValueFactory(data -> {
+                try {
+                    PaiementAttributionDAO dao = new PaiementAttributionDAO();
+                    double total = dao.getTotalVerse(
+                            data.getValue().getVehicule().getIdVehicule(),
+                            data.getValue().getPersonnel().getIdPersonnel()
+                    );
+                    double montant = Double.parseDouble(data.getValue().getMontantTotal().replaceAll("[^\\d.]", ""));
+                    int mois = dao.getMoisPayes(
+                            data.getValue().getVehicule().getIdVehicule(),
+                            data.getValue().getPersonnel().getIdPersonnel()
+                    );
+                    int pourcent = (int) ((total / montant) * 100);
+                    return new SimpleStringProperty(pourcent + "% (" + mois + "/60)");
+                } catch (Exception e) {
+                    return new SimpleStringProperty("Erreur");
+                }
+            });
+
             tabAffectation.setItems(affectationsAffichees);
 
             txtRecherche.textProperty().addListener((_, _, newVal) -> rechercher(newVal));
@@ -124,6 +182,42 @@ public class ControllerAffectation {
             afficherErreur("Erreur modal", e.getMessage());
         }
     }
+
+    @FXML
+    private void ouvrirModalPaiement() {
+        List<AttributionVehicule> selectionnees = affectationsAffichees.filtered(AttributionVehicule::isSelected);
+
+        if (selectionnees.isEmpty()) {
+            afficherErreur("Aucune sélection", "Veuillez cocher une affectation pour enregistrer un paiement.");
+            return;
+        }
+
+        if (selectionnees.size() > 1) {
+            afficherErreur("Trop de sélections", "Veuillez ne cocher qu'une seule affectation à la fois.");
+            return;
+        }
+
+        AttributionVehicule selected = selectionnees.get(0);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layouts/modals/modalAddPaiement.fxml"));
+            Parent root = loader.load();
+            ControllerAjouterPaiement controller = loader.getController();
+            controller.setAttribution(selected);
+
+            Stage modal = new Stage();
+            modal.initModality(Modality.APPLICATION_MODAL);
+            modal.initOwner(tabAffectation.getScene().getWindow());
+            modal.setTitle("Ajouter un paiement");
+            modal.setScene(new Scene(root));
+            modal.showAndWait();
+
+            chargerPage(currentPage);
+        } catch (IOException e) {
+            afficherErreur("Erreur modal", e.getMessage());
+        }
+    }
+
 
     @FXML
     private void supprimerAffectation() {

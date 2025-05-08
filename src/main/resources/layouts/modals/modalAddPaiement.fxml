@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefWidth="450.0" spacing="15.0" styleClass="modal" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterPaiement">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <children>
+        <Label styleClass="title" text="Enregistrement d’un paiement">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <GridPane hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="150.0" />
+                <ColumnConstraints />
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+
+            <children>
+                <Label text="Montant versé" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="txtMontant" promptText="Ex : 141666" styleClass="text-field-recherche" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Date de versement" GridPane.rowIndex="2" />
+                <DatePicker fx:id="pickerDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+
+        <HBox alignment="CENTER" spacing="20.0">
+            <Button onAction="#validerPaiement" styleClass="btn-ajouter" text="Enregistrer" />
+            <Button onAction="#fermerModal" styleClass="btn-annuler" text="Annuler" />
+        </HBox>
+    </children>
+</VBox>

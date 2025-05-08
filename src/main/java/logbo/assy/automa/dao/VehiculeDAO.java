@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class VehiculeDAO {
@@ -258,6 +259,51 @@ public class VehiculeDAO {
         v.setPrixAchat(rs.getString("prix_achat"));
         v.setIdCategorie(rs.getString("id_categorie_vehicule"));
         return v;
+    }
+
+    /**
+     * Récupère un véhicule par son identifiant.
+     * @param idVehicule L'identifiant du véhicule à récupérer
+     * @return Le véhicule ou null si non trouvé
+     */
+    public Vehicule getVehiculeById(String idVehicule) throws SQLException {
+        LOGGER.info("Récupération du véhicule avec id = " + idVehicule);
+        String sql = "SELECT * FROM vehicule WHERE id_vehicule = ?";
+
+        try (
+                Connection conn = db.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            stmt.setString(1, idVehicule);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Vehicule vehicule = new Vehicule();
+                    vehicule.setIdVehicule(rs.getString("id_vehicule"));
+                    vehicule.setNumeroChassis(rs.getString("num_chassis"));
+                    vehicule.setImmatriculation(rs.getString("immatriculation"));
+                    vehicule.setMarque(rs.getString("marque"));
+                    vehicule.setModele(rs.getString("modele"));
+                    vehicule.setEnergie(rs.getString("energie"));
+                    vehicule.setPuissance(rs.getString("puissance"));
+                    vehicule.setCouleur(rs.getString("couleur"));
+                    vehicule.setPrixAchat(rs.getString("prix_achat"));
+                    vehicule.setDateAchat(rs.getString("date_acquisition"));
+                    vehicule.setDateMiseEnService(rs.getString("date_mise_en_service"));
+                    vehicule.setDateAmmortissement(rs.getString("date_amortissement"));
+                    vehicule.setIdCategorie(rs.getString("id_categorie_vehicule"));
+
+                    LOGGER.info("Véhicule récupéré avec succès: " + vehicule.getImmatriculation());
+                    return vehicule;
+                } else {
+                    LOGGER.warning("Aucun véhicule trouvé avec id = " + idVehicule);
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Erreur lors de la récupération du véhicule", e);
+            throw e;
+        }
     }
 
 

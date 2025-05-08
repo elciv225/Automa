@@ -13,6 +13,10 @@ public class Personnel {
     private String contrat;
     private String idFonction;
     private String idService;
+    private String email;
+    private String telephone;
+    private String login;
+    private String motDePasse;
 
     public Personnel(String nom, String prenom, String contrat, String idFonction, String idService) {
         this.idPersonnel = "PERS_" + nom.toUpperCase().trim() + "_" + prenom.toUpperCase().trim() + "_" + UUID.randomUUID().toString().substring(0, 8);
@@ -21,6 +25,10 @@ public class Personnel {
         this.contrat = contrat;
         this.idFonction = idFonction;
         this.idService = idService;
+        // Génération automatique du login (première lettre du prénom + nom en minuscules)
+        this.login = (prenom.charAt(0) + nom).toLowerCase().replaceAll("\\s+", "");
+        // Mot de passe par défaut (à changer par l'utilisateur)
+        this.motDePasse = "password123";
     }
 
     public Personnel() {
@@ -73,6 +81,7 @@ public class Personnel {
     public void setIdService(String idService) {
         this.idService = idService;
     }
+
     public boolean isSelected() {
         return selected.get();
     }
@@ -83,4 +92,37 @@ public class Personnel {
 
     public BooleanProperty selectedProperty() {
         return selected;
-    }}
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+}

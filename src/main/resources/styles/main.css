@@ -118,6 +118,12 @@
     -fx-padding: 0;
 }
 
+.modal{
+    -fx-background-color: -background-principal;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
+
 .title-page {
     -fx-text-fill: -color-text;
     -fx-font-size: 20px;
@@ -190,7 +196,7 @@
 
 
 
-.btn-imprimer, .btn-supprimer, .btn-ajouter {
+.btn-imprimer, .btn-supprimer, .btn-ajouter, btn-annuler {
     -fx-pref-width: 110px;
     -fx-pref-height: 26px;
     -fx-font-size: 13px;
@@ -203,7 +209,7 @@
     -fx-background-color: -color-info;
 }
 
-.btn-supprimer{
+.btn-supprimer, .btn-annuler{
     -fx-background-color:-color-danger;
 }
 
@@ -368,5 +374,24 @@
     -fx-text-fill: -color-text;
     -fx-font-size: 13px;
     -fx-padding: 2px 0;
+}
+
+.champ-readonly {
+    -fx-background-color: #f5f5f5;
+    -fx-opacity: 0.9;
+}
+
+.erreur-message {
+    -fx-text-fill: #d32f2f;
+    -fx-background-color: #ffcdd2;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px;
+}
+
+.succes-message {
+    -fx-text-fill: #2e7d32;
+    -fx-background-color: #c8e6c9;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px;
 }
 

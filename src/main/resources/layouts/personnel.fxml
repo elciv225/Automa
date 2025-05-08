@@ -53,6 +53,7 @@
                               <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
                               <TableColumn fx:id="colNom" prefWidth="150.0" styleClass="tab-col" text="Nom" />
                               <TableColumn fx:id="colPrenom" prefWidth="150.0" styleClass="tab-col" text="Prénom" />
+                              <TableColumn fx:id="colLogin" prefWidth="150.0" styleClass="tab-col" text="Login" />
                               <TableColumn fx:id="colEmail" prefWidth="200.0" styleClass="tab-col" text="Email" />
                               <TableColumn fx:id="colTelephone" prefWidth="150.0" styleClass="tab-col" text="Téléphone" />
                               <TableColumn fx:id="colFonction" prefWidth="150.0" styleClass="tab-col" text="Fonction" />

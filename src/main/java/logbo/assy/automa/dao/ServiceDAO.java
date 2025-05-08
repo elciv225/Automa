@@ -118,4 +118,25 @@ public class ServiceDAO {
             throw e;
         }
     }
+
+    public Service getServiceById(String idService) throws SQLException {
+        String sql = "SELECT * FROM service WHERE id_service = ?";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idService);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Service service = new Service();
+                    service.setIdService(rs.getString("id_service"));
+                    service.setLibelle(rs.getString("libelle"));
+                    service.setlocalisation(rs.getString("localisation"));
+                    return service;
+                }
+            }
+        }
+        return null;
+    }
 }

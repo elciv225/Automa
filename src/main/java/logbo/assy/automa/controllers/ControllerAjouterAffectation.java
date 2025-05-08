@@ -17,8 +17,10 @@ import java.time.LocalDate;
 
 public class ControllerAjouterAffectation {
 
-    @FXML private ComboBox<Personnel> comboPersonnel;
-    @FXML private ComboBox<Vehicule> comboVehicule;
+    @FXML
+    private ComboBox<Personnel> comboPersonnel;
+    @FXML
+    private ComboBox<Vehicule> comboVehicule;
 
     private AttributionVehiculeDAO dao;
 
@@ -43,6 +45,13 @@ public class ControllerAjouterAffectation {
         }
 
         AttributionVehicule attribution = new AttributionVehicule(veh, pers, LocalDate.now().toString());
+
+        // Définir le montant total à partir du prix d'achat du véhicule
+        attribution.setMontantTotal(veh.getPrixAchat());
+
+        // Définir la date de début de remboursement (par exemple, premier jour du mois prochain)
+        LocalDate dateDebut = LocalDate.now().plusMonths(1).withDayOfMonth(1);
+        attribution.setDateDebutRemboursement(dateDebut.toString());
 
         try {
             dao.addAttribution(attribution);

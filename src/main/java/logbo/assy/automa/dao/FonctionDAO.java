@@ -112,4 +112,24 @@ public class FonctionDAO {
             throw e;
         }
     }
+
+    public Fonction getFonctionById(String idFonction) throws SQLException {
+        String sql = "SELECT * FROM fonction WHERE id_fonction = ?";
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idFonction);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Fonction fonction = new Fonction();
+                    fonction.setIdFonction(rs.getString("id_fonction"));
+                    fonction.setLibelle(rs.getString("libelle"));
+                    return fonction;
+                }
+            }
+        }
+        return null;
+    }
 }

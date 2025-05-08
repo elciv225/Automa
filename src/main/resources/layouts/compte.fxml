@@ -1,51 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" prefWidth="600.0" prefHeight="500.0"
+<VBox alignment="TOP_CENTER" spacing="20.0" prefHeight="600.0" prefWidth="800.0"
+      stylesheets="@../styles/main.css"
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logbo.assy.automa.controllers.ControllerCompte"
-      stylesheets="@../styles/main.css"
-      styleClass="page">
+      fx:controller="logbo.assy.automa.controllers.ControllerCompte">
 
-   <!-- Titre -->
-   <Label text="Mon Compte" styleClass="title-page"/>
+   <children>
+      <!-- Titre -->
+      <Label text="Mon Compte" styleClass="title-page">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
 
-   <!-- Photo de profil -->
-   <VBox alignment="CENTER" spacing="10">
-      <children>
-         <ImageView fx:id="photoProfil" fitWidth="120.0" fitHeight="120.0" preserveRatio="true" styleClass="photo-profil"/>
-         <Button text="Changer la photo" onAction="#changerPhotoProfil" styleClass="btn-modifier"/>
-      </children>
-   </VBox>
+      <!-- Message d'erreur/succès -->
+      <Label fx:id="lblMessage" text="Message" visible="false" style="-fx-padding: 10px;" />
 
-   <!-- Informations utilisateur -->
-   <GridPane hgap="20.0" vgap="15.0">
-      <columnConstraints>
-         <ColumnConstraints prefWidth="200.0"/>
-         <ColumnConstraints prefWidth="300.0"/>
-      </columnConstraints>
+      <!-- Formulaire principal -->
+      <VBox spacing="15.0" maxWidth="600.0">
+         <children>
+            <!-- Informations non modifiables -->
+            <TitledPane text="Informations sur le compte" expanded="true">
+               <content>
+                  <GridPane hgap="20.0" vgap="15.0">
+                     <columnConstraints>
+                        <ColumnConstraints prefWidth="150.0" />
+                        <ColumnConstraints prefWidth="400.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Login:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtLogin" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                   styleClass="champ-readonly" />
 
-      <children>
+                        <Label text="Fonction:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtFonction" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                   styleClass="champ-readonly" />
 
-         <Label text="Nom d'utilisateur :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-         <Label fx:id="lblLogin" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="label-valeur"/>
+                        <Label text="Service:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtService" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                   styleClass="champ-readonly" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </TitledPane>
 
-         <Label text="Nouveau mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-         <PasswordField fx:id="txtNouveauMdp" promptText="********" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <!-- Informations modifiables -->
+            <TitledPane text="Informations personnelles" expanded="true">
+               <content>
+                  <GridPane hgap="20.0" vgap="15.0">
+                     <columnConstraints>
+                        <ColumnConstraints prefWidth="150.0" />
+                        <ColumnConstraints prefWidth="400.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Nom:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtNom" promptText="Votre nom" GridPane.rowIndex="0" GridPane.columnIndex="1" />
 
-         <Label text="Confirmer le mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-         <PasswordField fx:id="txtConfirmerMdp" promptText="********" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label text="Prénom:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtPrenom" promptText="Votre prénom" GridPane.rowIndex="1" GridPane.columnIndex="1" />
 
-      </children>
-   </GridPane>
+                        <Label text="Email:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtEmail" promptText="Votre adresse email" GridPane.rowIndex="2" GridPane.columnIndex="1" />
 
-   <!-- Bouton enregistrer -->
-   <Button text="Enregistrer les modifications" onAction="#enregistrerModifications"
-           prefHeight="40.0" prefWidth="250.0" styleClass="btn-ajouter-max"/>
+                        <Label text="Téléphone:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                        <TextField fx:id="txtTelephone" promptText="Votre numéro de téléphone" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </TitledPane>
 
+            <!-- Section changement de mot de passe (initialement masquée) -->
+            <VBox fx:id="vboxChangementMotDePasse" spacing="10.0" visible="false" managed="false">
+               <TitledPane text="Changement de mot de passe" expanded="true">
+                  <content>
+                     <GridPane hgap="20.0" vgap="15.0">
+                        <columnConstraints>
+                           <ColumnConstraints prefWidth="180.0" />
+                           <ColumnConstraints prefWidth="370.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                        </rowConstraints>
+                        <children>
+                           <Label text="Ancien mot de passe:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                           <PasswordField fx:id="txtAncienMotDePasse" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                           <Label text="Nouveau mot de passe:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                           <PasswordField fx:id="txtNouveauMotDePasse" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                           <Label text="Confirmer le mot de passe:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                           <PasswordField fx:id="txtConfirmationMotDePasse" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                        </children>
+                        <padding>
+                           <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+                        </padding>
+                     </GridPane>
+                  </content>
+               </TitledPane>
+               <Button fx:id="btnChangerMotDePasse" text="Valider le changement" onAction="#changerMotDePasse"
+                       styleClass="btn-valider" prefWidth="250.0" alignment="CENTER" />
+            </VBox>
+
+            <!-- Boutons d'action -->
+            <HBox spacing="20.0" alignment="CENTER">
+               <Button fx:id="btnEnregistrer" text="Enregistrer les modifications" onAction="#enregistrerModifications"
+                       styleClass="btn-ajouter-max" prefWidth="250.0" />
+
+               <Button text="Changer le mot de passe" onAction="#afficherFormChangementMotDePasse"
+                       styleClass="btn-action" prefWidth="250.0" />
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+
+   <padding>
+      <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+   </padding>
 </VBox>

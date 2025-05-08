@@ -40,6 +40,7 @@
                   <Button fx:id="btnImprim" onAction="#imprimerListe" styleClass="btn-imprimer" text="Imprimer" />
                   <Button fx:id="btnSupp" onAction="#supprimerAffectation" styleClass="btn-supprimer" text="Supprimer" />
                   <Button fx:id="btnAjouter" onAction="#ouvrirModalAjout" styleClass="btn-ajouter" text="Affecter" />
+                  <Button fx:id="btnPaiement" onAction="#ouvrirModalPaiement" styleClass="btn-ajouter" text="Ajouter Paiement" />
                </children>
             </HBox>
          </top>
@@ -54,6 +55,9 @@
                            <TableColumn fx:id="colPersonnel" prefWidth="200.0" styleClass="tab-col" text="Personnel" />
                            <TableColumn fx:id="colVehicule" prefWidth="200.0" styleClass="tab-col" text="Véhicule" />
                            <TableColumn fx:id="colDate" prefWidth="150.0" styleClass="tab-col" text="Date Affectation" />
+                           <TableColumn fx:id="colMontantTotal" prefWidth="150.0" styleClass="tab-col" text="Montant total" />
+                           <TableColumn fx:id="colTotalVerse" prefWidth="150.0" styleClass="tab-col" text="Total versé" />
+                           <TableColumn fx:id="colPourcentage" prefWidth="150.0" styleClass="tab-col" text="Progression" />
                         </columns>
                      </TableView>
                   </AnchorPane>

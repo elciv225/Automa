@@ -8,6 +8,8 @@ public class AttributionVehicule {
     private Vehicule vehicule;
     private Personnel personnel;
     private String dateAttribution;
+    private String montantTotal;
+    private String dateDebutRemboursement;
 
     public AttributionVehicule(Vehicule vehicule, Personnel personnel, String dateAttribution) {
         this.vehicule = vehicule;
@@ -16,6 +18,15 @@ public class AttributionVehicule {
     }
 
     public AttributionVehicule() {
+    }
+
+    // Ajoutez ce getter et setter
+    public String getDateDebutRemboursement() {
+        return dateDebutRemboursement;
+    }
+
+    public void setDateDebutRemboursement(String dateDebutRemboursement) {
+        this.dateDebutRemboursement = dateDebutRemboursement;
     }
 
     public String getDateAttribution() {
@@ -52,5 +63,13 @@ public class AttributionVehicule {
 
     public BooleanProperty selectedProperty() {
         return selected;
+    }
+
+    public String getMontantTotal() {
+        return montantTotal;
+    }
+
+    public void setMontantTotal(String montantTotal) {
+        this.montantTotal = montantTotal;
     }
 }

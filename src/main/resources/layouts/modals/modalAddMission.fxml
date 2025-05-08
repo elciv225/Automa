@@ -77,10 +77,6 @@
                             <DatePicker fx:id="dateRetourPrevu"/>
                         </VBox>
 
-                        <VBox GridPane.columnIndex="2">
-                            <Label text="Date de retour réel"/>
-                            <DatePicker fx:id="dateRetourReel"/>
-                        </VBox>
 
                         <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
                             <Label text="Km départ"/>
@@ -118,29 +114,15 @@
                             <TextField fx:id="txtBudgetCarburant" promptText="Ex: 20 000 FCFA"/>
                         </VBox>
 
-                        <VBox GridPane.columnIndex="1">
-                            <Label text="Dépense réelle"/>
-                            <TextField fx:id="txtDepenseReelle" promptText="Ex: 18 500 FCFA"/>
-                        </VBox>
 
                         <VBox GridPane.columnIndex="2">
                             <Label text="Autres frais"/>
                             <TextField fx:id="txtAutresFrais" promptText="Ex: Péage, Hôtel..."/>
                         </VBox>
 
-                        <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
-                            <Label text="Détails des frais"/>
-                            <TextField fx:id="txtDetailsFrais"/>
-                        </VBox>
-
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <Label text="Description"/>
                             <TextField fx:id="txtDescription"/>
-                        </VBox>
-
-                        <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <Label text="Notes"/>
-                            <TextField fx:id="txtNotes"/>
                         </VBox>
                     </children>
                 </GridPane>
