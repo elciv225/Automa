@@ -9,16 +9,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.PasswordField?>
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" spacing="15.0" styleClass="page" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAuthentification">
    <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="170.0" styleClass="title-page" text="Authentification" textAlignment="CENTER" />
    <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="297.0" styleClass="recherche-box">
       <children>
          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@images/icones/search.png" />
+               <Image url="@images/icones/user.png" />
             </image>
             <HBox.margin>
-               <Insets left="10.0" right="5.0" />
+               <Insets right="5.0" />
             </HBox.margin>
          </ImageView>
          <TextField fx:id="txtLogin" prefHeight="26.0" prefWidth="242.0" promptText="login" styleClass="text-field-recherche" />
@@ -28,14 +29,14 @@
       <children>
          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@images/icones/search.png" />
+               <Image url="@images/icones/lock.png" />
             </image>
             <HBox.margin>
-               <Insets left="10.0" right="5.0" />
+               <Insets right="5.0" />
             </HBox.margin>
          </ImageView>
-         <TextField fx:id="txtPassword" prefHeight="26.0" prefWidth="242.0" promptText="mot de passe" styleClass="text-field-recherche" />
+         <PasswordField fx:id="txtPassword" prefHeight="26.0" prefWidth="242.0" promptText="mot de passe" styleClass="text-field-recherche" />
       </children>
    </HBox>
-   <Button fx:id="btnConnexion" mnemonicParsing="false" onAction="#seConnecter" styleClass="btn-auth" text="S'authentifier" />
+   <Button fx:id="btnConnexion" mnemonicParsing="false" onAction="#seConnecter" prefHeight="31.0" prefWidth="110.0" styleClass="btn-auth" text="S'authentifier" />
 </VBox>

@@ -189,14 +189,14 @@
 }
 
 .contenant-tab {
-    -fx-background-color: -baclkground-principal;
+    -fx-background-color: -background-principal;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
 }
 
 
 
-.btn-imprimer, .btn-supprimer, .btn-ajouter, btn-annuler {
+.btn-imprimer, .btn-supprimer, .btn-ajouter, btn-annuler, .btn-auth {
     -fx-pref-width: 110px;
     -fx-pref-height: 26px;
     -fx-font-size: 13px;
@@ -205,8 +205,8 @@
     -fx-border-radius: 5px;
 }
 
-.btn-imprimer{
-    -fx-background-color: -color-info;
+.btn-imprimer, .btn-auth{
+    -fx-background-color: -logo-secondaire;
 }
 
 .btn-supprimer, .btn-annuler{
@@ -226,7 +226,7 @@
     -fx-border-radius: 5px;
 }
 
-.btn-prev, .btn-next, .btn-auth {
+.btn-prev, .btn-next {
     -fx-pref-height: 15px;
     -fx-background-color: -logo-secondaire;
     -fx-text-fill: -color-text-inverse;
@@ -395,3 +395,149 @@
     -fx-padding: 8px;
 }
 
+/* ===== Styles pour la page Coûts et Amortissements ===== */
+
+/* Style pour les contrôles de filtrage */
+.btn-filtrer {
+    -fx-background-color: -color-info;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 26px;
+}
+
+.btn-exporter {
+    -fx-background-color: -logo-secondaire;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-pref-height: 26px;
+}
+
+/* Styles pour les cartes de graphiques */
+.stat-card {
+    -fx-background-color: -background-secondaire;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 15;
+    -fx-spacing: 8;
+    -fx-effect: dropshadow(three-pass-box, -box-shadow-color, 8, 0, 0, 0);
+}
+
+.stat-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -logo-secondaire;
+}
+
+/* Style pour les indicateurs clés de performance */
+.kpi-item {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 4, 0, 0, 0);
+}
+
+.kpi-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: -color-text-secondaire;
+}
+
+.kpi-value {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+/* Styles pour les graphiques de coûts */
+.pie-chart {
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+}
+
+.chart-pie-label {
+    -fx-fill: -color-text;
+    -fx-font-size: 12px;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: -color-text-secondaire;
+    -fx-stroke-width: 1px;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 8px;
+}
+
+.line-chart {
+    -fx-background-insets: 0;
+    -fx-padding: 5px;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+}
+
+/* Style pour les séries dans le graphique d'amortissement */
+.default-color0.chart-series-line {
+    -fx-stroke: -color-info; /* Amortissement mensuel */
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: -color-warning; /* Dépenses mensuelles */
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: -color-info, white;
+}
+
+.default-color1.chart-line-symbol {
+    -fx-background-color: -color-warning, white;
+}
+
+/* Style pour les secteurs dans le PieChart */
+.default-color0.chart-pie {
+    -fx-pie-color: -color-success; /* Entretiens */
+}
+
+.default-color1.chart-pie {
+    -fx-pie-color: -color-warning; /* Carburant */
+}
+
+.default-color2.chart-pie {
+    -fx-pie-color: -color-info; /* Autres coûts mission */
+}
+
+/* Style pour le séparateur */
+.separator {
+    -fx-background-color: transparent;
+    -fx-opacity: 0.6;
+}
+
+.separator .line {
+    -fx-border-color: -border-color;
+    -fx-border-width: 0.5px;
+}
+
+/* Les VBox conteneurs devraient pouvoir s'étendre */
+VBox.content-container {
+    -fx-vgrow: ALWAYS;
+    -fx-max-height: 1000;
+}
+
+/* Ajustement pour les tableaux avec scrollbar */
+.scroll-pane {
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+    -fx-vgrow: ALWAYS;
+}
+
+/* Ajustement pour les tableaux */
+.tab {
+    -fx-vgrow: ALWAYS;
+    -fx-fit-to-height: true;
+}
