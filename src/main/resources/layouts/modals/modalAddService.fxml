@@ -7,15 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="500.0" spacing="15.0"
-      stylesheets="@../../styles/main.css"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logbo.assy.automa.controllers.ControllerAjouterService">
+<VBox alignment="CENTER" prefWidth="500.0" spacing="15.0" styleClass="modal" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterService">
 
     <children>
         <!-- Titre -->
-        <Label text="Ajouter un Service" styleClass="title">
+        <Label styleClass="title" text="Ajouter un Service">
             <font><Font name="System Bold" size="18.0" /></font>
         </Label>
 
@@ -23,17 +19,16 @@
         <VBox spacing="10.0">
             <children>
                 <Label text="Nom du service :" />
-                <TextField fx:id="txtLibelleService" promptText="Ex: Ressources Humaines, Logistique..." prefWidth="400.0" styleClass="text-field-recherche" />
+                <TextField fx:id="txtLibelleService" prefWidth="400.0" promptText="Ex: Ressources Humaines, Logistique..." styleClass="text-field-recherche" />
             </children>
         </VBox>
 
         <!-- Bouton -->
-        <Button fx:id="btnAjouter" text="Ajouter le service" onAction="#ajouterService"
-                prefWidth="250.0" prefHeight="40.0" styleClass="btn-ajouter-max" />
+        <Button fx:id="btnAjouter" onAction="#ajouterService" prefHeight="40.0" prefWidth="250.0" styleClass="btn-ajouter-max" text="Ajouter le service" />
 
     </children>
 
     <padding>
-        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 </VBox>

@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="700.0" spacing="15.0" stylesheets="@../../styles/main.css"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logbo.assy.automa.controllers.ControllerAjouterEntretien">
+<VBox alignment="CENTER" prefWidth="700.0" spacing="15.0" styleClass="modal" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterEntretien">
 
     <children>
 
         <!-- Titre -->
         <Label styleClass="title" text="Formulaire d'ajout d'Entretien">
             <font>
-                <Font name="System Bold" size="18.0"/>
+                <Font name="System Bold" size="18.0" />
             </font>
         </Label>
 
         <!-- Section véhicule et type -->
         <VBox spacing="10.0">
             <children>
-                <Label styleClass="section-header" text="Informations générales"/>
-                <Separator/>
+                <Label styleClass="section-header" text="Informations générales" />
+                <Separator />
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="200.0"/>
-                        <ColumnConstraints prefWidth="200.0"/>
+                        <ColumnConstraints prefWidth="200.0" />
+                        <ColumnConstraints prefWidth="200.0" />
                     </columnConstraints>
                     <children>
 
@@ -35,11 +41,10 @@
                             <children>
                                 <Label text="Véhicule concerné">
                                     <VBox.margin>
-                                        <Insets bottom="5.0"/>
+                                        <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <ComboBox fx:id="comboVehicule" promptText="Sélectionner un véhicule"
-                                          prefHeight="35.0" prefWidth="200.0" styleClass="combo-filter"/>
+                                <ComboBox fx:id="comboVehicule" prefHeight="35.0" prefWidth="200.0" promptText="Sélectionner un véhicule" styleClass="combo-filter" />
                             </children>
                         </VBox>
 
@@ -47,15 +52,17 @@
                             <children>
                                 <Label text="Type d'entretien">
                                     <VBox.margin>
-                                        <Insets bottom="5.0"/>
+                                        <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <ComboBox fx:id="comboType" promptText="Préventif, Curatif, etc."
-                                          prefHeight="35.0" prefWidth="200.0" styleClass="combo-filter"/>
+                                <ComboBox fx:id="comboType" prefHeight="35.0" prefWidth="200.0" promptText="Préventif, Curatif, etc." styleClass="combo-filter" />
                             </children>
                         </VBox>
 
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
             </children>
         </VBox>
@@ -63,13 +70,13 @@
         <!-- Section description et dates -->
         <VBox spacing="10.0">
             <children>
-                <Label styleClass="section-header" text="Détails et durée"/>
-                <Separator/>
+                <Label styleClass="section-header" text="Détails et durée" />
+                <Separator />
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="200.0"/>
-                        <ColumnConstraints prefWidth="200.0"/>
-                        <ColumnConstraints prefWidth="200.0"/>
+                        <ColumnConstraints prefWidth="200.0" />
+                        <ColumnConstraints prefWidth="200.0" />
+                        <ColumnConstraints prefWidth="200.0" />
                     </columnConstraints>
                     <children>
 
@@ -77,11 +84,10 @@
                             <children>
                                 <Label text="Description de la panne">
                                     <VBox.margin>
-                                        <Insets bottom="5.0"/>
+                                        <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <TextField fx:id="txtDescription" promptText="Ex: panne moteur"
-                                           prefHeight="35.0" prefWidth="200.0" styleClass="text-field-recherche"/>
+                                <TextField fx:id="txtDescription" prefHeight="35.0" prefWidth="200.0" promptText="Ex: panne moteur" styleClass="text-field-recherche" />
                             </children>
                         </VBox>
 
@@ -89,10 +95,10 @@
                             <children>
                                 <Label text="Date de début">
                                     <VBox.margin>
-                                        <Insets bottom="5.0"/>
+                                        <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <DatePicker fx:id="dateDebut" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker"/>
+                                <DatePicker fx:id="dateDebut" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker" />
                             </children>
                         </VBox>
 
@@ -100,14 +106,17 @@
                             <children>
                                 <Label text="Date de fin">
                                     <VBox.margin>
-                                        <Insets bottom="5.0"/>
+                                        <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <DatePicker fx:id="dateFin" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker"/>
+                                <DatePicker fx:id="dateFin" prefHeight="35.0" prefWidth="200.0" styleClass="date-picker" />
                             </children>
                         </VBox>
 
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
             </children>
         </VBox>
@@ -115,18 +124,17 @@
         <!-- Bouton Ajouter -->
         <HBox alignment="CENTER" spacing="15.0">
             <children>
-                <Button fx:id="btnAjouter" onAction="#ajouterEntretien" prefHeight="40.0" prefWidth="200.0"
-                        styleClass="btn-ajouter-max" text="Ajouter l'Entretien"/>
+                <Button fx:id="btnAjouter" onAction="#ajouterEntretien" prefHeight="40.0" prefWidth="200.0" styleClass="btn-ajouter-max" text="Ajouter l'Entretien" />
             </children>
             <VBox.margin>
-                <Insets top="10.0"/>
+                <Insets top="10.0" />
             </VBox.margin>
         </HBox>
 
     </children>
 
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
 </VBox>

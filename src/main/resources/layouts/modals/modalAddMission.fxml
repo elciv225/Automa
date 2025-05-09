@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="800.0" spacing="15.0" stylesheets="@../../styles/main.css"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logbo.assy.automa.controllers.ControllerAjouterMission">
+<VBox alignment="CENTER" prefWidth="800.0" spacing="15.0" styleClass="modal" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterMission">
 
     <children>
 
         <Label styleClass="title" text="Formulaire d'ajout de Mission">
             <font>
-                <Font name="System Bold" size="18.0"/>
+                <Font name="System Bold" size="18.0" />
             </font>
         </Label>
 
         <!-- Section 1: Détails -->
         <VBox spacing="10.0">
             <children>
-                <Label styleClass="section-header" text="Informations générales"/>
-                <Separator/>
+                <Label styleClass="section-header" text="Informations générales" />
+                <Separator />
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="250.0"/>
-                        <ColumnConstraints prefWidth="250.0"/>
-                        <ColumnConstraints prefWidth="250.0"/>
+                        <ColumnConstraints prefWidth="250.0" />
+                        <ColumnConstraints prefWidth="250.0" />
+                        <ColumnConstraints prefWidth="250.0" />
                     </columnConstraints>
                     <children>
                         <VBox GridPane.columnIndex="0">
                             <children>
-                                <Label text="Titre de la mission"/>
-                                <TextField fx:id="txtTitre" promptText="Ex: Mission Abidjan-Yamoussoukro" />
+                                <Label text="Titre de la mission" />
+                                <TextField fx:id="txtTitre" prefHeight="35.0" promptText="Ex: Mission Abidjan-Yamoussoukro" styleClass="text-field-recherche" />
                             </children>
                         </VBox>
 
                         <VBox GridPane.columnIndex="1">
                             <children>
-                                <Label text="Véhicule utilisé"/>
-                                <ComboBox fx:id="comboVehicule" promptText="Sélectionner un véhicule" />
+                                <Label text="Véhicule utilisé" />
+                                <ComboBox fx:id="comboVehicule" prefHeight="37.0" prefWidth="214.0" promptText="Sélectionner un véhicule" styleClass="combo-filter" />
                             </children>
                         </VBox>
 
                         <VBox GridPane.columnIndex="2">
                             <children>
-                                <Label text="Responsable"/>
-                                <ComboBox fx:id="comboResponsable" promptText="Sélectionner un responsable" />
+                                <Label text="Responsable" />
+                                <ComboBox fx:id="comboResponsable" promptText="Sélectionner un responsable" styleClass="combo-filter" />
                             </children>
                         </VBox>
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
             </children>
         </VBox>
@@ -58,41 +67,45 @@
         <!-- Section 2: Dates et Kilométrage -->
         <VBox spacing="10.0">
             <children>
-                <Label styleClass="section-header" text="Dates et kilométrage"/>
-                <Separator/>
+                <Label styleClass="section-header" text="Dates et kilométrage" />
+                <Separator />
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="250.0"/>
-                        <ColumnConstraints prefWidth="250.0"/>
-                        <ColumnConstraints prefWidth="250.0"/>
+                        <ColumnConstraints prefWidth="250.0" />
+                        <ColumnConstraints prefWidth="250.0" />
+                        <ColumnConstraints prefWidth="250.0" />
                     </columnConstraints>
                     <children>
                         <VBox GridPane.columnIndex="0">
-                            <Label text="Date de départ"/>
-                            <DatePicker fx:id="dateDepart"/>
+                            <Label text="Date de départ" />
+                            <DatePicker fx:id="dateDepart" />
                         </VBox>
 
                         <VBox GridPane.columnIndex="1">
-                            <Label text="Date de retour prévu"/>
-                            <DatePicker fx:id="dateRetourPrevu"/>
+                            <Label text="Date de retour prévu" />
+                            <DatePicker fx:id="dateRetourPrevu" />
                         </VBox>
 
 
                         <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
-                            <Label text="Km départ"/>
-                            <TextField fx:id="txtKmDepart" promptText="Ex: 15000"/>
+                            <Label text="Km départ" />
+                            <TextField fx:id="txtKmDepart" prefHeight="35.0" promptText="Ex: 15000" styleClass="text-field-recherche" />
                         </VBox>
 
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <Label text="Km retour"/>
-                            <TextField fx:id="txtKmRetour" promptText="Ex: 15500"/>
+                            <Label text="Km retour" />
+                            <TextField fx:id="txtKmRetour" prefHeight="35.0" promptText="Ex: 15500" styleClass="text-field-recherche" />
                         </VBox>
 
                         <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <Label text="Destination"/>
-                            <TextField fx:id="txtDestination" promptText="Lieu de la mission"/>
+                            <Label text="Destination" />
+                            <TextField fx:id="txtDestination" prefHeight="35.0" promptText="Lieu de la mission" styleClass="text-field-recherche" />
                         </VBox>
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
             </children>
         </VBox>
@@ -100,31 +113,35 @@
         <!-- Section 3: Budget & Notes -->
         <VBox spacing="10.0">
             <children>
-                <Label styleClass="section-header" text="Coût et notes"/>
-                <Separator/>
+                <Label styleClass="section-header" text="Coût et notes" />
+                <Separator />
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints prefWidth="250.0"/>
-                        <ColumnConstraints prefWidth="250.0"/>
-                        <ColumnConstraints prefWidth="250.0"/>
+                        <ColumnConstraints prefWidth="250.0" />
+                        <ColumnConstraints prefWidth="250.0" />
+                        <ColumnConstraints prefWidth="250.0" />
                     </columnConstraints>
                     <children>
                         <VBox GridPane.columnIndex="0">
-                            <Label text="Budget carburant"/>
-                            <TextField fx:id="txtBudgetCarburant" promptText="Ex: 20 000 FCFA"/>
+                            <Label text="Budget carburant" />
+                            <TextField fx:id="txtBudgetCarburant" prefHeight="35.0" promptText="Ex: 20 000 FCFA" styleClass="text-field-recherche" />
                         </VBox>
 
 
                         <VBox GridPane.columnIndex="2">
-                            <Label text="Autres frais"/>
-                            <TextField fx:id="txtAutresFrais" promptText="Ex: Péage, Hôtel..."/>
+                            <Label text="Autres frais" />
+                            <TextField fx:id="txtAutresFrais" prefHeight="35.0" promptText="Ex: Péage, Hôtel..." styleClass="text-field-recherche" />
                         </VBox>
 
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <Label text="Description"/>
-                            <TextField fx:id="txtDescription"/>
+                           <VBox GridPane.columnIndex="1">
+                            <Label text="Description" />
+                            <TextField fx:id="txtDescription" prefHeight="35.0" styleClass="text-field-recherche" />
                         </VBox>
                     </children>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
             </children>
         </VBox>
@@ -132,18 +149,15 @@
         <!-- Bouton d'action -->
         <HBox alignment="CENTER" spacing="15.0">
             <children>
-                <Button fx:id="btnAjouter" onAction="#ajouterMission"
-                        prefHeight="40.0" prefWidth="220.0"
-                        styleClass="btn-ajouter-max"
-                        text="Ajouter la Mission"/>
+                <Button fx:id="btnAjouter" onAction="#ajouterMission" prefHeight="40.0" prefWidth="220.0" styleClass="btn-ajouter-max" text="Ajouter la Mission" />
             </children>
             <VBox.margin>
-                <Insets top="10.0"/>
+                <Insets top="10.0" />
             </VBox.margin>
         </HBox>
 
     </children>
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 </VBox>

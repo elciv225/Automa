@@ -7,11 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" prefWidth="400.0"
-      stylesheets="@../../styles/main.css"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logbo.assy.automa.controllers.ControllerAjouterFonction">
+<VBox alignment="CENTER" prefWidth="400.0" spacing="20.0" styleClass="modal" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterFonction">
 
     <children>
 
@@ -21,21 +17,18 @@
             </font>
         </Label>
 
-        <VBox spacing="10.0" prefWidth="300.0">
+        <VBox prefWidth="300.0" spacing="10.0">
             <children>
-                <Label text="Libellé de la fonction"/>
-                <TextField fx:id="txtLibelleFonction" promptText="Ex : Chauffeur, Responsable Logistique..." prefHeight="35.0" />
+                <Label text="Libellé de la fonction" />
+                <TextField fx:id="txtLibelleFonction" prefHeight="35.0" promptText="Ex : Chauffeur, Responsable Logistique..." styleClass="text-field-recherche" />
             </children>
         </VBox>
 
-        <Button fx:id="btnAjouter" text="Ajouter la Fonction"
-                onAction="#ajouterFonction"
-                prefHeight="40.0" prefWidth="200.0"
-                styleClass="btn-ajouter-max"/>
+        <Button fx:id="btnAjouter" onAction="#ajouterFonction" prefHeight="40.0" prefWidth="200.0" styleClass="btn-ajouter-max" text="Ajouter la Fonction" />
 
     </children>
 
     <padding>
-        <Insets top="20.0" bottom="20.0" left="30.0" right="30.0"/>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
     </padding>
 </VBox>

@@ -39,7 +39,7 @@
 
             <children>
                 <Label text="Montant versé" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField fx:id="txtMontant" promptText="Ex : 141666" styleClass="text-field-recherche" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="txtMontant" prefHeight="34.0" prefWidth="170.0" promptText="Ex : 141666" styleClass="text-field-recherche" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="Date de versement" GridPane.rowIndex="2" />
                 <DatePicker fx:id="pickerDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
@@ -47,7 +47,7 @@
 
         <HBox alignment="CENTER" spacing="20.0">
             <Button onAction="#validerPaiement" styleClass="btn-ajouter" text="Enregistrer" />
-            <Button onAction="#fermerModal" styleClass="btn-annuler" text="Annuler" />
+            <Button onAction="#fermerModal" styleClass="btn-supprimer" text="Annuler" />
         </HBox>
     </children>
 </VBox>

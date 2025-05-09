@@ -12,27 +12,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="logbo.assy.automa.controllers.ControllerLogs"
-      alignment="TOP_CENTER"
-      spacing="20.0"
-      prefWidth="900.0"
-      prefHeight="660.0"
-      styleClass="page-content"
-      stylesheets="@../styles/main.css">
+<VBox alignment="TOP_CENTER" prefHeight="660.0" prefWidth="900.0" spacing="20.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerLogs">
 
     <!-- En-tête -->
     <HBox alignment="CENTER_LEFT" spacing="15.0">
         <children>
-            <Label text="Historique des actions (Audit Logs)" styleClass="page-title">
+            <Label styleClass="page-title" text="Historique des actions (Audit Logs)">
                 <font>
-                    <Font name="System Bold" size="18.0"/>
+                    <Font name="System Bold" size="18.0" />
                 </font>
             </Label>
         </children>
         <padding>
-            <Insets left="20.0" right="20.0"/>
+            <Insets left="20.0" right="20.0" />
         </padding>
     </HBox>
 
@@ -44,35 +36,46 @@
             <Label text="à" />
             <DatePicker fx:id="dateFin" promptText="Date fin" />
             <Label text="Mot-clé :" />
-            <TextField fx:id="motCle" promptText="Rechercher..." />
-            <Button fx:id="btnRechercher" text="Rechercher" />
+         <HBox alignment="CENTER" styleClass="recherche-box">
+            <children>
+                  <TextField fx:id="motCle" promptText="Rechercher..." styleClass="text-field-recherche" />
+                  <Button fx:id="btnRechercher" style="-fx-background-color: white;" text="🔍">
+                  <HBox.margin>
+                     <Insets left="2.0" />
+                  </HBox.margin>
+               </Button>
+            </children>
+            <padding>
+               <Insets left="5.0" />
+            </padding>
+         </HBox>
         </children>
         <padding>
-            <Insets left="20.0" right="20.0"/>
+            <Insets left="20.0" right="20.0" />
         </padding>
     </HBox>
 
     <!-- Tableau des logs -->
-    <TableView fx:id="tableLogs" prefHeight="550.0" prefWidth="850.0">
+    <TableView fx:id="tableLogs" prefHeight="550.0" prefWidth="850.0" styleClass="tab">
         <columns>
-            <TableColumn fx:id="colUtilisateur" text="Utilisateur" prefWidth="150.0">
+            <TableColumn fx:id="colUtilisateur" minWidth="200.0" prefWidth="150.0" styleClass="tab-col" text="Utilisateur">
                 <cellValueFactory>
-                    <PropertyValueFactory property="utilisateur"/>
+                    <PropertyValueFactory property="utilisateur" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="colAction" text="Action" prefWidth="300.0">
+            <TableColumn fx:id="colAction" minWidth="200.0" prefWidth="300.0" styleClass="tab-col" text="Action">
                 <cellValueFactory>
-                    <PropertyValueFactory property="action"/>
+                    <PropertyValueFactory property="action" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="colDate" text="Date" prefWidth="200.0">
+            <TableColumn fx:id="colDate" minWidth="200.0" prefWidth="200.0" styleClass="tab-col" text="Date">
                 <cellValueFactory>
-                    <PropertyValueFactory property="date"/>
+                    <PropertyValueFactory property="date" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="colHeure" text="Heure" prefWidth="100.0">
+            <TableColumn fx:id="colHeure" minWidth="200.0" prefWidth="100.0" styleClass="tab-col" text="Heure">
                 <cellValueFactory>
-                    <PropertyValueFactory property="heure"/>
+                    <PropertyValueFactory property="heure" />
                 </cellValueFactory>
             </TableColumn>
         </columns>

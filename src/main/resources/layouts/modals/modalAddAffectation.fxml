@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefWidth="600.0" spacing="15.0" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterAffectation">
+<VBox alignment="CENTER" prefWidth="600.0" spacing="15.0" styleClass="modal" stylesheets="@../../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAjouterAffectation">
 
     <children>
         <Label styleClass="title" text="Formulaire d'affectation">
@@ -46,7 +46,7 @@
                                         <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <ComboBox fx:id="comboPersonnel" promptText="Sélectionner un personnel" prefHeight="35.0" prefWidth="250.0" styleClass="combo-filter" />
+                                <ComboBox fx:id="comboPersonnel" prefHeight="35.0" prefWidth="250.0" promptText="Sélectionner un personnel" styleClass="combo-filter" />
                             </children>
                         </VBox>
 
@@ -57,7 +57,7 @@
                                         <Insets bottom="5.0" />
                                     </VBox.margin>
                                 </Label>
-                                <ComboBox fx:id="comboVehicule" promptText="Sélectionner un véhicule" prefHeight="35.0" prefWidth="250.0" styleClass="combo-filter" />
+                                <ComboBox fx:id="comboVehicule" prefHeight="35.0" prefWidth="250.0" promptText="Sélectionner un véhicule" styleClass="combo-filter" />
                             </children>
                         </VBox>
                     </children>
@@ -77,6 +77,6 @@
     </children>
 
     <padding>
-        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 </VBox>
