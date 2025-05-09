@@ -26,34 +26,20 @@ import java.util.logging.Logger;
 public class ControllerAjouterVehicule implements Initializable {
     private static final Logger LOGGER = Logger.getLogger(ControllerAjouterVehicule.class.getName());
 
-    @FXML
-    public TextField txtNumChassis;
-    @FXML
-    public TextField txtImmat;
-    @FXML
-    public TextField txtMarque;
-    @FXML
-    public TextField txtModele;
-    @FXML
-    public ComboBox<CategorieVehicule> comboCategorie;
-    @FXML
-    public ComboBox<String> comboEnergie;
-    @FXML
-    public TextField txtPuissance;
-    @FXML
-    public TextField txtCouleur;
-    @FXML
-    public TextField txtPrixAchat;
-    @FXML
-    public DatePicker dateAquisition;
-    @FXML
-    public DatePicker dateMiseService;
-    @FXML
-    public TextField nbAmmor;
-    @FXML
-    public TextField txtDateAmmor;
-    @FXML
-    public Button btnAjouter;
+    @FXML public TextField txtNumChassis;
+    @FXML public TextField txtImmat;
+    @FXML public TextField txtMarque;
+    @FXML public TextField txtModele;
+    @FXML public ComboBox<CategorieVehicule> comboCategorie;
+    @FXML public ComboBox<String> comboEnergie;
+    @FXML public TextField txtPuissance;
+    @FXML public TextField txtCouleur;
+    @FXML public TextField txtPrixAchat;
+    @FXML public DatePicker dateAquisition;
+    @FXML public DatePicker dateMiseService;
+    @FXML public TextField nbAmmor;
+    @FXML public TextField txtDateAmmor;
+    @FXML public Button btnAjouter;
 
     private CategorieVehiculeDAO categorieDAO;
 
@@ -181,6 +167,7 @@ public class ControllerAjouterVehicule implements Initializable {
             dao.addVehicule(vehicule);
 
             Alert success = new Alert(Alert.AlertType.INFORMATION, "Véhicule ajouté avec succès !", ButtonType.OK);
+            Main.appliquerIconAlert(success);
             success.showAndWait();
 
             btnAjouter.getScene().getWindow().hide();
@@ -188,6 +175,7 @@ public class ControllerAjouterVehicule implements Initializable {
         } catch (Exception e) {
             LOGGER.severe("Erreur lors de l'ajout du véhicule : " + e.getMessage());
             Alert alert = new Alert(Alert.AlertType.ERROR, "Échec de l'ajout du véhicule.", ButtonType.OK);
+            Main.appliquerIconAlert(alert);
             alert.showAndWait();
         }
     }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.AuditLogDAO;
 import logbo.assy.automa.models.AuditLog;
 
@@ -113,6 +114,7 @@ public class ControllerLogs {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

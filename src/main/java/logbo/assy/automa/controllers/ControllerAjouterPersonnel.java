@@ -1,9 +1,11 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.FonctionDAO;
 import logbo.assy.automa.dao.PersonnelDAO;
 import logbo.assy.automa.dao.ServiceDAO;
@@ -19,32 +21,23 @@ import java.util.logging.Logger;
 public class ControllerAjouterPersonnel {
     private static final Logger LOGGER = Logger.getLogger(ControllerAjouterPersonnel.class.getName());
 
-    @FXML
-    private TextField txtNom;
-    @FXML
-    private TextField txtPrenom;
-    @FXML
-    private TextField txtEmail;
-    @FXML
-    private TextField txtTelephone;
-    @FXML
-    private ComboBox<Fonction> comboFonction;
-    @FXML
-    private ComboBox<Service> comboService;
-    @FXML
-    private Button btnAjouter;
+    @FXML private TextField txtNom;
+    @FXML private TextField txtPrenom;
+    @FXML private TextField txtEmail;
+    @FXML private TextField txtTelephone;
+    @FXML private ComboBox<Fonction> comboFonction;
+    @FXML private ComboBox<Service> comboService;
+    @FXML private Button btnAjouter;
 
     private PersonnelDAO personnelDAO;
-    private FonctionDAO fonctionDAO;
-    private ServiceDAO serviceDAO;
 
     @FXML
     public void initialize() {
         try {
             // Initialisation des DAOs
             personnelDAO = new PersonnelDAO();
-            fonctionDAO = new FonctionDAO();
-            serviceDAO = new ServiceDAO();
+            FonctionDAO fonctionDAO = new FonctionDAO();
+            ServiceDAO serviceDAO = new ServiceDAO();
 
             // Chargement des fonctions dans le ComboBox
             List<Fonction> fonctions = fonctionDAO.getAllFonctions();
@@ -87,6 +80,13 @@ public class ControllerAjouterPersonnel {
             LOGGER.log(Level.SEVERE, "Erreur d'initialisation", e);
             afficherErreur("Erreur d'initialisation", "Impossible de se connecter à la base de données: " + e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) txtNom.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Personnel");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -161,6 +161,7 @@ public class ControllerAjouterPersonnel {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -168,7 +169,7 @@ public class ControllerAjouterPersonnel {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titre);
         alert.setHeaderText(null);
-        alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

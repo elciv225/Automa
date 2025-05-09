@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.AttributionVehiculeDAO;
 import logbo.assy.automa.dao.PaiementAttributionDAO;
 import logbo.assy.automa.models.AttributionVehicule;
@@ -300,6 +301,7 @@ public class ControllerAffectation {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -308,6 +310,7 @@ public class ControllerAffectation {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

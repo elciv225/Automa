@@ -1,8 +1,10 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.EntretienDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
 import logbo.assy.automa.models.Entretien;
@@ -24,14 +26,13 @@ public class ControllerAjouterEntretien {
     @FXML private Button btnAjouter;
 
     private EntretienDAO entretienDAO;
-    private VehiculeDAO vehiculeDAO;
 
     @FXML
     public void initialize() {
         try {
             // Initialisation des DAOs
             entretienDAO = new EntretienDAO();
-            vehiculeDAO = new VehiculeDAO();
+            VehiculeDAO vehiculeDAO = new VehiculeDAO();
 
             // Configuration des DatePickers
             dateDebut.setValue(LocalDate.now());
@@ -65,6 +66,13 @@ public class ControllerAjouterEntretien {
             LOGGER.log(Level.SEVERE, "Erreur d'initialisation", e);
             afficherErreur("Erreur d'initialisation", "Impossible de se connecter à la base de données: " + e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) comboVehicule.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout d'Entretient");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -121,6 +129,7 @@ public class ControllerAjouterEntretien {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -129,6 +138,7 @@ public class ControllerAjouterEntretien {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

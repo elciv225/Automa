@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.SessionManager;
 import logbo.assy.automa.dao.PersonnelDAO;
 import logbo.assy.automa.models.Personnel;
@@ -17,9 +18,9 @@ import java.util.logging.Logger;
 
 public class ControllerAuthentification {
     private static final Logger LOGGER = Logger.getLogger(ControllerAuthentification.class.getName());
-    public TextField txtLogin;
-    public TextField txtPassword;
-    public Button btnConnexion;
+    @FXML public TextField txtLogin;
+    @FXML public TextField txtPassword;
+    @FXML public Button btnConnexion;
 
     private PersonnelDAO dao;
 
@@ -96,6 +97,7 @@ public class ControllerAuthentification {
             alert.setTitle("erreur".equalsIgnoreCase(type) ? "Erreur" : "Succès");
             alert.setHeaderText("Une erreur est survenue");
             alert.setContentText(message);
+            Main.appliquerIconAlert(alert);
             alert.showAndWait();
         });
     }

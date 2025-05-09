@@ -1,9 +1,11 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.FonctionDAO;
 import logbo.assy.automa.models.Fonction;
 
@@ -28,6 +30,13 @@ public class ControllerAjouterFonction {
             LOGGER.log(Level.SEVERE, "Erreur d'initialisation", e);
             afficherErreur("Erreur d'initialisation", "Impossible de se connecter à la base de données: " + e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) txtLibelleFonction.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Fonction");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -91,6 +100,7 @@ public class ControllerAjouterFonction {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -99,6 +109,7 @@ public class ControllerAjouterFonction {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

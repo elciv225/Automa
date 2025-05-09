@@ -1,33 +1,48 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.ServiceDAO;
 import logbo.assy.automa.models.Service;
 
+import javafx.scene.image.Image;
+
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ControllerAjouterService {
     private static final Logger LOGGER = Logger.getLogger(ControllerAjouterService.class.getName());
 
-    @FXML private TextField txtLibelleService;
-    @FXML private Button btnAjouter;
+    @FXML
+    private TextField txtLibelleService;
+    @FXML
+    private Button btnAjouter;
 
     private ServiceDAO serviceDAO;
 
     @FXML
     public void initialize() {
         try {
-            // Initialisation du DAO
             serviceDAO = new ServiceDAO();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Erreur d'initialisation", e);
             afficherErreur("Erreur d'initialisation", "Impossible de se connecter à la base de données: " + e.getMessage());
         }
+
+        // Appliquer l'icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) txtLibelleService.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Service");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -106,6 +121,7 @@ public class ControllerAjouterService {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -114,6 +130,7 @@ public class ControllerAjouterService {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

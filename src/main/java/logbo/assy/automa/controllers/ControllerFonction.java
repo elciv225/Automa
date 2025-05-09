@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.FonctionDAO;
 import logbo.assy.automa.models.Fonction;
 
@@ -43,10 +44,8 @@ public class ControllerFonction {
     private TableColumn<Fonction, String> colIdFonction;
     @FXML
     private TableColumn<Fonction, String> colLibelleFonction;
-
     @FXML
     private TextField txtRecherche;
-
     @FXML
     private Button btnPrecedent;
     @FXML
@@ -57,7 +56,6 @@ public class ControllerFonction {
     private Button btnSupp;
     @FXML
     private Button btnImprim;
-
     @FXML
     private Label lblPage;
     @FXML
@@ -274,6 +272,7 @@ public class ControllerFonction {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -282,6 +281,7 @@ public class ControllerFonction {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

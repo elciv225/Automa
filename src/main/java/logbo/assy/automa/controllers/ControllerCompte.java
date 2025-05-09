@@ -49,8 +49,6 @@ public class ControllerCompte {
 
     // Utilisateur courant
     private Personnel utilisateurCourant;
-    private Service serviceUtilisateur;
-    private Fonction fonctionUtilisateur;
 
     @FXML
     public void initialize() {
@@ -94,8 +92,8 @@ public class ControllerCompte {
         }
 
         // Récupérer les informations de service et fonction
-        serviceUtilisateur = serviceDAO.getServiceById(utilisateurCourant.getIdService());
-        fonctionUtilisateur = fonctionDAO.getFonctionById(utilisateurCourant.getIdFonction());
+        Service serviceUtilisateur = serviceDAO.getServiceById(utilisateurCourant.getIdService());
+        Fonction fonctionUtilisateur = fonctionDAO.getFonctionById(utilisateurCourant.getIdFonction());
 
         // Remplir les champs du formulaire
         txtNom.setText(utilisateurCourant.getNom());

@@ -20,6 +20,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.AssuranceDAO;
 import logbo.assy.automa.models.Assurance;
 
@@ -223,10 +224,14 @@ public class ControllerAssurance {
                     dao.delete(a.getIdAssurance());
                 }
                 rechargerTotal();
-                new Alert(Alert.AlertType.INFORMATION, "Les assurances sélectionnées ont été supprimées avec succès.", ButtonType.OK).showAndWait();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Les assurances sélectionnées ont été supprimées avec succès.", ButtonType.OK);
+                Main.appliquerIconAlert(alert);
+                alert.showAndWait();
             } catch (SQLException e) {
                 LOGGER.severe("Erreur suppression : " + e.getMessage());
-                new Alert(Alert.AlertType.ERROR, "Erreur lors de la suppression des assurances.", ButtonType.OK).showAndWait();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de la suppression des assurances.", ButtonType.OK);
+                Main.appliquerIconAlert(alert);
+                alert.showAndWait();
             }
         }
     }
@@ -290,7 +295,9 @@ public class ControllerAssurance {
             }
             doc.add(table);
             doc.close();
-            new Alert(Alert.AlertType.INFORMATION, "PDF généré : " + fichier.getAbsolutePath()).showAndWait();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "PDF généré : " + fichier.getAbsolutePath());
+            Main.appliquerIconAlert(alert);
+            alert.showAndWait();
         } catch (Exception e) {
             LOGGER.severe("Erreur export PDF : " + e.getMessage());
         }

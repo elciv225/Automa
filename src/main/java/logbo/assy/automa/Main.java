@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -27,6 +28,20 @@ public class Main extends Application {
             LOGGER.fine("Icône appliquée au stage : " + ICON_PATH);
         } catch (Exception e) {
             LOGGER.warning("Impossible de charger l'icône : " + e.getMessage());
+        }
+    }
+
+    /**
+     * Appliquer l'icône à toutes les alertes.
+     */
+    public static void appliquerIconAlert(Alert alert) {
+        try {
+            Image icon = new Image(Objects.requireNonNull(Main.class.getResourceAsStream(ICON_PATH)));
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(icon);
+            LOGGER.fine("Icône appliquée à l'alerte : " + ICON_PATH);
+        } catch (Exception e) {
+            LOGGER.warning("Impossible de charger l'icône pour l'alerte : " + e.getMessage());
         }
     }
 

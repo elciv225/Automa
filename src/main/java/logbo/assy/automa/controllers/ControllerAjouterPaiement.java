@@ -1,8 +1,10 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.PaiementAttributionDAO;
 import logbo.assy.automa.models.AttributionVehicule;
 import logbo.assy.automa.models.PaiementAttribution;
@@ -15,8 +17,6 @@ public class ControllerAjouterPaiement {
     @FXML private DatePicker pickerDate;
 
     private AttributionVehicule attribution;
-    private double montantTotal;
-    private double montantDejaVerse;
     private double montantRestant;
 
     @FXML
@@ -30,7 +30,7 @@ public class ControllerAjouterPaiement {
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
                 LocalDate today = LocalDate.now();
-                setDisable(empty || date.compareTo(today) < 0);
+                setDisable(empty || date.isBefore(today));
             }
         });
 
@@ -40,6 +40,13 @@ public class ControllerAjouterPaiement {
                 txtMontant.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) txtMontant.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Paiemennt");
+            Main.appliquerIcon(stage);
+        });
     }
 
     public void setAttribution(AttributionVehicule attribution) {
@@ -47,10 +54,10 @@ public class ControllerAjouterPaiement {
 
         try {
             // Récupérer le montant total et le montant déjà versé
-            this.montantTotal = Double.parseDouble(attribution.getMontantTotal().replaceAll("[^\\d.]", ""));
+            double montantTotal = Double.parseDouble(attribution.getMontantTotal().replaceAll("[^\\d.]", ""));
 
             PaiementAttributionDAO paiementDAO = new PaiementAttributionDAO();
-            this.montantDejaVerse = paiementDAO.getTotalVerse(
+            double montantDejaVerse = paiementDAO.getTotalVerse(
                     attribution.getVehicule().getIdVehicule(),
                     attribution.getPersonnel().getIdPersonnel()
             );
@@ -143,6 +150,7 @@ public class ControllerAjouterPaiement {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -151,6 +159,7 @@ public class ControllerAjouterPaiement {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

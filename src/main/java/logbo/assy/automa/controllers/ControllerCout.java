@@ -21,6 +21,7 @@ import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.EntretienDAO;
 import logbo.assy.automa.dao.MissionDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
@@ -531,6 +532,7 @@ public class ControllerCout {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -539,6 +541,7 @@ public class ControllerCout {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

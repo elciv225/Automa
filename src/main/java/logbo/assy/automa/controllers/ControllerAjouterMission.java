@@ -1,8 +1,10 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.MissionDAO;
 import logbo.assy.automa.dao.PersonnelDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
@@ -18,34 +20,18 @@ import java.util.logging.Logger;
 public class ControllerAjouterMission {
     private static final Logger LOGGER = Logger.getLogger(ControllerAjouterMission.class.getName());
 
-    @FXML
-    private TextField txtTitre;
-    @FXML
-    private ComboBox<Vehicule> comboVehicule;
-    @FXML
-    private ComboBox<Personnel> comboResponsable;
-
-    @FXML
-    private DatePicker dateDepart;
-    @FXML
-    private DatePicker dateRetourPrevu;
-
-    @FXML
-    private TextField txtKmDepart;
-    @FXML
-    private TextField txtKmRetour;
-    @FXML
-    private TextField txtDestination;
-
-    @FXML
-    private TextField txtBudgetCarburant;
-    @FXML
-    private TextField txtAutresFrais;
-    @FXML
-    private TextField txtDescription;
-
-    @FXML
-    private Button btnAjouter;
+    @FXML private TextField txtTitre;
+    @FXML private ComboBox<Vehicule> comboVehicule;
+    @FXML private ComboBox<Personnel> comboResponsable;
+    @FXML private DatePicker dateDepart;
+    @FXML private DatePicker dateRetourPrevu;
+    @FXML private TextField txtKmDepart;
+    @FXML private TextField txtKmRetour;
+    @FXML private TextField txtDestination;
+    @FXML private TextField txtBudgetCarburant;
+    @FXML private TextField txtAutresFrais;
+    @FXML private TextField txtDescription;
+    @FXML private Button btnAjouter;
 
     private MissionDAO missionDAO;
 
@@ -119,6 +105,13 @@ public class ControllerAjouterMission {
             LOGGER.log(Level.SEVERE, "Erreur d'initialisation", e);
             afficherErreur("Erreur d'initialisation", "Impossible de se connecter à la base de données: " + e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) comboVehicule.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Mission");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -181,6 +174,7 @@ public class ControllerAjouterMission {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -189,6 +183,7 @@ public class ControllerAjouterMission {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

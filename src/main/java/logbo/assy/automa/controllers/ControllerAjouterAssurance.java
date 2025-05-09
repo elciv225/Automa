@@ -25,19 +25,16 @@ public class ControllerAjouterAssurance implements Initializable {
 
     @FXML
     private TextField txtCompagnie;
-
     @FXML
     private TextField txtPrix;
-
     @FXML
     private ComboBox<String> comboType;
-
     @FXML
     private ComboBox<Vehicule> comboVehicule;
-
     @FXML
-    private DatePicker dateDebut, dateFin;
-
+    private DatePicker dateDebut;
+    @FXML
+    private DatePicker dateFin;
     @FXML
     private Button btnAjouter;
 
@@ -81,6 +78,13 @@ public class ControllerAjouterAssurance implements Initializable {
         } catch (SQLException e) {
             LOGGER.severe("Erreur chargement véhicules : " + e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) comboVehicule.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout Assurance");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -110,19 +114,27 @@ public class ControllerAjouterAssurance implements Initializable {
             AssuranceDAO dao = new AssuranceDAO();
             dao.add(assurance);
 
-            new Alert(Alert.AlertType.INFORMATION, "Assurance ajoutée avec succès !").showAndWait();
+            Alert b = new Alert(Alert.AlertType.INFORMATION, "Assurance ajoutée avec succès !");
+            Main.appliquerIconAlert(b);
+            b.showAndWait();
             btnAjouter.getScene().getWindow().hide();
 
         } catch (SQLException e) {
             if (e.getMessage().contains("possède déjà une assurance valide")) {
-                new Alert(Alert.AlertType.WARNING, e.getMessage()).showAndWait();
+                Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+                Main.appliquerIconAlert(alert);
+                alert.showAndWait();
             } else {
                 LOGGER.severe("Erreur ajout assurance : " + e.getMessage());
-                new Alert(Alert.AlertType.ERROR, "Erreur lors de l'ajout de l'assurance.").showAndWait();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de l'ajout de l'assurance.");
+                Main.appliquerIconAlert(alert);
+                alert.showAndWait();
             }
         } catch (Exception e) {
             LOGGER.severe("Erreur ajout assurance : " + e.getMessage());
-            new Alert(Alert.AlertType.ERROR, "Erreur lors de l'ajout de l'assurance.").showAndWait();
+            Alert a  = new Alert(Alert.AlertType.ERROR, "Erreur lors de l'ajout de l'assurance.");
+            Main.appliquerIconAlert(a);
+            a.showAndWait();
         }
     }
 }

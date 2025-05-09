@@ -1,10 +1,12 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.AttributionVehiculeDAO;
 import logbo.assy.automa.dao.PersonnelDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
@@ -32,6 +34,13 @@ public class ControllerAjouterAffectation {
         } catch (SQLException e) {
             showError("Erreur de chargement", e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) comboVehicule.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout Affectation");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -71,6 +80,7 @@ public class ControllerAjouterAffectation {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(titre);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -78,6 +88,7 @@ public class ControllerAjouterAffectation {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(titre);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.ServiceDAO;
 import logbo.assy.automa.models.Service;
 
@@ -44,10 +45,8 @@ public class ControllerService {
     private TableColumn<Service, String> colId;
     @FXML
     private TableColumn<Service, String> colLibelle;
-
     @FXML
     private TextField txtRecherche;
-
     @FXML
     private Button btnPrecedent;
     @FXML
@@ -58,7 +57,6 @@ public class ControllerService {
     private Button btnSupp;
     @FXML
     private Button btnImprim;
-
     @FXML
     private Label lblPage;
     @FXML
@@ -278,6 +276,7 @@ public class ControllerService {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -286,6 +285,7 @@ public class ControllerService {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

@@ -1,9 +1,11 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.CategorieVehiculeDAO;
 import logbo.assy.automa.models.CategorieVehicule;
 
@@ -36,6 +38,13 @@ public class ControllerAjouterCategorieVehicule {
             LOGGER.log(Level.SEVERE, "Erreur d'initialisation", e);
             afficherErreur("Erreur d'initialisation", "Impossible de se connecter à la base de données: " + e.getMessage());
         }
+
+        // Appliquer Titre et icone
+        Platform.runLater(() -> {
+            Stage stage = (Stage) txtLibelleCategorie.getScene().getWindow();
+            stage.setTitle("AutoMA - Ajout de Mission");
+            Main.appliquerIcon(stage);
+        });
     }
 
     @FXML
@@ -96,7 +105,7 @@ public class ControllerAjouterCategorieVehicule {
             afficherInfo("Catégorie ajoutée", "La catégorie a été ajoutée avec succès !");
             fermerModal();
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             afficherErreur("Format incorrect", "Le nombre de places doit être un nombre entier.");
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Erreur lors de l'ajout de la catégorie", e);
@@ -114,6 +123,7 @@ public class ControllerAjouterCategorieVehicule {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -122,6 +132,7 @@ public class ControllerAjouterCategorieVehicule {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

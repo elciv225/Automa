@@ -99,7 +99,7 @@ public class ControllerResponsableLogistique {
         });
 
         // Ajout du nom et de la photo de l'utilisateur
-        nomPrenUser.setText(SessionManager.getPrenom()+" "+SessionManager.getNom().toUpperCase());
+        nomPrenUser.setText(SessionManager.getPrenom() + " " + SessionManager.getNom().toUpperCase());
 
         // Chargement par défaut du tableau de bord
         loadLayout(routes.get(linkTableauBord));
@@ -118,23 +118,22 @@ public class ControllerResponsableLogistique {
      * Charge et injecte la page dans le VBox sans param événementiel
      */
     private void loadLayout(String layoutPath) {
-    new Thread(() -> {
-        try {
-            Parent page = vueCachee.get(layoutPath);
-            if (page == null) {
-                page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(layoutPath)));
-                vueCachee.put(layoutPath, page);
+        new Thread(() -> {
+            try {
+                Parent page = vueCachee.get(layoutPath);
+                if (page == null) {
+                    page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(layoutPath)));
+                    vueCachee.put(layoutPath, page);
+                }
+
+                Parent finalPage = page;
+                javafx.application.Platform.runLater(() -> contenantPages.setContent(finalPage));
+
+            } catch (IOException ex) {
+                LOGGER.severe("Erreur de chargement de " + layoutPath + " : " + ex.getMessage());
             }
-
-            Parent finalPage = page;
-            javafx.application.Platform.runLater(() -> contenantPages.setContent(finalPage));
-
-        } catch (IOException ex) {
-            LOGGER.severe("Erreur de chargement de " + layoutPath + " : " + ex.getMessage());
-        }
-    }).start();
-}
-
+        }).start();
+    }
 
 
     /**

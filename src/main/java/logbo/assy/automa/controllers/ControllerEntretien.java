@@ -14,6 +14,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.EntretienDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
 import logbo.assy.automa.models.Entretien;
@@ -32,7 +33,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ControllerEntretien {
@@ -389,6 +389,7 @@ public class ControllerEntretien {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -397,6 +398,7 @@ public class ControllerEntretien {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.MissionDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
 import logbo.assy.automa.models.Mission;
@@ -408,6 +409,7 @@ public class ControllerMission {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 
@@ -416,6 +418,7 @@ public class ControllerMission {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(contenu);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

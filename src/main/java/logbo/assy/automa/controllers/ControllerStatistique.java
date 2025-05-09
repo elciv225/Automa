@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import logbo.assy.automa.AuditLogger;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.SessionManager;
 import logbo.assy.automa.dao.AssuranceDAO;
 import logbo.assy.automa.dao.AttributionVehiculeDAO;
@@ -570,6 +571,7 @@ public class ControllerStatistique implements Initializable {
         alert.setTitle(titre);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        Main.appliquerIconAlert(alert);
         alert.showAndWait();
     }
 }

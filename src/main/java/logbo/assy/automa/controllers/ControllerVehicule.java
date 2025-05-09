@@ -1,5 +1,6 @@
 package logbo.assy.automa.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,9 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.converter.DefaultStringConverter;
+import logbo.assy.automa.Main;
 import logbo.assy.automa.dao.VehiculeDAO;
 import logbo.assy.automa.models.Vehicule;
 
@@ -133,7 +136,7 @@ public class ControllerVehicule {
         celEnergie.setCellValueFactory(new PropertyValueFactory<>(FIELD_ENERGIE));
         celPuissance.setCellValueFactory(new PropertyValueFactory<>(FIELD_PUISSANCE));
         celCategorie.setCellValueFactory(new PropertyValueFactory<>(FIELD_CATEGORIE));
-        celCouleur.setCellValueFactory(new PropertyValueFactory<>(FIELD_COULEUR ));
+        celCouleur.setCellValueFactory(new PropertyValueFactory<>(FIELD_COULEUR));
         celPrixAchat.setCellValueFactory(new PropertyValueFactory<>(FIELD_PRIX_ACHAT));
         celDateAqui.setCellValueFactory(new PropertyValueFactory<>(FIELD_DATE_ACHAT));
         celDateMiseServ.setCellValueFactory(new PropertyValueFactory<>(FIELD_DATE_MISE_EN_SERVICE));
@@ -146,7 +149,7 @@ public class ControllerVehicule {
         setupEditableColumn(celEnergie, FIELD_ENERGIE);
         setupEditableColumn(celPuissance, FIELD_PUISSANCE);
         setupEditableColumn(celCategorie, FIELD_CATEGORIE);
-        setupEditableColumn(celCouleur, FIELD_COULEUR );
+        setupEditableColumn(celCouleur, FIELD_COULEUR);
         setupEditableColumn(celPrixAchat, FIELD_PRIX_ACHAT);
         setupEditableColumn(celDateAqui, FIELD_DATE_ACHAT);
         setupEditableColumn(celDateMiseServ, FIELD_DATE_MISE_EN_SERVICE);
@@ -194,7 +197,7 @@ public class ControllerVehicule {
             case FIELD_ENERGIE -> v.getEnergie();
             case FIELD_PUISSANCE -> v.getPuissance();
             case FIELD_CATEGORIE -> v.getIdCategorie();
-            case FIELD_COULEUR  -> v.getCouleur();
+            case FIELD_COULEUR -> v.getCouleur();
             case FIELD_PRIX_ACHAT -> v.getPrixAchat();
             case FIELD_DATE_ACHAT -> v.getDateAchat();
             case FIELD_DATE_MISE_EN_SERVICE -> v.getDateMiseEnService();
@@ -212,7 +215,7 @@ public class ControllerVehicule {
             case FIELD_ENERGIE -> v.setEnergie(value);
             case FIELD_PUISSANCE -> v.setPuissance(value);
             case FIELD_CATEGORIE -> v.setIdCategorie(value);
-            case FIELD_COULEUR  -> v.setCouleur(value);
+            case FIELD_COULEUR -> v.setCouleur(value);
             case FIELD_PRIX_ACHAT -> v.setPrixAchat(value);
             case FIELD_DATE_ACHAT -> v.setDateAchat(value);
             case FIELD_DATE_MISE_EN_SERVICE -> v.setDateMiseEnService(value);
@@ -253,40 +256,46 @@ public class ControllerVehicule {
     }
 
     @FXML
-private void supprimerVehicules() {
-    List<Vehicule> selectionnes = vehiculesAffiches.filtered(Vehicule::isSelected);
-    if (selectionnes.isEmpty()) {
-        new Alert(Alert.AlertType.WARNING, "Veuillez cocher au moins un véhicule à supprimer.", ButtonType.OK).showAndWait();
-        return;
-    }
+    private void supprimerVehicules() {
+        List<Vehicule> selectionnes = vehiculesAffiches.filtered(Vehicule::isSelected);
+        if (selectionnes.isEmpty()) {
+            Alert aa =  new Alert(Alert.AlertType.WARNING, "Veuillez cocher au moins un véhicule à supprimer.", ButtonType.OK);
+            Main.appliquerIconAlert(aa);
+            aa.showAndWait();
+            return;
+        }
 
-    // Alerte de confirmation
-    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-    confirmation.setTitle("Confirmation de suppression");
-    confirmation.setHeaderText("Êtes-vous sûr de vouloir supprimer ces véhicules ?");
-    confirmation.setContentText("Cette action est irréversible.");
+        // Alerte de confirmation
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Confirmation de suppression");
+        confirmation.setHeaderText("Êtes-vous sûr de vouloir supprimer ces véhicules ?");
+        confirmation.setContentText("Cette action est irréversible.");
+        Main.appliquerIconAlert(confirmation);
+        Optional<ButtonType> result = confirmation.showAndWait();
 
-    Optional<ButtonType> result = confirmation.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                // Suppression des véhicules sélectionnés
+                for (Vehicule v : selectionnes) {
+                    dao.supprimerVehicule(v.getIdVehicule());
+                }
+                totalItems = dao.getTotalVehicules();
+                totalPages = (int) Math.ceil((double) totalItems / PAGE_SIZE);
+                chargerPage(currentPage);
 
-    if (result.isPresent() && result.get() == ButtonType.OK) {
-        try {
-            // Suppression des véhicules sélectionnés
-            for (Vehicule v : selectionnes) {
-                dao.supprimerVehicule(v.getIdVehicule());
+                // Alerte de succès après la suppression
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Les véhicules sélectionnés ont été supprimés avec succès.", ButtonType.OK);
+                Main.appliquerIconAlert(alert);
+                alert.showAndWait();
+
+            } catch (SQLException e) {
+                LOGGER.severe("Erreur suppression : " + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de la suppression des véhicules.", ButtonType.OK);
+                Main.appliquerIconAlert(alert);
+                alert.showAndWait();
             }
-            totalItems = dao.getTotalVehicules();
-            totalPages = (int) Math.ceil((double) totalItems / PAGE_SIZE);
-            chargerPage(currentPage);
-
-            // Alerte de succès après la suppression
-            new Alert(Alert.AlertType.INFORMATION, "Les véhicules sélectionnés ont été supprimés avec succès.", ButtonType.OK).showAndWait();
-
-        } catch (SQLException e) {
-            LOGGER.severe("Erreur suppression : " + e.getMessage());
-            new Alert(Alert.AlertType.ERROR, "Erreur lors de la suppression des véhicules.", ButtonType.OK).showAndWait();
         }
     }
-}
 
 
     @FXML
@@ -338,13 +347,17 @@ private void supprimerVehicules() {
             document.add(table);
             document.close();
 
-            new Alert(Alert.AlertType.INFORMATION,
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,
                     "Fichier PDF généré avec succès à l'emplacement :\n" + fichier.getAbsolutePath(),
-                    ButtonType.OK).showAndWait();
+                    ButtonType.OK);
+            Main.appliquerIconAlert(alert);
+            alert.showAndWait();
 
         } catch (Exception e) {
             LOGGER.severe("Erreur export PDF : " + e.getMessage());
-            new Alert(Alert.AlertType.ERROR, "Erreur lors de l'export PDF.", ButtonType.OK).showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Erreur lors de l'export PDF.", ButtonType.OK);
+            Main.appliquerIconAlert(alert);
+            alert.showAndWait();
         }
     }
 
