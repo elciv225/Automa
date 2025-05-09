@@ -1,30 +1,47 @@
 -- Script MySQL : création des tables pour gestion de parc automobile
 
+-- Création de la base de données avec l'encodage UTF-8mb4
+CREATE DATABASE IF NOT EXISTS automa CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Utiliser la base de données
+USE automa;
+
+-- Définir l'encodage par défaut pour les connexions
+SET NAMES utf8mb4;
+
 CREATE TABLE statut_vehicule
 (
     id_statut_vehicule VARCHAR(50) PRIMARY KEY,
     libelle            VARCHAR(20) NOT NULL
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE service
 (
     id_service   VARCHAR(50) PRIMARY KEY,
     libelle      VARCHAR(50) NOT NULL,
     localisation VARCHAR(50)
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE fonction
 (
     id_fonction VARCHAR(50) PRIMARY KEY,
     libelle     VARCHAR(50) NOT NULL
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE categorie_vehicule
 (
     id_categorie_vehicule VARCHAR(50) PRIMARY KEY,
     libelle               VARCHAR(50) NOT NULL,
     nombre_place          INT         NOT NULL
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE vehicule
 (
@@ -46,7 +63,9 @@ CREATE TABLE vehicule
             REFERENCES categorie_vehicule (id_categorie_vehicule)
             ON UPDATE CASCADE
             ON DELETE RESTRICT
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE personnel
 (
@@ -70,7 +89,9 @@ CREATE TABLE personnel
             REFERENCES service (id_service)
             ON UPDATE CASCADE
             ON DELETE RESTRICT
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE assurance
 (
@@ -86,7 +107,9 @@ CREATE TABLE assurance
             REFERENCES vehicule (id_vehicule)
             ON UPDATE CASCADE
             ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE entretien
 (
@@ -103,7 +126,9 @@ CREATE TABLE entretien
             REFERENCES vehicule (id_vehicule)
             ON UPDATE CASCADE
             ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE mission
 (
@@ -120,7 +145,9 @@ CREATE TABLE mission
             REFERENCES vehicule (id_vehicule)
             ON UPDATE CASCADE
             ON DELETE RESTRICT
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE historique_statut
 (
@@ -138,7 +165,9 @@ CREATE TABLE historique_statut
             REFERENCES vehicule (id_vehicule)
             ON UPDATE CASCADE
             ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE attribution_vehicule
 (
@@ -154,7 +183,9 @@ CREATE TABLE attribution_vehicule
     CONSTRAINT fk_attr_pers FOREIGN KEY (id_personnel)
         REFERENCES personnel (id_personnel)
         ON UPDATE CASCADE ON DELETE RESTRICT
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE paiement_attribution
 (
@@ -167,8 +198,9 @@ CREATE TABLE paiement_attribution
     CONSTRAINT fk_paie_attr FOREIGN KEY (id_vehicule, id_personnel)
         REFERENCES attribution_vehicule (id_vehicule, id_personnel)
         ON DELETE CASCADE
-);
-
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE participer_mission
 (
@@ -185,7 +217,9 @@ CREATE TABLE participer_mission
             REFERENCES mission (id_mission)
             ON UPDATE CASCADE
             ON DELETE CASCADE
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE audit_log
 (
@@ -196,7 +230,9 @@ CREATE TABLE audit_log
     id_entite   VARCHAR(50),
     date_action TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     details     TEXT
-);
+) ENGINE = InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
 
 -- Insertion des données de référence
@@ -228,12 +264,13 @@ VALUES ('CAT_BERLINE', 'Berline', '5'),
        ('CAT_MINIBUS', 'Minibus', '15');
 
 -- Insertion d'un administrateur avec email et téléphone
-INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service, email, telephone)
+INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service, email,
+                       telephone)
 VALUES ('PERS_ADMIN_01',
         'Admin',
         'Systeme',
         'admin',
-        'admin123', -- Tu peux plus tard chiffrer ce mot de passe
+        'admin123', -- À chiffrer en production
         'CDI',
         'FONC_ADMIN',
         'SERV_INFORMATIQUE',
@@ -241,12 +278,13 @@ VALUES ('PERS_ADMIN_01',
         '0101020304');
 
 -- Insertion d'un responsable logistique avec email et téléphone
-INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service, email, telephone)
+INSERT INTO personnel (id_personnel, nom, prenom, login, mot_de_passe, contrat, id_fonction, id_service, email,
+                       telephone)
 VALUES ('PERS_LOG_01',
         'Responsable',
         'Logistique',
         'resplog',
-        'log123', -- Pareil ici, à chiffrer en production
+        'log123', -- À chiffrer en production
         'CDI',
         'FONC_RESPONSABLELOG',
         'SERV_LOGISTIQUE',
@@ -269,8 +307,7 @@ VALUES ('VEH_AB1234CD', 'CHS123456789', 'AB1234CD', 'Toyota', 'Corolla', 'Essenc
        ('VEH_GH3456IJ', 'CHS321654987', 'GH3456IJ', 'Ford', 'Transit', 'Diesel',
         '2023-02-05', '2028-02-05', '2023-03-01', '130 CV', 'Noir', '12 000 000 FCFA', 'CAT_MINIBUS');
 
--- Insertion d’assurances pour les véhicules
-
+-- Insertion d'assurances pour les véhicules
 INSERT INTO assurance (id_assurance, date_debut, date_fin, agence, contrat, prix, id_vehicule)
 VALUES ('ASSU_NSIA_VEH_AB1234CD_20230101_20231231', '2023-01-01', '2023-12-31', 'NSIA', 'Tous Risques', '180000',
         'VEH_AB1234CD'),
@@ -280,4 +317,3 @@ VALUES ('ASSU_NSIA_VEH_AB1234CD_20230101_20231231', '2023-01-01', '2023-12-31', 
         'VEH_EF9012GH'),
        ('ASSU_ALLIANZ_VEH_GH3456IJ_20230710_20240709', '2023-07-10', '2024-07-09', 'ALLIANZ', 'Tous Risques',
         '200000', 'VEH_GH3456IJ');
-

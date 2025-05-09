@@ -33,7 +33,12 @@ public class Database implements AutoCloseable {
      */
     public Database(String host, String dbName, String username, String password) {
         this.url = "jdbc:mysql://" + host + ":3306/" + dbName +
-                "?useSSL=true&serverTimezone=UTC";
+                "?useSSL=true" +
+                "&serverTimezone=UTC" +
+                "&useUnicode=true" +
+                "&characterEncoding=utf8mb4" +
+                "&connectionCollation=utf8mb4_unicode_ci" +
+                "&characterSetResults=utf8mb4";
         this.username = username;
         this.password = password;
         this.connection = initConnection();
