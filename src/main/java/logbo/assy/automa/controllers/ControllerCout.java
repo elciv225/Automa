@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -30,6 +29,7 @@ import logbo.assy.automa.models.Mission;
 import logbo.assy.automa.models.Vehicule;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -48,8 +48,18 @@ public class ControllerCout {
     @FXML private DatePicker dateFin;
     @FXML private PieChart pieChartDepenses;
     @FXML private LineChart<String, Number> lineChartAmortissement;
+
+    // Labels pour les coûts détaillés
+    @FXML private Label labelCoutEntretien;
+    @FXML private Label labelCoutCarburant;
+    @FXML private Label labelCoutMissions;
     @FXML private Label labelTotalDepenses;
+
+    // Labels pour les informations d'amortissement
+    @FXML private Label labelAmortissementMensuel;
     @FXML private Label labelAmortissementAnnuel;
+    @FXML private Label labelAmortissementPeriode;
+    @FXML private Label labelNombreVehicules;
 
     private EntretienDAO entretienDAO;
     private MissionDAO missionDAO;
@@ -102,7 +112,7 @@ public class ControllerCout {
             mettreAJourPieChart(entretiens, missions);
             mettreAJourLineChart(entretiens, missions, vehicules);
 
-            // Calcul et affichage des statistiques
+            // Calcul et affichage des statistiques détaillées
             calculerEtAfficherStatistiques(entretiens, missions, vehicules);
 
         } catch (SQLException e) {
@@ -115,10 +125,22 @@ public class ControllerCout {
         LocalDate debut = dateDebut.getValue();
         LocalDate fin = dateFin.getValue();
 
+        if (debut == null || fin == null) {
+            return Collections.emptyList();
+        }
+
         return entretiens.stream()
                 .filter(e -> {
-                    LocalDate dateEntree = LocalDate.parse(e.getDateEntree());
-                    return !dateEntree.isBefore(debut) && !dateEntree.isAfter(fin);
+                    if (e.getDateEntree() == null || e.getDateEntree().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        LocalDate dateEntree = LocalDate.parse(e.getDateEntree());
+                        return !dateEntree.isBefore(debut) && !dateEntree.isAfter(fin);
+                    } catch (Exception ex) {
+                        LOGGER.warning("Format de date invalide pour entretien: " + e.getDateEntree());
+                        return false;
+                    }
                 })
                 .collect(Collectors.toList());
     }
@@ -127,10 +149,22 @@ public class ControllerCout {
         LocalDate debut = dateDebut.getValue();
         LocalDate fin = dateFin.getValue();
 
+        if (debut == null || fin == null) {
+            return Collections.emptyList();
+        }
+
         return missions.stream()
                 .filter(m -> {
-                    LocalDate dateDebut = LocalDate.parse(m.getDateDebut());
-                    return !dateDebut.isBefore(debut) && !dateDebut.isAfter(fin);
+                    if (m.getDateDebut() == null || m.getDateDebut().isEmpty()) {
+                        return false;
+                    }
+                    try {
+                        LocalDate dateDebut = LocalDate.parse(m.getDateDebut());
+                        return !dateDebut.isBefore(debut) && !dateDebut.isAfter(fin);
+                    } catch (Exception ex) {
+                        LOGGER.warning("Format de date invalide pour mission: " + m.getDateDebut());
+                        return false;
+                    }
                 })
                 .collect(Collectors.toList());
     }
@@ -150,11 +184,18 @@ public class ControllerCout {
                 .sum() - coutCarburant; // Soustraction pour éviter le double comptage
 
         // Création des données pour le PieChart
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Entretiens", coutEntretiens),
-                new PieChart.Data("Carburant", coutCarburant),
-                new PieChart.Data("Autres coûts mission", coutMissions)
-        );
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        // N'ajouter les segments que s'ils ont des valeurs positives
+        if (coutEntretiens > 0) {
+            pieChartData.add(new PieChart.Data("Entretiens", coutEntretiens));
+        }
+        if (coutCarburant > 0) {
+            pieChartData.add(new PieChart.Data("Carburant", coutCarburant));
+        }
+        if (coutMissions > 0) {
+            pieChartData.add(new PieChart.Data("Autres coûts mission", coutMissions));
+        }
 
         pieChartDepenses.setData(pieChartData);
 
@@ -172,6 +213,10 @@ public class ControllerCout {
         LocalDate debut = dateDebut.getValue();
         LocalDate fin = dateFin.getValue();
 
+        if (debut == null || fin == null) {
+            return;
+        }
+
         // Créer une série pour l'amortissement mensuel
         XYChart.Series<String, Number> amortissementSeries = new XYChart.Series<>();
         amortissementSeries.setName("Amortissement mensuel");
@@ -188,24 +233,37 @@ public class ControllerCout {
 
         // Calculer les dépenses mensuelles
         for (Entretien e : entretiens) {
-            LocalDate date = LocalDate.parse(e.getDateEntree());
-            YearMonth mois = YearMonth.from(date);
+            if (e.getDateEntree() == null || e.getDateEntree().isEmpty()) continue;
 
-            double montant = e.getPrix() != null ? parseDouble(e.getPrix()) : 0;
-            depensesMensuelles.put(mois, depensesMensuelles.getOrDefault(mois, 0.0) + montant);
+            try {
+                LocalDate date = LocalDate.parse(e.getDateEntree());
+                YearMonth mois = YearMonth.from(date);
+
+                double montant = e.getPrix() != null ? parseDouble(e.getPrix()) : 0;
+                depensesMensuelles.put(mois, depensesMensuelles.getOrDefault(mois, 0.0) + montant);
+            } catch (Exception ex) {
+                LOGGER.warning("Erreur lors du traitement de l'entretien: " + ex.getMessage());
+            }
         }
 
         for (Mission m : missions) {
-            LocalDate date = LocalDate.parse(m.getDateDebut());
-            YearMonth mois = YearMonth.from(date);
+            if (m.getDateDebut() == null || m.getDateDebut().isEmpty()) continue;
 
-            double montant = m.getCout() != null ? parseDouble(m.getCout()) : 0;
-            depensesMensuelles.put(mois, depensesMensuelles.getOrDefault(mois, 0.0) + montant);
+            try {
+                LocalDate date = LocalDate.parse(m.getDateDebut());
+                YearMonth mois = YearMonth.from(date);
+
+                double montant = m.getCout() != null ? parseDouble(m.getCout()) : 0;
+                depensesMensuelles.put(mois, depensesMensuelles.getOrDefault(mois, 0.0) + montant);
+            } catch (Exception ex) {
+                LOGGER.warning("Erreur lors du traitement de la mission: " + ex.getMessage());
+            }
         }
 
         // Calculer l'amortissement mensuel total de tous les véhicules
         double amortissementMensuelTotal = vehicules.stream()
                 .mapToDouble(v -> {
+                    if (v.getPrixAchat() == null || v.getPrixAchat().isEmpty()) return 0;
                     double prixAchat = parseDouble(v.getPrixAchat());
                     // Amortissement sur 5 ans (60 mois)
                     return prixAchat / 60.0;
@@ -232,29 +290,48 @@ public class ControllerCout {
     }
 
     private void calculerEtAfficherStatistiques(List<Entretien> entretiens, List<Mission> missions, List<Vehicule> vehicules) {
-        // Calcul du total des dépenses
-        double totalEntretiens = entretiens.stream()
+        // Calcul des coûts détaillés
+        double coutEntretiens = entretiens.stream()
                 .mapToDouble(e -> e.getPrix() != null ? parseDouble(e.getPrix()) : 0)
                 .sum();
 
-        double totalMissions = missions.stream()
-                .mapToDouble(m -> m.getCout() != null ? parseDouble(m.getCout()) : 0)
+        double coutCarburant = missions.stream()
+                .mapToDouble(m -> m.getCoutCarburant() != null ? parseDouble(m.getCoutCarburant()) : 0)
                 .sum();
 
-        double totalDepenses = totalEntretiens + totalMissions;
+        double coutMissions = missions.stream()
+                .mapToDouble(m -> m.getCout() != null ? parseDouble(m.getCout()) : 0)
+                .sum() - coutCarburant; // Éviter le double comptage
 
-        // Calcul de l'amortissement annuel moyen
+        double totalDepenses = coutEntretiens + coutCarburant + coutMissions;
+
+        // Calcul des amortissements
         double amortissementAnnuel = vehicules.stream()
                 .mapToDouble(v -> {
+                    if (v.getPrixAchat() == null || v.getPrixAchat().isEmpty()) return 0;
                     double prixAchat = parseDouble(v.getPrixAchat());
                     // Amortissement sur 5 ans
                     return prixAchat / 5.0;
                 })
                 .sum();
 
-        // Affichage des statistiques
+        double amortissementMensuel = amortissementAnnuel / 12.0;
+
+        // Calcul de l'amortissement sur la période sélectionnée
+        long nombreMois = getPeriodInMonths(dateDebut.getValue(), dateFin.getValue());
+        double amortissementPeriode = amortissementMensuel * nombreMois;
+
+        // Mise à jour des labels de coûts détaillés
+        labelCoutEntretien.setText(String.format("%,.0f FCFA", coutEntretiens));
+        labelCoutCarburant.setText(String.format("%,.0f FCFA", coutCarburant));
+        labelCoutMissions.setText(String.format("%,.0f FCFA", coutMissions));
         labelTotalDepenses.setText(String.format("%,.0f FCFA", totalDepenses));
+
+        // Mise à jour des labels d'amortissement
+        labelAmortissementMensuel.setText(String.format("%,.0f FCFA", amortissementMensuel));
         labelAmortissementAnnuel.setText(String.format("%,.0f FCFA", amortissementAnnuel));
+        labelAmortissementPeriode.setText(String.format("%,.0f FCFA", amortissementPeriode));
+        labelNombreVehicules.setText(String.valueOf(vehicules.size()));
     }
 
     @FXML
@@ -280,48 +357,58 @@ public class ControllerCout {
                 Document doc = new Document(pdf);
 
                 // Titre et période
-                doc.add(new Paragraph("Rapport de coûts et amortissements")
-                        .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
-                        .setFontSize(16));
+                try {
+                    doc.add(new Paragraph("Rapport de coûts et amortissements")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
+                            .setFontSize(16));
 
-                doc.add(new Paragraph("Période: " + formatDate(dateDebut.getValue()) + " à " + formatDate(dateFin.getValue()))
-                        .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
-                        .setFontSize(12));
+                    doc.add(new Paragraph("Période: " + formatDate(dateDebut.getValue()) + " à " + formatDate(dateFin.getValue()))
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
+                            .setFontSize(12));
+                } catch (IOException e) {
+                    LOGGER.log(Level.WARNING, "Erreur de police PDF", e);
+                    doc.add(new Paragraph("Rapport de coûts et amortissements").setFontSize(16));
+                    doc.add(new Paragraph("Période: " + formatDate(dateDebut.getValue()) + " à " + formatDate(dateFin.getValue())).setFontSize(12));
+                }
 
                 doc.add(new Paragraph("\n"));
 
                 // Résumé des coûts
-                doc.add(new Paragraph("Résumé des coûts")
-                        .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
-                        .setFontSize(14));
+                try {
+                    doc.add(new Paragraph("Résumé des coûts")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
+                            .setFontSize(14));
+                } catch (IOException e) {
+                    doc.add(new Paragraph("Résumé des coûts").setFontSize(14));
+                }
 
                 // Statistiques
-                double totalEntretiens = entretiens.stream()
+                double coutEntretiens = entretiens.stream()
                         .mapToDouble(e -> e.getPrix() != null ? parseDouble(e.getPrix()) : 0)
                         .sum();
 
-                double totalCarburant = missions.stream()
+                double coutCarburant = missions.stream()
                         .mapToDouble(m -> m.getCoutCarburant() != null ? parseDouble(m.getCoutCarburant()) : 0)
                         .sum();
 
-                double totalMissions = missions.stream()
+                double coutMissionsAutres = missions.stream()
                         .mapToDouble(m -> m.getCout() != null ? parseDouble(m.getCout()) : 0)
-                        .sum() - totalCarburant;
+                        .sum() - coutCarburant;
 
-                double totalDepenses = totalEntretiens + totalCarburant + totalMissions;
+                double totalDepenses = coutEntretiens + coutCarburant + coutMissionsAutres;
 
                 // Tableau des coûts
                 Table table = new Table(2);
                 table.setWidth(400);
 
                 table.addCell("Coûts d'entretien");
-                table.addCell(String.format("%,.0f FCFA", totalEntretiens));
+                table.addCell(String.format("%,.0f FCFA", coutEntretiens));
 
                 table.addCell("Coûts de carburant");
-                table.addCell(String.format("%,.0f FCFA", totalCarburant));
+                table.addCell(String.format("%,.0f FCFA", coutCarburant));
 
                 table.addCell("Autres coûts de mission");
-                table.addCell(String.format("%,.0f FCFA", totalMissions));
+                table.addCell(String.format("%,.0f FCFA", coutMissionsAutres));
 
                 table.addCell("Total des dépenses");
                 table.addCell(String.format("%,.0f FCFA", totalDepenses));
@@ -331,19 +418,31 @@ public class ControllerCout {
                 doc.add(new Paragraph("\n"));
 
                 // Amortissement
-                doc.add(new Paragraph("Amortissement")
-                        .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
-                        .setFontSize(14));
+                try {
+                    doc.add(new Paragraph("Amortissement")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
+                            .setFontSize(14));
+                } catch (IOException e) {
+                    doc.add(new Paragraph("Amortissement").setFontSize(14));
+                }
 
                 double amortissementAnnuel = vehicules.stream()
-                        .mapToDouble(v -> parseDouble(v.getPrixAchat()) / 5.0)
+                        .mapToDouble(v -> {
+                            if (v.getPrixAchat() == null || v.getPrixAchat().isEmpty()) return 0;
+                            return parseDouble(v.getPrixAchat()) / 5.0;
+                        })
                         .sum();
 
-                double amortissementPeriode = amortissementAnnuel / 12.0 *
+                double amortissementMensuel = amortissementAnnuel / 12.0;
+
+                double amortissementPeriode = amortissementMensuel *
                         getPeriodInMonths(dateDebut.getValue(), dateFin.getValue());
 
                 Table tableAmort = new Table(2);
                 tableAmort.setWidth(400);
+
+                tableAmort.addCell("Amortissement mensuel");
+                tableAmort.addCell(String.format("%,.0f FCFA", amortissementMensuel));
 
                 tableAmort.addCell("Amortissement annuel");
                 tableAmort.addCell(String.format("%,.0f FCFA", amortissementAnnuel));
@@ -356,9 +455,13 @@ public class ControllerCout {
                 doc.add(new Paragraph("\n"));
 
                 // Détail des véhicules
-                doc.add(new Paragraph("Détail des véhicules")
-                        .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
-                        .setFontSize(14));
+                try {
+                    doc.add(new Paragraph("Détail des véhicules")
+                            .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
+                            .setFontSize(14));
+                } catch (IOException e) {
+                    doc.add(new Paragraph("Détail des véhicules").setFontSize(14));
+                }
 
                 Table tableVehicules = new Table(4);
                 tableVehicules.setWidth(500);
@@ -369,11 +472,12 @@ public class ControllerCout {
                 tableVehicules.addCell("Amortissement mensuel");
 
                 for (Vehicule v : vehicules) {
-                    tableVehicules.addCell(v.getImmatriculation());
-                    tableVehicules.addCell(v.getPrixAchat() + " FCFA");
-                    tableVehicules.addCell(v.getDateAchat());
+                    tableVehicules.addCell(v.getImmatriculation() != null ? v.getImmatriculation() : "");
+                    tableVehicules.addCell((v.getPrixAchat() != null ? v.getPrixAchat() : "0") + " FCFA");
+                    tableVehicules.addCell(v.getDateAchat() != null ? v.getDateAchat() : "");
 
-                    double amortMensuel = parseDouble(v.getPrixAchat()) / 60.0;
+                    double amortMensuel = (v.getPrixAchat() != null && !v.getPrixAchat().isEmpty()) ?
+                            parseDouble(v.getPrixAchat()) / 60.0 : 0;
                     tableVehicules.addCell(String.format("%,.0f FCFA", amortMensuel));
                 }
 
@@ -409,10 +513,13 @@ public class ControllerCout {
     }
 
     private String formatDate(LocalDate date) {
+        if (date == null) return "";
         return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     private long getPeriodInMonths(LocalDate start, LocalDate end) {
+        if (start == null || end == null) return 0;
+
         long years = end.getYear() - start.getYear();
         long months = end.getMonthValue() - start.getMonthValue();
 

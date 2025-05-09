@@ -16,56 +16,165 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" spacing="15.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerTableauBord">
+<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" spacing="15.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerTableauBord">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
     <children>
         <Label styleClass="title-page" text="Tableau de Bord Responsable Logistique" />
 
         <!-- Cartes statistiques -->
         <GridPane hgap="15.0" vgap="15.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="270.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="270.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="270.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints prefHeight="130.0" vgrow="SOMETIMES" />
                 <RowConstraints prefHeight="130.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <!-- Exemples de cartes -->
             <children>
+                <!-- Carte Véhicules -->
                 <VBox styleClass="stats-box" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </padding>
                     <HBox spacing="10.0">
                         <ImageView fitHeight="40.0" fitWidth="40.0">
                             <image>
                                 <Image url="@../images/icones/vehi.png" />
                             </image>
                         </ImageView>
-                        <Label text="Véhicules" styleClass="stats-title" />
+                        <Label styleClass="stats-title" text="Véhicules" />
                     </HBox>
-                    <Label fx:id="lblTotalVehicules" text="32" styleClass="stats-value" />
-                    <Label text="Total dans le parc" styleClass="stats-subtitle" />
+                    <Label fx:id="lblTotalVehicules" styleClass="stats-value" text="32" />
+                    <Label styleClass="stats-subtitle" text="Total dans le parc" />
                 </VBox>
-                <!-- Répéter pour Missions, Entretiens, etc. -->
+
+                <!-- Carte Missions -->
+                <VBox styleClass="stats-box" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </padding>
+                    <HBox spacing="10.0">
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                            <image>
+                                <Image url="@../images/icones/mission.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="stats-title" text="Missions" />
+                    </HBox>
+                    <Label fx:id="lblTotalMissions" styleClass="stats-value" text="14" />
+                    <Label styleClass="stats-subtitle" text="Missions en cours" />
+                </VBox>
+
+                <!-- Carte Entretiens -->
+                <VBox styleClass="stats-box" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </padding>
+                    <HBox spacing="10.0">
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                            <image>
+                                <Image url="@../images/icones/wrench.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="stats-title" text="Entretiens" />
+                    </HBox>
+                    <Label fx:id="lblTotalEntretiens" styleClass="stats-value" text="8" />
+                    <Label styleClass="stats-subtitle" text="Véhicules en entretien" />
+                </VBox>
+
+                <!-- Carte Assurances -->
+                <VBox styleClass="stats-box" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </padding>
+                    <HBox spacing="10.0">
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                            <image>
+                                <Image url="@../images/icones/assu.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="stats-title" text="Assurances" />
+                    </HBox>
+                    <Label fx:id="lblAssuranceExpire" styleClass="stats-value" text="3" />
+                    <Label styleClass="stats-subtitle" text="Expirent ce mois-ci" />
+                </VBox>
+
+                <!-- Carte Coûts -->
+                <VBox styleClass="stats-box" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </padding>
+                    <HBox spacing="10.0">
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                            <image>
+                                <Image url="@../images/icones/wallet.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="stats-title" text="Coûts" />
+                    </HBox>
+                    <Label fx:id="lblCoutMensuel" styleClass="stats-value" text="7.2M" />
+                    <Label styleClass="stats-subtitle" text="Budget mensuel (FCFA)" />
+                </VBox>
+
+                <!-- Carte Affectations -->
+                <VBox styleClass="stats-box" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <padding>
+                        <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                    </padding>
+                    <HBox spacing="10.0">
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                            <image>
+                                <Image url="@../images/icones/asso.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="stats-title" text="Affectations" />
+                    </HBox>
+                    <Label fx:id="lblAffectations" styleClass="stats-value" text="28" />
+                    <Label styleClass="stats-subtitle" text="Véhicules attribués" />
+                </VBox>
             </children>
+            <VBox.margin>
+                <Insets bottom="10.0" top="10.0" />
+            </VBox.margin>
         </GridPane>
 
         <!-- Graphiques -->
-        <BorderPane>
+        <BorderPane prefHeight="320.0">
             <left>
-                <VBox>
-                    <Label text="Répartition des véhicules par catégorie" styleClass="chart-title" />
+                <VBox prefHeight="320.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                    <Label styleClass="chart-title" text="Répartition des véhicules par catégorie">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0">
+                                <image>
+                                    <Image url="@../images/icones/chart.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Label>
                     <PieChart fx:id="pieChartCategories" prefHeight="320.0" prefWidth="400.0" />
                 </VBox>
             </left>
             <right>
-                <VBox>
-                    <Label text="Évolution des coûts mensuels" styleClass="chart-title" />
+                <VBox prefHeight="320.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                    <Label styleClass="chart-title" text="Évolution des coûts mensuels">
+                        <graphic>
+                            <ImageView fitHeight="24.0" fitWidth="24.0">
+                                <image>
+                                    <Image url="@../images/icones/chart.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Label>
                     <BarChart fx:id="barChartCouts" prefHeight="320.0" prefWidth="400.0">
                         <xAxis>
-                            <CategoryAxis />
+                            <CategoryAxis side="BOTTOM" />
                         </xAxis>
                         <yAxis>
-                            <NumberAxis />
+                            <NumberAxis side="LEFT" />
                         </yAxis>
                     </BarChart>
                 </VBox>
@@ -74,7 +183,10 @@
 
         <!-- Alertes -->
         <VBox styleClass="alert-box">
-            <Label text="Alertes et Notifications" styleClass="alert-title">
+            <padding>
+                <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+            </padding>
+            <Label styleClass="alert-title" text="Alertes et Notifications">
                 <graphic>
                     <ImageView fitHeight="24.0" fitWidth="24.0">
                         <image>
@@ -84,9 +196,7 @@
                 </graphic>
             </Label>
             <VBox fx:id="vboxAlertes" spacing="5.0">
-                <Label text="⚠️ 2 assurances expirent cette semaine" styleClass="alert-item" />
-                <Label text="🔧 Entretien requis pour 3 véhicules" styleClass="alert-item" />
-                <Label text="📊 Budget carburant dépassé de 15%" styleClass="alert-item" />
+                <!-- Les alertes seront ajoutées dynamiquement -->
             </VBox>
         </VBox>
     </children>

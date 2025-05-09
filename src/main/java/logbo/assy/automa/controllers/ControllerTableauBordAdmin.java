@@ -8,15 +8,18 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import logbo.assy.automa.AuditLogger;
 import logbo.assy.automa.SessionManager;
 import logbo.assy.automa.dao.AuditLogDAO;
 import logbo.assy.automa.dao.CategorieVehiculeDAO;
 import logbo.assy.automa.dao.PersonnelDAO;
 import logbo.assy.automa.dao.ServiceDAO;
+import logbo.assy.automa.dao.StatistiqueDAO;
 import logbo.assy.automa.dao.VehiculeDAO;
 import logbo.assy.automa.models.AuditLog;
 import logbo.assy.automa.models.CategorieVehicule;
+import logbo.assy.automa.models.StatistiqueGraphique;
 import logbo.assy.automa.models.Vehicule;
 
 import java.net.URL;
@@ -52,11 +55,15 @@ public class ControllerTableauBordAdmin implements Initializable {
     @FXML
     private BarChart<String, Number> barChart;
 
+    @FXML
+    private VBox alertesContainer;
+
     private VehiculeDAO vehiculeDAO;
     private PersonnelDAO personnelDAO;
     private ServiceDAO serviceDAO;
     private CategorieVehiculeDAO categorieDAO;
     private AuditLogDAO auditLogDAO;
+    private StatistiqueDAO statistiqueDAO;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,6 +74,7 @@ public class ControllerTableauBordAdmin implements Initializable {
             serviceDAO = new ServiceDAO();
             categorieDAO = new CategorieVehiculeDAO();
             auditLogDAO = new AuditLogDAO();
+            statistiqueDAO = new StatistiqueDAO();
 
             // Charger les statistiques
             chargerStatistiques();
@@ -74,6 +82,9 @@ public class ControllerTableauBordAdmin implements Initializable {
             // Charger les graphiques
             chargerGraphiqueCategories();
             chargerGraphiqueActivite();
+
+            // Charger les alertes
+            chargerAlertes();
 
             // Journaliser l'accès au tableau de bord
             AuditLogger.log(
@@ -150,7 +161,9 @@ public class ControllerTableauBordAdmin implements Initializable {
             // Créer les données pour le PieChart
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
             countByCategory.forEach((categorie, count) -> {
-                pieChartData.add(new PieChart.Data(categorie + " (" + count + ")", count));
+                if (count > 0) { // Ne montrer que les catégories avec au moins un véhicule
+                    pieChartData.add(new PieChart.Data(categorie + " (" + count + ")", count));
+                }
             });
 
             // Appliquer les données au graphique
@@ -209,6 +222,57 @@ public class ControllerTableauBordAdmin implements Initializable {
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Erreur lors du chargement du graphique d'activité", e);
+        }
+    }
+
+    /**
+     * Charge les alertes système
+     */
+    private void chargerAlertes() {
+        try {
+            // Récupérer les alertes depuis le DAO
+            List<String> alertes = statistiqueDAO.getAlertes();
+
+            // Vider le conteneur d'alertes (sauf le titre)
+            if (alertesContainer.getChildren().size() > 1) {
+                alertesContainer.getChildren().remove(1, alertesContainer.getChildren().size());
+            }
+
+            if (alertes.isEmpty()) {
+                // Ajouter un message si aucune alerte
+                Label noAlerts = new Label("Aucune alerte à signaler");
+                noAlerts.getStyleClass().add("alert-item");
+                alertesContainer.getChildren().add(noAlerts);
+            } else {
+                // Ajouter chaque alerte au conteneur
+                for (String alerte : alertes) {
+                    Label alerteLabel = new Label(alerte);
+                    alerteLabel.getStyleClass().add("alert-item");
+                    alertesContainer.getChildren().add(alerteLabel);
+                }
+            }
+
+            // Ajouter des statistiques critiques
+            try {
+                Map<String, Object> statsAttrib = statistiqueDAO.getStatistiquesAttributions();
+                double pourcentage = (double) statsAttrib.getOrDefault("pourcentageRecouvrement", 0.0);
+
+                if (pourcentage < 50.0) {
+                    Label alerteRecouvrement = new Label(String.format("⚠️ Taux de recouvrement des attributions seulement %.1f%%", pourcentage));
+                    alerteRecouvrement.getStyleClass().add("alert-item");
+                    alertesContainer.getChildren().add(alerteRecouvrement);
+                }
+            } catch (Exception e) {
+                LOGGER.log(Level.WARNING, "Erreur lors du calcul des alertes de recouvrement", e);
+            }
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Erreur lors du chargement des alertes", e);
+
+            // Ajouter un message d'erreur
+            Label errorLabel = new Label("Erreur lors du chargement des alertes");
+            errorLabel.getStyleClass().add("alert-item");
+            alertesContainer.getChildren().add(errorLabel);
         }
     }
 }

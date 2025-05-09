@@ -10,18 +10,30 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<VBox alignment="TOP_CENTER" prefHeight="660.0" prefWidth="864.0" spacing="15.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerStatistique">
+<VBox alignment="TOP_CENTER" prefHeight="660.0" prefWidth="864.0" spacing="15.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerStatistique">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0">
          <children>
-            <Label styleClass="page-title" text="Statistiques de la flotte">
-               <font><Font name="System Bold" size="18.0" /></font>
+            <Label styleClass="title-page" text="Statistiques de la flotte">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0">
+                     <image>
+                        <Image url="@../images/icones/chart-bar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
             <Pane HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" spacing="10.0">
@@ -30,65 +42,128 @@
                   <DatePicker fx:id="dateDebut" promptText="Date début" />
                   <Label text="à" />
                   <DatePicker fx:id="dateFin" promptText="Date fin" />
+                  <Button fx:id="btnAppliquer" mnemonicParsing="false" onAction="#appliquerFiltre" styleClass="btn-ajouter" text="Appliquer" />
                </children>
             </HBox>
          </children>
-         <padding><Insets left="15.0" right="15.0" /></padding>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
       </HBox>
 
       <Separator prefWidth="800.0" />
 
       <HBox alignment="CENTER" spacing="15.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stat-card">
+            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stats-box">
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
                <children>
-                  <Label styleClass="stat-title" text="Répartition des véhicules">
-                     <font><Font name="System Bold" size="14.0" /></font>
+                  <Label styleClass="stats-title" text="Répartition des véhicules">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@../images/icones/chart-pie.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
                   <PieChart fx:id="pieChartVehicules" legendSide="RIGHT" prefHeight="250.0" prefWidth="400.0" />
                </children>
             </VBox>
 
-            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stat-card">
+            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stats-box">
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
                <children>
-                  <Label styleClass="stat-title" text="Coûts mensuels">
-                     <font><Font name="System Bold" size="14.0" /></font>
+                  <Label styleClass="stats-title" text="Coûts mensuels">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@../images/icones/chart-line.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
                   <LineChart fx:id="lineChartCouts" legendSide="RIGHT" prefHeight="250.0" prefWidth="400.0">
-                     <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
-                     <yAxis><NumberAxis side="LEFT" /></yAxis>
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
                   </LineChart>
                </children>
             </VBox>
          </children>
-         <padding><Insets left="15.0" right="15.0" /></padding>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
       </HBox>
 
       <HBox alignment="CENTER" spacing="15.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stat-card">
+            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stats-box">
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
                <children>
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
-                        <Label styleClass="stat-title" text="Utilisation des véhicules">
-                           <font><Font name="System Bold" size="14.0" /></font>
+                        <Label styleClass="stats-title" text="Utilisation des véhicules">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0">
+                                 <image>
+                                    <Image url="@../images/icones/vehi.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS" />
-                        <ComboBox fx:id="comboFiltre" prefWidth="150.0" promptText="Filtrer par" />
+                        <ComboBox fx:id="comboFiltre" prefWidth="150.0" promptText="Filtrer par" onAction="#filtrerUtilisation" />
                      </children>
-                     <padding><Insets bottom="5.0" top="5.0" /></padding>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
                   </HBox>
                   <BarChart fx:id="barChartUtilisation" legendSide="RIGHT" prefHeight="240.0" prefWidth="400.0">
-                     <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
-                     <yAxis><NumberAxis side="LEFT" /></yAxis>
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
                   </BarChart>
                </children>
             </VBox>
 
-            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stat-card">
+            <VBox alignment="TOP_CENTER" prefHeight="280.0" prefWidth="400.0" styleClass="stats-box">
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
                <children>
-                  <Label styleClass="stat-title" text="Indicateurs clés de performance">
-                     <font><Font name="System Bold" size="14.0" /></font>
+                  <Label styleClass="stats-title" text="Indicateurs clés de performance">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@../images/icones/kpi.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
                   <AnchorPane prefHeight="240.0" prefWidth="400.0">
                      <children>
@@ -106,7 +181,7 @@
                                  <children>
                                     <Label styleClass="kpi-label" text="Coût moyen d'entretien:" />
                                     <Pane HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="labelCoutEntretien" styleClass="kpi-value" text="235€/mois" />
+                                    <Label fx:id="labelCoutEntretien" styleClass="kpi-value" text="235 000 FCFA/mois" />
                                  </children>
                               </HBox>
 
@@ -120,9 +195,9 @@
 
                               <HBox alignment="CENTER_LEFT" styleClass="kpi-item">
                                  <children>
-                                    <Label styleClass="kpi-label" text="Total distance parcourue:" />
+                                    <Label styleClass="kpi-label" text="Dépenses totales:" />
                                     <Pane HBox.hgrow="ALWAYS" />
-                                    <Label fx:id="labelDistance" styleClass="kpi-value" text="24 560 km" />
+                                    <Label fx:id="labelDepenses" styleClass="kpi-value" text="24.5M FCFA" />
                                  </children>
                               </HBox>
                            </children>
@@ -132,8 +207,12 @@
                </children>
             </VBox>
          </children>
-         <padding><Insets left="15.0" right="15.0" /></padding>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
       </HBox>
    </children>
-   <padding><Insets bottom="20.0" top="20.0" /></padding>
+   <padding>
+      <Insets bottom="20.0" top="20.0" />
+   </padding>
 </VBox>

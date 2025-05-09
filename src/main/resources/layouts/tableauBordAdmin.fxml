@@ -10,10 +10,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" spacing="15.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerTableauBordAdmin">
+<VBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="851.0" spacing="15.0" styleClass="page" stylesheets="@../styles/main.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerTableauBordAdmin">
    <children>
       <Label styleClass="title-page" text="Tableau de Bord Administrateur" />
+
+      <!-- Cartes de statistiques principales -->
       <HBox prefHeight="150.0" prefWidth="200.0" spacing="15.0">
          <children>
             <VBox prefHeight="150.0" prefWidth="200.0" styleClass="stats-box">
@@ -77,6 +82,8 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </HBox>
+
+      <!-- Graphiques principaux -->
       <BorderPane prefHeight="400.0" prefWidth="851.0">
          <left>
             <VBox prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
@@ -94,12 +101,12 @@
                <children>
                   <Label styleClass="chart-title" text="Activité système mensuelle" />
                   <BarChart fx:id="barChart" prefHeight="350.0" prefWidth="400.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis side="LEFT" />
+                     </yAxis>
                   </BarChart>
                </children>
                <BorderPane.margin>
@@ -108,5 +115,19 @@
             </VBox>
          </right>
       </BorderPane>
+
+      <!-- Section des alertes -->
+      <VBox styleClass="alert-box" fx:id="alertesContainer">
+         <children>
+            <Label styleClass="alert-title" text="Alertes et notifications" />
+            <!-- Les alertes seront ajoutées dynamiquement -->
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </VBox>
    </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </VBox>
