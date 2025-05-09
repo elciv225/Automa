@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 public class ControllerAdministrateur {
     private static final Logger LOGGER = Logger.getLogger(ControllerAdministrateur.class.getName());
     @FXML
-    public VBox contenantPages;
+    public ScrollPane contenantPages;
     @FXML
     public HBox linkDeconnexion;
     @FXML
@@ -92,7 +93,7 @@ public class ControllerAdministrateur {
     private void loadLayout(String layoutPath) {
         try {
             Parent page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(layoutPath)));
-            contenantPages.getChildren().setAll(page);
+            javafx.application.Platform.runLater(() -> contenantPages.setContent(page));
         } catch (IOException ex) {
             LOGGER.severe("Erreur de chargement de " + layoutPath + " : " + ex.getMessage());
         }

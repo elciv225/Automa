@@ -154,4 +154,9 @@ public class Vehicule {
         return selected;
     }
 
+    @Override
+    public String toString() {
+        return immatriculation;
+    }
+
 }

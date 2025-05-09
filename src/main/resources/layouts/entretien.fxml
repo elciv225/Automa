@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -56,28 +55,6 @@
             </HBox>
          </top>
 
-         <!-- Table principale -->
-         <center>
-            <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
-               <content>
-                  <AnchorPane prefHeight="523.0" prefWidth="866.0" styleClass="page">
-                     <children>
-                        <TableView fx:id="tabEntretien" prefHeight="521.0" prefWidth="865.0" styleClass="tab" tableMenuButtonVisible="true">
-                           <columns>
-                              <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
-                              <TableColumn fx:id="colVehicule" prefWidth="120.0" styleClass="tab-col" text="Véhicule" />
-                              <TableColumn fx:id="colType" prefWidth="150.0" styleClass="tab-col" text="Type" />
-                              <TableColumn fx:id="colDateDebut" prefWidth="120.0" styleClass="tab-col" text="Début" />
-                              <TableColumn fx:id="colDateFin" prefWidth="120.0" styleClass="tab-col" text="Fin" />
-                              <TableColumn fx:id="colDescription" prefWidth="300.0" styleClass="tab-col" text="Description de la panne" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
-         </center>
-
          <!-- Navigation bas de page -->
          <bottom>
             <HBox alignment="CENTER" spacing="150.0" BorderPane.alignment="CENTER">
@@ -89,6 +66,22 @@
                <Label fx:id="lblTotal" text="Total des entretiens : " />
             </HBox>
          </bottom>
+         <center>
+            <AnchorPane prefHeight="523.0" prefWidth="866.0" styleClass="page" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tabEntretien" styleClass="tab" tableMenuButtonVisible="true">
+                     <columns>
+                        <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
+                        <TableColumn fx:id="colVehicule" prefWidth="120.0" styleClass="tab-col" text="Véhicule" />
+                        <TableColumn fx:id="colType" prefWidth="150.0" styleClass="tab-col" text="Type" />
+                        <TableColumn fx:id="colDateDebut" prefWidth="120.0" styleClass="tab-col" text="Début" />
+                        <TableColumn fx:id="colDateFin" prefWidth="120.0" styleClass="tab-col" text="Fin" />
+                        <TableColumn fx:id="colDescription" prefWidth="300.0" styleClass="tab-col" text="Description de la panne" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </center>
 
       </BorderPane>
 

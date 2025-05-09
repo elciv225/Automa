@@ -125,4 +125,10 @@ public class Personnel {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
+
+    @Override
+    public String toString() {
+        return nom.toUpperCase() + " " + prenom;
+    }
+
 }

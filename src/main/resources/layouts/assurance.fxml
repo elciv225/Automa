@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -51,30 +50,8 @@
             </HBox>
          </top>
 
-         <center>
-            <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
-               <content>
-                  <AnchorPane prefWidth="1868.0">
-                     <children>
-                        <TableView fx:id="tabAssurance" prefHeight="480.0" prefWidth="1866.0" styleClass="tab" tableMenuButtonVisible="true">
-                           <columns>
-                              <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
-                              <TableColumn fx:id="colCompagnie" prefWidth="150.0" styleClass="tab-col" text="Compagnie" />
-                              <TableColumn fx:id="colType" prefWidth="150.0" styleClass="tab-col" text="Type" />
-                              <TableColumn fx:id="colVehicule" prefWidth="150.0" styleClass="tab-col" text="Véhicule" />
-                              <TableColumn fx:id="colDateDebut" prefWidth="150.0" styleClass="tab-col" text="Début" />
-                              <TableColumn fx:id="colDateFin" prefWidth="150.0" styleClass="tab-col" text="Fin" />
-                              <TableColumn fx:id="colMontant" prefWidth="150.0" styleClass="tab-col" text="Montant" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
-         </center>
-
          <bottom>
-            <HBox alignment="CENTER" spacing="150.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefWidth="955.0" spacing="150.0" BorderPane.alignment="CENTER">
                <Label fx:id="lblPage" text="currentPage/totalPage" />
                <HBox spacing="5.0">
                   <Button fx:id="btnPrecedent" onAction="#precedentPage" styleClass="btn-prev" text="◀" />
@@ -83,6 +60,23 @@
                <Label fx:id="lblTotal" text="Total d'assurances : " />
             </HBox>
          </bottom>
+         <center>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tabAssurance" styleClass="tab" tableMenuButtonVisible="true">
+                     <columns>
+                        <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
+                        <TableColumn fx:id="colCompagnie" prefWidth="150.0" styleClass="tab-col" text="Compagnie" />
+                        <TableColumn fx:id="colType" prefWidth="150.0" styleClass="tab-col" text="Type" />
+                        <TableColumn fx:id="colVehicule" prefWidth="150.0" styleClass="tab-col" text="Véhicule" />
+                        <TableColumn fx:id="colDateDebut" prefWidth="150.0" styleClass="tab-col" text="Début" />
+                        <TableColumn fx:id="colDateFin" prefWidth="150.0" styleClass="tab-col" text="Fin" />
+                        <TableColumn fx:id="colMontant" prefWidth="150.0" styleClass="tab-col" text="Montant" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </center>
       </BorderPane>
    </children>
 </VBox>

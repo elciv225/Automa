@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logbo.assy.automa.controllers.ControllerAdministrateur">
    <top>
       <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" styleClass="header" stylesheets="@styles/main.css">
@@ -240,15 +241,14 @@
       </VBox>
    </left>
    <center>
-      <VBox fx:id="contenantPages" prefWidth="851.0" spacing="10.0" styleClass="page" stylesheets="@styles/main.css" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Chargement des pages">
-
+      <ScrollPane fx:id="contenantPages" cacheShape="false" fitToHeight="true" fitToWidth="true" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" scaleShape="false" styleClass="page" BorderPane.alignment="CENTER">
+         <content>
+            <Label prefHeight="46.0" prefWidth="232.0" styleClass="label-link" text="Chargement des pages">
                <padding>
-                  <Insets bottom="5.0" left="20.0" right="20.0" top="10.0" />
+                  <Insets left="10.0" />
                </padding>
             </Label>
-         </children>
-      </VBox>
+         </content>
+      </ScrollPane>
    </center>
 </BorderPane>

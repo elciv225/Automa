@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -56,29 +55,6 @@
             </HBox>
          </top>
 
-         <!-- Table principale -->
-         <center>
-            <ScrollPane styleClass="contenant-tab" BorderPane.alignment="CENTER">
-               <content>
-                  <AnchorPane prefHeight="542.0" prefWidth="852.0" styleClass="page">
-                     <children>
-                        <TableView fx:id="tabMission" prefHeight="538.0" prefWidth="846.0" styleClass="tab" tableMenuButtonVisible="true">
-                           <columns>
-                              <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
-                              <TableColumn fx:id="colTitre" prefWidth="150.0" styleClass="tab-col" text="Titre" />
-                              <TableColumn fx:id="colVehicule" prefWidth="120.0" styleClass="tab-col" text="Véhicule" />
-                              <TableColumn fx:id="colDestination" prefWidth="130.0" styleClass="tab-col" text="Destination" />
-                              <TableColumn fx:id="colDateDepart" prefWidth="130.0" styleClass="tab-col" text="Départ" />
-                              <TableColumn fx:id="colDateRetour" prefWidth="130.0" styleClass="tab-col" text="Retour prévu" />
-                              <TableColumn fx:id="colCout" prefWidth="120.0" styleClass="tab-col" text="Coût" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
-         </center>
-
          <!-- Navigation bas de page -->
          <bottom>
             <HBox alignment="CENTER" spacing="150.0" BorderPane.alignment="CENTER">
@@ -90,6 +66,23 @@
                <Label fx:id="lblTotal" text="Total des missions : " />
             </HBox>
          </bottom>
+         <center>
+            <AnchorPane prefHeight="542.0" prefWidth="852.0" styleClass="page" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tabMission" prefHeight="538.0" prefWidth="846.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                     <columns>
+                        <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
+                        <TableColumn fx:id="colTitre" prefWidth="150.0" styleClass="tab-col" text="Titre" />
+                        <TableColumn fx:id="colVehicule" prefWidth="120.0" styleClass="tab-col" text="Véhicule" />
+                        <TableColumn fx:id="colDestination" prefWidth="130.0" styleClass="tab-col" text="Destination" />
+                        <TableColumn fx:id="colDateDepart" prefWidth="130.0" styleClass="tab-col" text="Départ" />
+                        <TableColumn fx:id="colDateRetour" prefWidth="130.0" styleClass="tab-col" text="Retour prévu" />
+                        <TableColumn fx:id="colCout" prefWidth="120.0" styleClass="tab-col" text="Coût" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </center>
 
       </BorderPane>
 
