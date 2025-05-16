@@ -61,11 +61,11 @@
          <center>
             <AnchorPane prefHeight="542.0" prefWidth="850.0" styleClass="page" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tabFonction" styleClass="tab" tableMenuButtonVisible="true">
+                  <TableView fx:id="tabFonction" prefHeight="546.0" prefWidth="854.0" styleClass="tab" tableMenuButtonVisible="true">
                      <columns>
                         <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
-                        <TableColumn fx:id="colIdFonction" prefWidth="150.0" styleClass="tab-col" text="ID Fonction" />
-                        <TableColumn fx:id="colLibelleFonction" prefWidth="300.0" styleClass="tab-col" text="Libellé" />
+                        <TableColumn fx:id="colIdFonction" prefWidth="243.2000732421875" styleClass="tab-col" text="ID Fonction" />
+                        <TableColumn fx:id="colLibelleFonction" prefWidth="536.7999877929688" styleClass="tab-col" text="Libellé" />
                      </columns>
                   </TableView>
                </children>

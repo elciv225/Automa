@@ -63,7 +63,7 @@
          <center>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tabAffectation" styleClass="tab" tableMenuButtonVisible="true">
+                  <TableView fx:id="tabAffectation" prefHeight="538.0" prefWidth="849.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0">
                      <columns>
                         <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
                         <TableColumn fx:id="colPersonnel" prefWidth="200.0" styleClass="tab-col" text="Personnel" />

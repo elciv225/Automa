@@ -58,7 +58,7 @@
          <center>
             <AnchorPane prefHeight="540.0" prefWidth="851.0" styleClass="page" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tabService" prefHeight="480.0" styleClass="tab" tableMenuButtonVisible="true">
+                  <TableView fx:id="tabService" prefHeight="527.0" prefWidth="854.0" styleClass="tab" tableMenuButtonVisible="true">
                      <columns>
                         <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="✓" />
                         <TableColumn fx:id="colId" prefWidth="150.0" styleClass="tab-col" text="ID Service" />

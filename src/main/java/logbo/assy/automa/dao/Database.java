@@ -36,7 +36,6 @@ public class Database implements AutoCloseable {
                 "?useSSL=true" +
                 "&serverTimezone=UTC" +
                 "&useUnicode=true" +
-                "&characterEncoding=utf8mb4" +
                 "&connectionCollation=utf8mb4_unicode_ci" +
                 "&characterSetResults=utf8mb4";
         this.username = username;

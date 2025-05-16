@@ -64,15 +64,18 @@
                   <Button fx:id="btnSuivant" onAction="#suivantPage" styleClass="btn-next" text="▶" />
                </HBox>
                <Label fx:id="lblTotal" text="Total des missions : " />
+               <BorderPane.margin>
+                  <Insets bottom="5.0" />
+               </BorderPane.margin>
             </HBox>
          </bottom>
          <center>
-            <AnchorPane prefHeight="542.0" prefWidth="852.0" styleClass="page" BorderPane.alignment="CENTER">
+            <AnchorPane styleClass="page" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tabMission" prefHeight="538.0" prefWidth="846.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                  <TableView fx:id="tabMission" prefHeight="527.0" prefWidth="854.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
                      <columns>
                         <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
-                        <TableColumn fx:id="colTitre" prefWidth="150.0" styleClass="tab-col" text="Titre" />
+                        <TableColumn fx:id="colTitre" prefWidth="145.0" styleClass="tab-col" text="Titre" />
                         <TableColumn fx:id="colVehicule" prefWidth="120.0" styleClass="tab-col" text="Véhicule" />
                         <TableColumn fx:id="colDestination" prefWidth="130.0" styleClass="tab-col" text="Destination" />
                         <TableColumn fx:id="colDateDepart" prefWidth="130.0" styleClass="tab-col" text="Départ" />
@@ -81,6 +84,9 @@
                      </columns>
                   </TableView>
                </children>
+               <BorderPane.margin>
+                  <Insets top="5.0" />
+               </BorderPane.margin>
             </AnchorPane>
          </center>
 

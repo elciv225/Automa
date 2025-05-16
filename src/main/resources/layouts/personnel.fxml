@@ -59,12 +59,15 @@
                   <Button fx:id="btnSuivant" onAction="#suivantPage" styleClass="btn-next" text="▶" />
                </HBox>
                <Label fx:id="lblTotal" text="Total du personnel : " />
+               <BorderPane.margin>
+                  <Insets bottom="5.0" />
+               </BorderPane.margin>
             </HBox>
          </bottom>
          <center>
             <AnchorPane prefHeight="525.0" styleClass="page" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tabPersonnel" layoutX="3.0" prefHeight="538.0" prefWidth="1155.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
+                  <TableView fx:id="tabPersonnel" layoutX="3.0" prefHeight="527.0" prefWidth="854.0" styleClass="tab" tableMenuButtonVisible="true" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0">
                      <columns>
                         <TableColumn fx:id="colCase" prefWidth="50.0" styleClass="tab-col" text="Case" />
                         <TableColumn fx:id="colNom" prefWidth="150.0" styleClass="tab-col" text="Nom" />
@@ -77,6 +80,9 @@
                      </columns>
                   </TableView>
                </children>
+               <BorderPane.margin>
+                  <Insets top="5.0" />
+               </BorderPane.margin>
             </AnchorPane>
          </center>
       </BorderPane>

@@ -58,14 +58,14 @@
                </HBox>
                  <Label fx:id="lblTotal" text="Total de catégories : " />
                <BorderPane.margin>
-                  <Insets />
+                  <Insets top="-2.0" />
                </BorderPane.margin>
              </HBox>
          </bottom>
          <center>
-            <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="1868.0" BorderPane.alignment="CENTER">
+            <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="554.0" prefWidth="834.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tabCategorie" layoutX="-1.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" styleClass="tab" stylesheets="@../styles/main.css" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="329.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tabCategorie" layoutX="-1.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="545.0" prefWidth="851.0" styleClass="tab" stylesheets="@../styles/main.css" tableMenuButtonVisible="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0">
                      <columns>
                         <TableColumn fx:id="celId" prefWidth="100.0" styleClass="tab-col" text="ID" />
                         <TableColumn fx:id="celLibelle" prefWidth="250.0" styleClass="tab-col" text="Libellé" />

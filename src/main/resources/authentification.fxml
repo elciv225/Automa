@@ -35,7 +35,7 @@
                <Insets right="5.0" />
             </HBox.margin>
          </ImageView>
-         <PasswordField fx:id="txtPassword" prefHeight="26.0" prefWidth="242.0" promptText="mot de passe" styleClass="text-field-recherche" />
+         <PasswordField fx:id="txtPassword" prefHeight="26.0" prefWidth="242.0" promptText="mot de passe" styleClass="text-field-recherche" id="password" />
       </children>
    </HBox>
    <Button fx:id="btnConnexion" mnemonicParsing="false" onAction="#seConnecter" prefHeight="31.0" prefWidth="110.0" styleClass="btn-auth" text="S'authentifier" />

@@ -90,6 +90,10 @@
     -fx-font-size: 13px;
 }
 
+#password .text{
+    -fx-font-size: 7px;
+    -fx-text-fill: -color-text;
+}
 
 .link {
     -fx-background-color: transparent;
